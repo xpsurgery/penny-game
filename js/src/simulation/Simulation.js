@@ -1,7 +1,12 @@
 import React from 'react'
+import ProductionLine from './ProductionLine'
 
 export default () =>
   <div className='simulation'>
-    Hello
+    <h1> Penny game simulation </h1>
+    <ProductionLine />
+    <ProductionLine />
+    <ProductionLine />
+    <ProductionLine />
   </div>
 
