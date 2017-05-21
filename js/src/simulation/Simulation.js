@@ -7,6 +7,5 @@ export default () =>
     <ProductionLine />
     <ProductionLine />
     <ProductionLine />
-    <ProductionLine />
   </div>
 

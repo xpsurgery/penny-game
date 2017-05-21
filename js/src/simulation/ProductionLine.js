@@ -3,7 +3,7 @@ import Worker from './Worker'
 import Stats from './Stats'
 
 export default () =>
-  <div className='production-line'>
+  <div className='production-line group'>
     <Worker />
     <Worker />
     <Worker />

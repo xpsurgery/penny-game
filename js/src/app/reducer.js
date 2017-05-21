@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
-
-const feeds = (state={}) => state
+import simulation from '../simulation/reducer'
 
 export default combineReducers({
-  feeds
+  simulation
 })
