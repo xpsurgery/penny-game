@@ -6,100 +6,85 @@ import reducer, { workInProgress, valueDelivered } from './reducer'
 describe('productionLine', () => {
 
   let testCases = [
-    { wip: 0, value: 0, state: {
+    { ticks: 0, wip: 0, value: 0, state: {
       s1: {todo: [], wip: [], out: []},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 1, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H', 'H', 'H', 'H'], wip: [], out: []},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 2, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H', 'H', 'H'], wip: ['H'], out: []},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 3, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H', 'H', 'H'], wip: ['T'], out: []},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 4, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H', 'H', 'H'], wip: [], out: ['T']},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 5, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H', 'H'], wip: ['H'], out: ['T']},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 6, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H', 'H'], wip: ['T'], out: ['T']},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 7, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H', 'H'], wip: [], out: ['T', 'T']},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 8, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H'], wip: ['H'], out: ['T', 'T']},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 9, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H'], wip: ['T'], out: ['T', 'T']},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 10, wip: 5, value: 0, state: {
       s1: {todo: ['H', 'H'], wip: [], out: ['T', 'T', 'T']},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
-      s1: {todo: ['H'], wip: ['H'], out: ['T', 'T', 'T']},
-      s2: {todo: [], wip: [], out: []},
-      s3: {todo: [], wip: [], out: []},
-      s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
-      s1: {todo: ['H'], wip: ['T'], out: ['T', 'T', 'T']},
-      s2: {todo: [], wip: [], out: []},
-      s3: {todo: [], wip: [], out: []},
-      s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
-      s1: {todo: ['H'], wip: [], out: ['T', 'T', 'T', 'T']},
-      s2: {todo: [], wip: [], out: []},
-      s3: {todo: [], wip: [], out: []},
-      s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
-      s1: {todo: [], wip: ['H'], out: ['T', 'T', 'T', 'T']},
-      s2: {todo: [], wip: [], out: []},
-      s3: {todo: [], wip: [], out: []},
-      s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 15, wip: 5, value: 0, state: {
       s1: {todo: [], wip: ['T'], out: ['T', 'T', 'T', 'T']},
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
-    }, { wip: 5, value: 0, state: {
+    }, { ticks: 16, wip: 5, value: 0, state: {
       s1: {todo: [], wip: [], out: ['T', 'T', 'T', 'T', 'T']},
       s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { ticks: 17, wip: 5, value: 0, state: {
+      s1: {todo: [], wip: [], out: []},
+      s2: {todo: ['T', 'T', 'T', 'T', 'T'], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
     }
   ]
 
-  testCases.forEach((ex, numTicks) => {
-    describe(`after ${numTicks} ticks`, () => {
+  testCases.forEach((ex) => {
+    describe(`after ${ex.ticks} ticks`, () => {
       var state
 
       beforeEach(() => {
-        let actions = Array(numTicks).fill(tick())
+        let actions = Array(ex.ticks).fill(tick())
         state = reductio(reducer, actions)
       })
 

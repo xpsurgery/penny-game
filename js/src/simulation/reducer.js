@@ -55,6 +55,22 @@ const newBatchFromCustomer = (state) => ({
   }
 })
 
+const passCompletedBatchToNextWorker = (state, fromWorkerName, toWorkerName) => {
+  let fromWorker = state[fromWorkerName]
+  let toWorker = state[toWorkerName]
+  return {
+    ...state,
+    [fromWorkerName]: {
+      ...fromWorker,
+      out: []
+    },
+    [toWorkerName]: {
+      ...toWorker,
+      todo: fromWorker.out
+    }
+  }
+}
+
 const productionLine = (state=initialState, action) => {
   switch (action.type) {
     case TICK:
@@ -69,7 +85,7 @@ const productionLine = (state=initialState, action) => {
             return flipCoin(state, 's1')
           else
             return moveCoinToDone(state, 's1')
-      else
+      else if (state.s1.out.length < 5)
         if (state.s1.wip.length == 0)
           return moveCoinIntoWip(state, 's1')
         else
@@ -77,6 +93,9 @@ const productionLine = (state=initialState, action) => {
             return flipCoin(state, 's1')
           else
             return moveCoinToDone(state, 's1')
+      else {
+        return passCompletedBatchToNextWorker(state, 's1', 's2')
+      }
     default:
       return state
   }
