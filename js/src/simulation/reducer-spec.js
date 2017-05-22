@@ -7,30 +7,30 @@ describe('productionLine', () => {
 
   let testCases = [
     { ticks: 0, wip: 0, value: 0, state: {
-      s1: {in: [], wip: [], out: []},
-      s2: {in: [], wip: [], out: []},
-      s3: {in: [], wip: [], out: []},
-      s4: {in: [], wip: [], out: []}}
+      s1: {todo: [], wip: [], out: []},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
     }, { ticks: 1, wip: 5, value: 0, state: {
-      s1: {in: ['H', 'H', 'H', 'H', 'H'], wip: [], out: []},
-      s2: {in: [], wip: [], out: []},
-      s3: {in: [], wip: [], out: []},
-      s4: {in: [], wip: [], out: []}}
+      s1: {todo: ['H', 'H', 'H', 'H', 'H'], wip: [], out: []},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
     }, { ticks: 2, wip: 5, value: 0, state: {
-      s1: {in: ['H', 'H', 'H', 'H'], wip: ['H'], out: []},
-      s2: {in: [], wip: [], out: []},
-      s3: {in: [], wip: [], out: []},
-      s4: {in: [], wip: [], out: []}}
+      s1: {todo: ['H', 'H', 'H', 'H'], wip: ['H'], out: []},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
     }, { ticks: 3, wip: 5, value: 0, state: {
-      s1: {in: ['H', 'H', 'H', 'H'], wip: ['T'], out: []},
-      s2: {in: [], wip: [], out: []},
-      s3: {in: [], wip: [], out: []},
-      s4: {in: [], wip: [], out: []}}
+      s1: {todo: ['H', 'H', 'H', 'H'], wip: ['T'], out: []},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
     }, { ticks: 4, wip: 5, value: 0, state: {
-      s1: {in: ['H', 'H', 'H', 'H'], wip: [], out: ['T']},
-      s2: {in: [], wip: [], out: []},
-      s3: {in: [], wip: [], out: []},
-      s4: {in: [], wip: [], out: []}}
+      s1: {todo: ['H', 'H', 'H', 'H'], wip: [], out: ['T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
     }
   ]
 

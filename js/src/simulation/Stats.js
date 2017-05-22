@@ -17,7 +17,7 @@ const Stats = ({ value, wip, ttfv, ct }) =>
   </div>
 
 const mapStateToProps = (state, ownProps) => {
-  let line = state.simulation[ownProps.line]
+  let line = ownProps.line
   return {
     value: valueDelivered(line),
     wip: workInProgress(line),

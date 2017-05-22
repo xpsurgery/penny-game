@@ -4,10 +4,10 @@ import Stats from './Stats'
 
 export default ({ line }) =>
   <div className='production-line group'>
-    <Worker line={line} />
-    <Worker line={line} />
-    <Worker line={line} />
-    <Worker line={line} />
+    <Worker {...line.s1} />
+    <Worker {...line.s2} />
+    <Worker {...line.s3} />
+    <Worker {...line.s4} />
     <Stats line={line} />
   </div>
 
