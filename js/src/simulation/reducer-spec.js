@@ -46,6 +46,51 @@ describe('productionLine', () => {
       s2: {todo: [], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: ['H', 'H'], wip: ['H'], out: ['T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: ['H', 'H'], wip: ['T'], out: ['T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: ['H', 'H'], wip: [], out: ['T', 'T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: ['H'], wip: ['H'], out: ['T', 'T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: ['H'], wip: ['T'], out: ['T', 'T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: ['H'], wip: [], out: ['T', 'T', 'T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: [], wip: ['H'], out: ['T', 'T', 'T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: [], wip: ['T'], out: ['T', 'T', 'T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
+    }, { wip: 5, value: 0, state: {
+      s1: {todo: [], wip: [], out: ['T', 'T', 'T', 'T', 'T']},
+      s2: {todo: [], wip: [], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
     }
   ]
 
