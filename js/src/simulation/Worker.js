@@ -3,7 +3,9 @@ import React from 'react'
 const Basket = ({ label, coins }) =>
   <div className='basket'>
     <div className='label'> {label} </div>
-    <div className='coins'> {coins.length} </div>
+    <div className='coins'>
+      {coins}
+    </div>
   </div>
 
 export default ({ todo, wip, out }) =>
