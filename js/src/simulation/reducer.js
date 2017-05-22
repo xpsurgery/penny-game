@@ -8,17 +8,62 @@ const initialState = {
   s4: {todo: [], wip: [], out: []}
 }
 
+const moveCoinIntoWip = (basket) => {
+  let coin = basket.todo.slice(0, 1)
+  return {
+    todo: basket.todo.slice(1),
+    wip: basket.wip.concat(coin),
+    out: basket.out
+  }
+}
+
+const flipCoin = (basket) => {
+  let coin = basket.wip[0]
+  coin = (coin == 'H') ? 'T' : 'H'
+  return {
+    todo: basket.todo,
+    wip: [coin],
+    out: basket.out
+  }
+}
+
+const moveCoinToDone = (basket) => {
+  return {
+    todo: basket.todo,
+    wip: [],
+    out: basket.out.concat(basket.wip)
+  }
+}
+
 const productionLine = (state=initialState, action) => {
   switch (action.type) {
     case TICK:
-      if (state.s1.out.length == 0 && state.s1.wip.length == 0 && state.s1.todo.length == 0)
-        return {
-          ...state,
-          s1: {
-            ...state.s1,
-            todo: ['H', 'H', 'H', 'H', 'H']
-          }
-        }
+      if (state.s1.out.length == 0)
+        if (state.s1.wip.length == 0)
+          if (state.s1.todo.length == 0)
+            return {
+              ...state,
+              s1: {
+                ...state.s1,
+                todo: ['H', 'H', 'H', 'H', 'H']
+              }
+            }
+          else
+            return {
+              ...state,
+              s1: moveCoinIntoWip(state.s1)
+            }
+        else
+          if (state.s1.wip[0] == 'H')
+            return {
+              ...state,
+              s1: flipCoin(state.s1)
+            }
+          else
+            return {
+              ...state,
+              s1: moveCoinToDone(state.s1)
+            }
       else
         return state
     default:
