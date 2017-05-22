@@ -8,32 +8,52 @@ const initialState = {
   s4: {todo: [], wip: [], out: []}
 }
 
-const moveCoinIntoWip = (basket) => {
+const moveCoinIntoWip = (state, basketName) => {
+  let basket = state[basketName]
   let coin = basket.todo.slice(0, 1)
   return {
-    todo: basket.todo.slice(1),
-    wip: basket.wip.concat(coin),
-    out: basket.out
+    ...state,
+    [basketName]: {
+      todo: basket.todo.slice(1),
+      wip: basket.wip.concat(coin),
+      out: basket.out
+    }
   }
 }
 
-const flipCoin = (basket) => {
+const flipCoin = (state, basketName) => {
+  let basket = state[basketName]
   let coin = basket.wip[0]
   coin = (coin == 'H') ? 'T' : 'H'
   return {
-    todo: basket.todo,
-    wip: [coin],
-    out: basket.out
+    ...state,
+    [basketName]: {
+      todo: basket.todo,
+      wip: [coin],
+      out: basket.out
+    }
   }
 }
 
-const moveCoinToDone = (basket) => {
+const moveCoinToDone = (state, basketName) => {
+  let basket = state[basketName]
   return {
-    todo: basket.todo,
-    wip: [],
-    out: basket.out.concat(basket.wip)
+    ...state,
+    [basketName]: {
+      todo: basket.todo,
+      wip: [],
+      out: basket.out.concat(basket.wip)
+    }
   }
 }
+
+const newBatchFromCustomer = (state) => ({
+  ...state,
+  s1: {
+    ...state.s1,
+    todo: ['H', 'H', 'H', 'H', 'H']
+  }
+})
 
 const productionLine = (state=initialState, action) => {
   switch (action.type) {
@@ -41,31 +61,22 @@ const productionLine = (state=initialState, action) => {
       if (state.s1.out.length == 0)
         if (state.s1.wip.length == 0)
           if (state.s1.todo.length == 0)
-            return {
-              ...state,
-              s1: {
-                ...state.s1,
-                todo: ['H', 'H', 'H', 'H', 'H']
-              }
-            }
+            return newBatchFromCustomer(state)
           else
-            return {
-              ...state,
-              s1: moveCoinIntoWip(state.s1)
-            }
+            return moveCoinIntoWip(state, 's1')
         else
           if (state.s1.wip[0] == 'H')
-            return {
-              ...state,
-              s1: flipCoin(state.s1)
-            }
+            return flipCoin(state, 's1')
           else
-            return {
-              ...state,
-              s1: moveCoinToDone(state.s1)
-            }
+            return moveCoinToDone(state, 's1')
       else
-        return state
+        if (state.s1.wip.length == 0)
+          return moveCoinIntoWip(state, 's1')
+        else
+          if (state.s1.wip[0] == 'H')
+            return flipCoin(state, 's1')
+          else
+            return moveCoinToDone(state, 's1')
     default:
       return state
   }
