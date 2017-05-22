@@ -7,8 +7,8 @@ export default () =>
   <div className='simulation'>
     <Repeat action={tick} seconds={1} enabled={true} />
     <h1> Penny game simulation </h1>
-    <ProductionLine />
-    <ProductionLine />
-    <ProductionLine />
+    <ProductionLine line={'batchesOf20'} />
+    <ProductionLine line={'batchesOf5'} />
+    <ProductionLine line={'slowDev'} />
   </div>
 
