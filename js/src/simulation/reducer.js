@@ -127,6 +127,7 @@ const p2 = (state, workerName, nextWorkerName) => {
 const productionLine = (state=initialState(), action) => {
   switch (action.type) {
     case TICK:
+      state = p2(state, 's4', 'customer')
       state = p2(state, 's3', 's4')
       state = p2(state, 's2', 's3')
       return process(state, 's1', 's2')
@@ -153,7 +154,7 @@ export const workInProgress = (line) => {
   return c1.todo.length + c1.wip.length + c1.out.length +
          c2.todo.length + c2.wip.length + c2.out.length +
          c3.todo.length + c3.wip.length + c3.out.length +
-         c4.todo.length + c4.wip.length
+         c4.todo.length + c4.wip.length + c4.out.length
 }
 
 export default combineReducers({
