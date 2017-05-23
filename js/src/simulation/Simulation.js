@@ -2,12 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Repeat from '../repeat/Repeat'
 import { tick } from '../repeat/actionCreators'
+import Buttons from '../repeat/Buttons'
 import ProductionLine from './ProductionLine'
 
 const Simulation = ({ batchesOf20, batchesOf5, slowDev }) =>
   <div className='simulation'>
-    <Repeat action={tick} seconds={1} until={240} enabled={true} />
+    <Repeat action={tick} seconds={1} until={240} />
     <h1> Penny game simulation </h1>
+    <Buttons />
     <ProductionLine line={batchesOf20} />
     <ProductionLine line={batchesOf5} />
     <ProductionLine line={slowDev} />

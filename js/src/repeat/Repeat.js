@@ -21,9 +21,7 @@ const Repeat = React.createClass({
   }
 })
 
-const mapStateToProps = ({ repeat }) => ({
-  ticksSoFar: repeat.ticksSoFar
-})
+const mapStateToProps = ({ repeat }) => repeat
 
 export default connect(mapStateToProps)(Repeat)
 
