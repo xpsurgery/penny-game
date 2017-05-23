@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 import { TICK } from '../repeat/actionCreators'
 
-const initialState = {
-  s1: {todo: [], wip: {occupied: false}, out: []},
-  s2: {todo: [], wip: {occupied: false}, out: []},
-  s3: {todo: [], wip: {occupied: false}, out: []},
-  s4: {todo: [], wip: {occupied: false}, out: []}
+const initialState = () => {
+  let customer = { todo: [] }
+  let s4 = {todo: [], wip: {occupied: false}, out: [], next: customer}
+  let s3 = {todo: [], wip: {occupied: false}, out: [], next: s4}
+  let s2 = {todo: [], wip: {occupied: false}, out: [], next: s3}
+  let s1 = {todo: [], wip: {occupied: false}, out: [], next: s2}
+  return { s1, s2, s3, s4 }
 }
 
 const pickUpNextTask = (state, workerName) => {
@@ -84,7 +86,7 @@ const newBatchFromCustomer = (state, workerName) => ({
 
 const deliverCompletedBatch = (state, fromWorkerName, toWorkerName) => {
   let fromWorker = state[fromWorkerName]
-  let toWorker = state[toWorkerName]
+  let toWorker = fromWorker.next
   return {
     ...state,
     [fromWorkerName]: {
@@ -122,7 +124,7 @@ const p2 = (state, workerName, nextWorkerName) => {
     return state
 }
 
-const productionLine = (state=initialState, action) => {
+const productionLine = (state=initialState(), action) => {
   switch (action.type) {
     case TICK:
       state = p2(state, 's3', 's4')
@@ -134,8 +136,9 @@ const productionLine = (state=initialState, action) => {
 }
 
 export const coins = (worker) => ({
-  ...worker,
-  wip: (worker.wip.occupied) ? [worker.wip.coin] : []
+  todo: worker.todo,
+  wip: (worker.wip.occupied) ? [worker.wip.coin] : [],
+  out: worker.out
 })
 
 export const valueDelivered = (line) => {
