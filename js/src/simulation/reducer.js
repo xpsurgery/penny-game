@@ -66,22 +66,23 @@ const passCompletedBatchToNextWorker = (state, fromWorkerName, toWorkerName) => 
     },
     [toWorkerName]: {
       ...toWorker,
-      todo: fromWorker.out
+      todo: toWorker.todo.concat(fromWorker.out)
     }
   }
 }
 
 const process = (state, workerName, nextWorkerName) => {
-  if (state[workerName].out.length == 0)
-    if (state[workerName].wip.length == 0)
-      if (state[workerName].todo.length == 0)
+  let worker = state[workerName]
+  if (worker.out.length == 0)
+    if (worker.wip.length == 0)
+      if (worker.todo.length == 0)
         return newBatchFromCustomer(state, workerName)
       else
         return moveCoinIntoWip(state, workerName)
     else
       return processCoin(state, workerName)
-  else if (state[workerName].out.length < 5)
-    if (state[workerName].wip.length == 0)
+  else if (worker.out.length < 5)
+    if (worker.wip.length == 0)
       return moveCoinIntoWip(state, workerName)
     else
       return processCoin(state, workerName)
@@ -89,8 +90,19 @@ const process = (state, workerName, nextWorkerName) => {
     return passCompletedBatchToNextWorker(state, workerName, nextWorkerName)
 }
 
-const p2 = (state, workerName, nextWorkerName) => {
+const p2 = (state, workerName) => {
   let worker = state[workerName]
+  if (worker.wip.length > 0)
+    if (worker.wip[0] == 'T')
+      return {
+        ...state,
+        [workerName]: flipCoin(worker)
+      }
+    else
+      return {
+        ...state,
+        [workerName]: moveCoinToDone(worker)
+      }
   if (worker.wip.length == 0 && worker.todo.length > 0)
     return moveCoinIntoWip(state, workerName)
   return state
