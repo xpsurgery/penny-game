@@ -143,7 +143,7 @@ export const coins = (worker) => ({
 })
 
 export const valueDelivered = (line) => {
-  return line.s4.out.length
+  return line.s4.next.todo.length
 }
 
 export const workInProgress = (line) => {
