@@ -14,7 +14,7 @@ const mciw = (worker) => ({
   wip: worker.todo.slice(0, 1)
 })
 
-const moveCoinIntoWip = (state, workerName) => {
+const pickUpNextTask = (state, workerName) => {
   let worker = state[workerName]
   return {
     ...state,
@@ -33,18 +33,24 @@ const moveCoinToDone = (worker) => ({
   out: worker.out.concat(worker.wip)
 })
 
-const processCoin = (state, workerName) => {
+const hasTaskInProgress = (worker) => {
+  return (worker.wip.length > 0)
+}
+
+const continueTask = (state, workerName) => {
   let worker = state[workerName]
-  if (worker.wip[0] == 'H')
-    return {
-      ...state,
-      [workerName]: flipCoin(worker)
-    }
-  else
-    return {
-      ...state,
-      [workerName]: moveCoinToDone(worker)
-    }
+  return {
+    ...state,
+    [workerName]: (worker.wip[0] == 'H') ? flipCoin(worker) : moveCoinToDone(worker)
+  }
+}
+
+const hasCompletedBatch = (worker) => {
+  return (worker.out.length >= 5)
+}
+
+const hasWorkReadyToStart = (worker) => {
+  return (worker.todo.length > 0)
 }
 
 const newBatchFromCustomer = (state, workerName) => ({
@@ -73,38 +79,35 @@ const passCompletedBatchToNextWorker = (state, fromWorkerName, toWorkerName) => 
 
 const process = (state, workerName, nextWorkerName) => {
   let worker = state[workerName]
-  if (worker.out.length == 0)
-    if (worker.wip.length == 0)
-      if (worker.todo.length == 0)
-        return newBatchFromCustomer(state, workerName)
-      else
-        return moveCoinIntoWip(state, workerName)
-    else
-      return processCoin(state, workerName)
-  else if (worker.out.length < 5)
-    if (worker.wip.length == 0)
-      return moveCoinIntoWip(state, workerName)
-    else
-      return processCoin(state, workerName)
-  else
+  if (hasTaskInProgress(worker))
+    return continueTask(state, workerName)
+  else if (hasCompletedBatch(worker))
     return passCompletedBatchToNextWorker(state, workerName, nextWorkerName)
+  else if (hasWorkReadyToStart(worker))
+    return pickUpNextTask(state, workerName)
+  else
+    return newBatchFromCustomer(state, workerName)
 }
 
-const p2 = (state, workerName) => {
+const p2 = (state, workerName, nextWorkerName) => {
   let worker = state[workerName]
-  if (worker.wip.length > 0)
+  if (hasTaskInProgress(worker))
     return {
       ...state,
       [workerName]: (worker.wip[0] == 'T') ? flipCoin(worker) : moveCoinToDone(worker)
     }
-  if (worker.wip.length == 0 && worker.todo.length > 0)
-    return moveCoinIntoWip(state, workerName)
-  return state
+  else if (hasCompletedBatch(worker))
+    return passCompletedBatchToNextWorker(state, workerName, nextWorkerName)
+  else if (hasWorkReadyToStart(worker))
+    return pickUpNextTask(state, workerName)
+  else
+    return state
 }
 
 const productionLine = (state=initialState, action) => {
   switch (action.type) {
     case TICK:
+      state = p2(state, 's3', 's4')
       state = p2(state, 's2', 's3')
       return process(state, 's1', 's2')
     default:
@@ -121,10 +124,14 @@ export const valueDelivered = (line) => {
 }
 
 export const workInProgress = (line) => {
-  return line.s1.todo.length + line.s1.wip.length + line.s1.out.length +
-    line.s2.todo.length + line.s2.wip.length + line.s2.out.length +
-    line.s3.todo.length + line.s3.wip.length + line.s3.out.length +
-    line.s4.todo.length + line.s4.wip.length
+  let c1 = coins(line.s1)
+  let c2 = coins(line.s2)
+  let c3 = coins(line.s3)
+  let c4 = coins(line.s4)
+  return c1.todo.length + c1.wip.length + c1.out.length +
+         c2.todo.length + c2.wip.length + c2.out.length +
+         c3.todo.length + c3.wip.length + c3.out.length +
+         c4.todo.length + c4.wip.length
 }
 
 export default combineReducers({
