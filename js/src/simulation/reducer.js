@@ -93,16 +93,10 @@ const process = (state, workerName, nextWorkerName) => {
 const p2 = (state, workerName) => {
   let worker = state[workerName]
   if (worker.wip.length > 0)
-    if (worker.wip[0] == 'T')
-      return {
-        ...state,
-        [workerName]: flipCoin(worker)
-      }
-    else
-      return {
-        ...state,
-        [workerName]: moveCoinToDone(worker)
-      }
+    return {
+      ...state,
+      [workerName]: (worker.wip[0] == 'T') ? flipCoin(worker) : moveCoinToDone(worker)
+    }
   if (worker.wip.length == 0 && worker.todo.length > 0)
     return moveCoinIntoWip(state, workerName)
   return state
@@ -117,6 +111,10 @@ const productionLine = (state=initialState, action) => {
       return state
   }
 }
+
+export const coins = (worker) => ({
+  ...worker
+})
 
 export const valueDelivered = (line) => {
   return line.s4.out.length
