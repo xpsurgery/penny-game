@@ -76,6 +76,11 @@ describe('productionLine', () => {
       s2: {todo: ['T', 'T', 'T', 'T', 'T'], wip: [], out: []},
       s3: {todo: [], wip: [], out: []},
       s4: {todo: [], wip: [], out: []}}
+    }, { ticks: 18, wip: 10, value: 0, state: {
+      s1: {todo: ['H', 'H', 'H', 'H', 'H'], wip: [], out: []},
+      s2: {todo: ['T', 'T', 'T', 'T'], wip: ['T'], out: []},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}}
     }
   ]
 

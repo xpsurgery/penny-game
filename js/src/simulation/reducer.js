@@ -8,50 +8,50 @@ const initialState = {
   s4: {todo: [], wip: [], out: []}
 }
 
-const moveCoinIntoWip = (state, basketName) => {
-  let basket = state[basketName]
-  let coin = basket.todo.slice(0, 1)
+const mciw = (worker) => ({
+  ...worker,
+  todo: worker.todo.slice(1),
+  wip: worker.todo.slice(0, 1)
+})
+
+const moveCoinIntoWip = (state, workerName) => {
+  let worker = state[workerName]
   return {
     ...state,
-    [basketName]: {
-      todo: basket.todo.slice(1),
-      wip: basket.wip.concat(coin),
-      out: basket.out
-    }
+    [workerName]: mciw(worker)
   }
 }
 
-const flipCoin = (state, basketName) => {
-  let basket = state[basketName]
-  let coin = basket.wip[0]
-  coin = (coin == 'H') ? 'T' : 'H'
-  return {
-    ...state,
-    [basketName]: {
-      todo: basket.todo,
-      wip: [coin],
-      out: basket.out
+const flipCoin = (worker) => ({
+  ...worker,
+  wip: [(worker.wip[0] == 'H') ? 'T' : 'H']
+})
+
+const moveCoinToDone = (worker) => ({
+  ...worker,
+  wip: [],
+  out: worker.out.concat(worker.wip)
+})
+
+const processCoin = (state, workerName) => {
+  let worker = state[workerName]
+  if (worker.wip[0] == 'H')
+    return {
+      ...state,
+      [workerName]: flipCoin(worker)
     }
-  }
+  else
+    return {
+      ...state,
+      [workerName]: moveCoinToDone(worker)
+    }
 }
 
-const moveCoinToDone = (state, basketName) => {
-  let basket = state[basketName]
-  return {
-    ...state,
-    [basketName]: {
-      todo: basket.todo,
-      wip: [],
-      out: basket.out.concat(basket.wip)
-    }
-  }
-}
-
-const newBatchFromCustomer = (state) => ({
+const newBatchFromCustomer = (state, workerName) => ({
   ...state,
   s1: {
     ...state.s1,
-    todo: ['H', 'H', 'H', 'H', 'H']
+    todo: (workerName == 's1') ? ['H', 'H', 'H', 'H', 'H'] : []
   }
 })
 
@@ -71,31 +71,36 @@ const passCompletedBatchToNextWorker = (state, fromWorkerName, toWorkerName) => 
   }
 }
 
+const process = (state, workerName, nextWorkerName) => {
+  if (state[workerName].out.length == 0)
+    if (state[workerName].wip.length == 0)
+      if (state[workerName].todo.length == 0)
+        return newBatchFromCustomer(state, workerName)
+      else
+        return moveCoinIntoWip(state, workerName)
+    else
+      return processCoin(state, workerName)
+  else if (state[workerName].out.length < 5)
+    if (state[workerName].wip.length == 0)
+      return moveCoinIntoWip(state, workerName)
+    else
+      return processCoin(state, workerName)
+  else
+    return passCompletedBatchToNextWorker(state, workerName, nextWorkerName)
+}
+
+const p2 = (state, workerName, nextWorkerName) => {
+  let worker = state[workerName]
+  if (worker.wip.length == 0 && worker.todo.length > 0)
+    return moveCoinIntoWip(state, workerName)
+  return state
+}
+
 const productionLine = (state=initialState, action) => {
   switch (action.type) {
     case TICK:
-      if (state.s1.out.length == 0)
-        if (state.s1.wip.length == 0)
-          if (state.s1.todo.length == 0)
-            return newBatchFromCustomer(state)
-          else
-            return moveCoinIntoWip(state, 's1')
-        else
-          if (state.s1.wip[0] == 'H')
-            return flipCoin(state, 's1')
-          else
-            return moveCoinToDone(state, 's1')
-      else if (state.s1.out.length < 5)
-        if (state.s1.wip.length == 0)
-          return moveCoinIntoWip(state, 's1')
-        else
-          if (state.s1.wip[0] == 'H')
-            return flipCoin(state, 's1')
-          else
-            return moveCoinToDone(state, 's1')
-      else {
-        return passCompletedBatchToNextWorker(state, 's1', 's2')
-      }
+      state = p2(state, 's2', 's3')
+      return process(state, 's1', 's2')
     default:
       return state
   }
