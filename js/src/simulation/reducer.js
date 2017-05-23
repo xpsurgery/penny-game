@@ -17,6 +17,7 @@ const pickUpNextTask = (state, workerName) => {
       todo: worker.todo.slice(1),
       wip: {
         occupied: true,
+        ticksRemaining: 1,
         coin: worker.todo.slice(0, 1)[0]
       }
     }
@@ -27,7 +28,16 @@ const flipCoin = (worker) => ({
   ...worker,
   wip: {
     ...worker.wip,
+    ticksRemaining: 0,
     coin: (worker.wip.coin == 'H') ? 'T' : 'H'
+  }
+})
+
+const wait = (worker) => ({
+  ...worker,
+  wip: {
+    ...worker.wip,
+    ticksRemaining: worker.ticksRemaining - 1
   }
 })
 
@@ -43,9 +53,16 @@ const hasTaskInProgress = (worker) => {
 
 const continueTask = (state, workerName) => {
   let worker = state[workerName]
+  let newWorker
+  if (worker.wip.ticksRemaining > 1)
+    newWorker = wait(worker)
+  else if (worker.wip.ticksRemaining == 1)
+    newWorker = flipCoin(worker)
+  else
+    newWorker = moveCoinToDone(worker)
   return {
     ...state,
-    [workerName]: (worker.wip.coin == 'H') ? flipCoin(worker) : moveCoinToDone(worker)
+    [workerName]: newWorker
   }
 }
 
@@ -96,10 +113,7 @@ const process = (state, workerName, nextWorkerName) => {
 const p2 = (state, workerName, nextWorkerName) => {
   let worker = state[workerName]
   if (hasTaskInProgress(worker))
-    return {
-      ...state,
-      [workerName]: (worker.wip.coin == 'T') ? flipCoin(worker) : moveCoinToDone(worker)
-    }
+    return continueTask(state, workerName)
   else if (hasCompletedBatch(worker))
     return deliverCompletedBatch(state, workerName, nextWorkerName)
   else if (hasWorkReadyToStart(worker))
