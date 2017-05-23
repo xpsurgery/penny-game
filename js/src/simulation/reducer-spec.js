@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { reductio } from '../app/specHelper'
-import { tick } from './actionCreators'
+import { tick } from '../repeat/actionCreators'
 import reducer, { coins, workInProgress, valueDelivered } from './reducer'
 
 describe('productionLine', () => {
