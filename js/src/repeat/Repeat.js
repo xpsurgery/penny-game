@@ -9,6 +9,8 @@ const Repeat = React.createClass({
   ping: function() {
     if (!this.isMounted())
       return
+    if (this.props.ticksSoFar >= this.props.until)
+      return
     if (this.props.enabled)
       this.props.dispatch(this.props.action())
     setTimeout(this.ping, this.props.seconds * 1000)
@@ -19,5 +21,9 @@ const Repeat = React.createClass({
   }
 })
 
-export default connect()(Repeat)
+const mapStateToProps = ({ repeat }) => ({
+  ticksSoFar: repeat.ticksSoFar
+})
+
+export default connect(mapStateToProps)(Repeat)
 

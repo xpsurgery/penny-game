@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { TICK } from './actionCreators'
+import { TICK } from '../repeat/actionCreators'
 
 const initialState = {
   s1: {todo: [], wip: [], out: []},
@@ -8,17 +8,15 @@ const initialState = {
   s4: {todo: [], wip: [], out: []}
 }
 
-const mciw = (worker) => ({
-  ...worker,
-  todo: worker.todo.slice(1),
-  wip: worker.todo.slice(0, 1)
-})
-
 const pickUpNextTask = (state, workerName) => {
   let worker = state[workerName]
   return {
     ...state,
-    [workerName]: mciw(worker)
+    [workerName]: {
+      ...worker,
+      todo: worker.todo.slice(1),
+      wip: worker.todo.slice(0, 1)
+    }
   }
 }
 
@@ -61,7 +59,7 @@ const newBatchFromCustomer = (state, workerName) => ({
   }
 })
 
-const passCompletedBatchToNextWorker = (state, fromWorkerName, toWorkerName) => {
+const deliverCompletedBatch = (state, fromWorkerName, toWorkerName) => {
   let fromWorker = state[fromWorkerName]
   let toWorker = state[toWorkerName]
   return {
@@ -82,7 +80,7 @@ const process = (state, workerName, nextWorkerName) => {
   if (hasTaskInProgress(worker))
     return continueTask(state, workerName)
   else if (hasCompletedBatch(worker))
-    return passCompletedBatchToNextWorker(state, workerName, nextWorkerName)
+    return deliverCompletedBatch(state, workerName, nextWorkerName)
   else if (hasWorkReadyToStart(worker))
     return pickUpNextTask(state, workerName)
   else
@@ -97,7 +95,7 @@ const p2 = (state, workerName, nextWorkerName) => {
       [workerName]: (worker.wip[0] == 'T') ? flipCoin(worker) : moveCoinToDone(worker)
     }
   else if (hasCompletedBatch(worker))
-    return passCompletedBatchToNextWorker(state, workerName, nextWorkerName)
+    return deliverCompletedBatch(state, workerName, nextWorkerName)
   else if (hasWorkReadyToStart(worker))
     return pickUpNextTask(state, workerName)
   else
