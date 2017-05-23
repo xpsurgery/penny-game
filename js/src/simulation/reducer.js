@@ -2,10 +2,10 @@ import { combineReducers } from 'redux'
 import { TICK } from '../repeat/actionCreators'
 
 const initialState = {
-  s1: {todo: [], wip: [], out: []},
-  s2: {todo: [], wip: [], out: []},
-  s3: {todo: [], wip: [], out: []},
-  s4: {todo: [], wip: [], out: []}
+  s1: {todo: [], wip: {occupied: false}, out: []},
+  s2: {todo: [], wip: {occupied: false}, out: []},
+  s3: {todo: [], wip: {occupied: false}, out: []},
+  s4: {todo: [], wip: {occupied: false}, out: []}
 }
 
 const pickUpNextTask = (state, workerName) => {
@@ -15,31 +15,37 @@ const pickUpNextTask = (state, workerName) => {
     [workerName]: {
       ...worker,
       todo: worker.todo.slice(1),
-      wip: worker.todo.slice(0, 1)
+      wip: {
+        occupied: true,
+        coin: worker.todo.slice(0, 1)[0]
+      }
     }
   }
 }
 
 const flipCoin = (worker) => ({
   ...worker,
-  wip: [(worker.wip[0] == 'H') ? 'T' : 'H']
+  wip: {
+    ...worker.wip,
+    coin: (worker.wip.coin == 'H') ? 'T' : 'H'
+  }
 })
 
 const moveCoinToDone = (worker) => ({
   ...worker,
-  wip: [],
-  out: worker.out.concat(worker.wip)
+  wip: {occupied: false},
+  out: worker.out.concat(worker.wip.coin)
 })
 
 const hasTaskInProgress = (worker) => {
-  return (worker.wip.length > 0)
+  return (worker.wip.occupied)
 }
 
 const continueTask = (state, workerName) => {
   let worker = state[workerName]
   return {
     ...state,
-    [workerName]: (worker.wip[0] == 'H') ? flipCoin(worker) : moveCoinToDone(worker)
+    [workerName]: (worker.wip.coin == 'H') ? flipCoin(worker) : moveCoinToDone(worker)
   }
 }
 
@@ -92,7 +98,7 @@ const p2 = (state, workerName, nextWorkerName) => {
   if (hasTaskInProgress(worker))
     return {
       ...state,
-      [workerName]: (worker.wip[0] == 'T') ? flipCoin(worker) : moveCoinToDone(worker)
+      [workerName]: (worker.wip.coin == 'T') ? flipCoin(worker) : moveCoinToDone(worker)
     }
   else if (hasCompletedBatch(worker))
     return deliverCompletedBatch(state, workerName, nextWorkerName)
@@ -114,7 +120,8 @@ const productionLine = (state=initialState, action) => {
 }
 
 export const coins = (worker) => ({
-  ...worker
+  ...worker,
+  wip: (worker.wip.occupied) ? [worker.wip.coin] : []
 })
 
 export const valueDelivered = (line) => {
