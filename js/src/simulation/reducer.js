@@ -3,10 +3,10 @@ import { TICK } from '../repeat/actionCreators'
 
 const initialState = () => {
   let customer = { todo: [] }
-  let s4 = {todo: [], wip: {occupied: false}, out: [], next: customer}
-  let s3 = {todo: [], wip: {occupied: false}, out: [], next: s4}
-  let s2 = {todo: [], wip: {occupied: false}, out: [], next: s3}
-  let s1 = {todo: [], wip: {occupied: false}, out: [], next: s2}
+  let s4 = {batchSize: 5, todo: [], wip: {occupied: false}, out: [], next: customer}
+  let s3 = {batchSize: 5, todo: [], wip: {occupied: false}, out: [], next: s4}
+  let s2 = {batchSize: 5, todo: [], wip: {occupied: false}, out: [], next: s3}
+  let s1 = {batchSize: 5, todo: [], wip: {occupied: false}, out: [], next: s2}
   return { s1, s2, s3, s4, customer }
 }
 
@@ -69,7 +69,7 @@ const continueTask = (state, workerName) => {
 }
 
 const hasCompletedBatch = (worker) => {
-  return (worker.out.length >= 5)
+  return (worker.out.length >= worker.batchSize)
 }
 
 const hasWorkReadyToStart = (worker) => {
