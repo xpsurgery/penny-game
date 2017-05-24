@@ -1,12 +1,40 @@
 import { combineReducers } from 'redux'
 import { TICK } from '../repeat/actionCreators'
 
-const initialState = () => {
+const initialState = (config) => {
   let customer = { todo: [] }
-  let s4 = {name: 'Testing', batchSize: 5, todo: [], wip: {occupied: false}, out: [], next: customer}
-  let s3 = {name: 'Development', batchSize: 5, todo: [], wip: {occupied: false}, out: [], next: s4}
-  let s2 = {name: 'UX', batchSize: 5, todo: [], wip: {occupied: false}, out: [], next: s3}
-  let s1 = {name: 'Analysis', batchSize: 5, todo: [], wip: {occupied: false}, out: [], next: s2}
+  let s4 = {
+    name: 'Testing',
+    batchSize: config.defaultBatchSize,
+    todo: [],
+    wip: {occupied: false},
+    out: [],
+    next: customer
+  }
+  let s3 = {
+    name: 'Development',
+    batchSize: config.defaultBatchSize,
+    todo: [],
+    wip: {occupied: false},
+    out: [],
+    next: s4
+  }
+  let s2 = {
+    name: 'UX',
+    batchSize: config.defaultBatchSize,
+    todo: [],
+    wip: {occupied: false},
+    out: [],
+    next: s3
+  }
+  let s1 = {
+    name: 'Analysis',
+    batchSize: config.defaultBatchSize,
+    todo: [],
+    wip: {occupied: false},
+    out: [],
+    next: s2
+  }
   return { s1, s2, s3, s4, customer }
 }
 
@@ -112,7 +140,9 @@ const process = (state, workerName, nextWorkerName, nextBatch = []) => {
     return newBatchFromCustomer(state, workerName, nextBatch)
 }
 
-const productionLine = (state=initialState(), action) => {
+const productionLine = (config) => (state, action) => {
+  if (state === undefined)
+    return initialState(config)
   switch (action.type) {
     case TICK:
       state = process(state, 's4', 'customer')
@@ -146,8 +176,8 @@ export const workInProgress = (line) => {
 }
 
 export default combineReducers({
-  batchesOf20: productionLine,
-  batchesOf5:  productionLine,
-  slowDev:     productionLine,
+  batchesOf20: productionLine({defaultBatchSize: 20}),
+  batchesOf5:  productionLine({defaultBatchSize: 5}),
+  slowDev:     productionLine({defaultBatchSize: 5}),
 })
 
