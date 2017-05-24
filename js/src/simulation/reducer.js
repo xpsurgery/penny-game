@@ -14,7 +14,7 @@ const initialState = (config) => {
   }
   let s3 = {
     name: 'Development',
-    batchSize: config.defaultBatchSize,
+    batchSize: config.initialDeveloperBatch,
     batchSizeFromCustomer: 0,
     todo: [],
     wip: {occupied: false},
@@ -183,8 +183,17 @@ export const workInProgress = (line) => {
 }
 
 export default combineReducers({
-  batchesOf20: productionLine({defaultBatchSize: 20}),
-  batchesOf5:  productionLine({defaultBatchSize: 5}),
-  slowDev:     productionLine({defaultBatchSize: 5}),
+  batchesOf20: productionLine({
+    defaultBatchSize: 20,
+    initialDeveloperBatch: 20
+  }),
+  batchesOf5:  productionLine({
+    defaultBatchSize: 5,
+    initialDeveloperBatch: 5
+  }),
+  slowDev:     productionLine({
+    defaultBatchSize: 5,
+    initialDeveloperBatch: 10
+  }),
 })
 
