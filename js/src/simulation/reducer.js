@@ -6,6 +6,7 @@ const initialState = (config) => {
   let s4 = {
     name: 'Testing',
     batchSize: config.defaultBatchSize,
+    batchSizeIncrement: 0,
     batchSizeFromCustomer: 0,
     todo: [],
     wip: {occupied: false},
@@ -15,6 +16,7 @@ const initialState = (config) => {
   let s3 = {
     name: 'Development',
     batchSize: config.initialDeveloperBatch,
+    batchSizeIncrement: config.batchSizeIncrement,
     batchSizeFromCustomer: 0,
     todo: [],
     wip: {occupied: false},
@@ -24,6 +26,7 @@ const initialState = (config) => {
   let s2 = {
     name: 'UX',
     batchSize: config.defaultBatchSize,
+    batchSizeIncrement: 0,
     batchSizeFromCustomer: 0,
     todo: [],
     wip: {occupied: false},
@@ -33,6 +36,7 @@ const initialState = (config) => {
   let s1 = {
     name: 'Analysis',
     batchSize: config.defaultBatchSize,
+    batchSizeIncrement: 0,
     batchSizeFromCustomer: config.defaultBatchSize,
     todo: [],
     wip: {occupied: false},
@@ -126,7 +130,8 @@ const deliverCompletedBatch = (state, fromWorkerName, toWorkerName) => {
     ...state,
     [fromWorkerName]: {
       ...fromWorker,
-      out: []
+      out: [],
+      batchSize: fromWorker.batchSize + fromWorker.batchSizeIncrement
     },
     [toWorkerName]: {
       ...toWorker,
@@ -185,15 +190,18 @@ export const workInProgress = (line) => {
 export default combineReducers({
   batchesOf20: productionLine({
     defaultBatchSize: 20,
-    initialDeveloperBatch: 20
+    initialDeveloperBatch: 20,
+    batchSizeIncrement: 5
   }),
   batchesOf5:  productionLine({
     defaultBatchSize: 5,
-    initialDeveloperBatch: 5
+    initialDeveloperBatch: 5,
+    batchSizeIncrement: 0
   }),
   slowDev:     productionLine({
     defaultBatchSize: 5,
-    initialDeveloperBatch: 10
+    initialDeveloperBatch: 10,
+    batchSizeIncrement: 5
   }),
 })
 
