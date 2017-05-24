@@ -2,46 +2,49 @@ import { combineReducers } from 'redux'
 import { TICK } from '../repeat/actionCreators'
 
 const initialState = (config) => {
-  let customer = { todo: [] }
+  let customer = {
+    acceptInputAnyTime: true,
+    todo: []
+  }
   let s4 = {
     name: 'Testing',
     batchSize: config.defaultBatchSize,
     batchSizeIncrement: 0,
     batchSizeFromCustomer: 0,
+    acceptInputAnyTime: false,
     todo: [],
     wip: {occupied: false},
-    out: [],
-    next: customer
+    out: []
   }
   let s3 = {
     name: 'Development',
     batchSize: config.initialDeveloperBatch,
     batchSizeIncrement: config.batchSizeIncrement,
     batchSizeFromCustomer: 0,
+    acceptInputAnyTime: false,
     todo: [],
     wip: {occupied: false},
-    out: [],
-    next: s4
+    out: []
   }
   let s2 = {
     name: 'UX',
     batchSize: config.defaultBatchSize,
     batchSizeIncrement: 0,
     batchSizeFromCustomer: 0,
+    acceptInputAnyTime: false,
     todo: [],
     wip: {occupied: false},
-    out: [],
-    next: s3
+    out: []
   }
   let s1 = {
     name: 'Analysis',
     batchSize: config.defaultBatchSize,
     batchSizeIncrement: 0,
     batchSizeFromCustomer: config.defaultBatchSize,
+    acceptInputAnyTime: false,
     todo: [],
     wip: {occupied: false},
-    out: [],
-    next: s2
+    out: []
   }
   return { s1, s2, s3, s4, customer }
 }
@@ -104,10 +107,6 @@ const continueTask = (state, workerName) => {
   }
 }
 
-const hasCompletedBatch = (worker) => {
-  return (worker.out.length >= worker.batchSize)
-}
-
 const hasWorkReadyToStart = (worker) => {
   return (worker.todo.length > 0)
 }
@@ -121,6 +120,11 @@ const newBatchFromCustomer = (state, workerName) => {
       todo: Array(worker.batchSizeFromCustomer).fill('H')
     }
   }
+}
+
+const canDeliverBatch = (worker, nextWorker) => {
+  let nextIsReady = (nextWorker.acceptInputAnyTime ||  nextWorker.todo.length === 0)
+  return (worker.out.length >= worker.batchSize && nextIsReady)
 }
 
 const deliverCompletedBatch = (state, fromWorkerName, toWorkerName) => {
@@ -144,7 +148,7 @@ const process = (state, workerName, nextWorkerName) => {
   let worker = state[workerName]
   if (hasTaskInProgress(worker))
     return continueTask(state, workerName)
-  else if (hasCompletedBatch(worker))
+  else if (canDeliverBatch(worker, state[nextWorkerName]))
     return deliverCompletedBatch(state, workerName, nextWorkerName)
   else if (hasWorkReadyToStart(worker))
     return pickUpNextTask(state, workerName)
