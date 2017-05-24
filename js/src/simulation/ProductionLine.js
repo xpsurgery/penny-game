@@ -1,12 +1,13 @@
 import React from 'react'
 import Worker from './Worker'
 import Stats from './Stats'
+import CoinPile from './CoinPile'
 import { coins } from './reducer'
 
 const Customer = ({ todo }) =>
   <div className='customer group'>
     <div className='label'> Accepted </div>
-    <div className='coins'> {todo} </div>
+    <CoinPile coins={todo} />
   </div>
 
 export default ({ line }) =>

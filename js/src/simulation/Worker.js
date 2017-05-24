@@ -1,9 +1,10 @@
 import React from 'react'
+import CoinPile from './CoinPile'
 
 const Basket = ({ label, coins }) =>
   <div className='basket'>
     <div className='label'> {label} </div>
-    <div className='coins'> {coins} </div>
+    <CoinPile coins={coins} />
   </div>
 
 export default ({ todo, wip, out }) =>
