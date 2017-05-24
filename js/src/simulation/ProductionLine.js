@@ -12,10 +12,10 @@ const Customer = ({ todo }) =>
 
 export default ({ line }) =>
   <div className='production-line group'>
-    <Worker {...coins(line.s1)} />
-    <Worker {...coins(line.s2)} />
-    <Worker {...coins(line.s3)} />
-    <Worker {...coins(line.s4)} />
+    <Worker {...coins(line.s1)} name={line.s1.name} />
+    <Worker {...coins(line.s2)} name={line.s2.name} />
+    <Worker {...coins(line.s3)} name={line.s3.name} />
+    <Worker {...coins(line.s4)} name={line.s4.name} />
     <Customer {...line.customer} />
     <Stats line={line} />
   </div>
