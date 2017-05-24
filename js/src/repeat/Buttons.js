@@ -7,7 +7,7 @@ const Buttons = ({ ticksRemaining, enableRepeater, disableRepeater }) =>
     <button onClick={() => enableRepeater()}> play </button>
     <button onClick={() => disableRepeater()}> pause </button>
     <div className='time-remaining'>
-      Time remaining: {ticksRemaining} seconds
+      Time remaining: {ticksRemaining} ticks
     </div>
   </div>
 

@@ -2,7 +2,7 @@ import React from 'react'
 import CoinPile from './CoinPile'
 
 const Basket = ({ label, coins }) =>
-  <div className='basket'>
+  <div className={`basket ${label}`}>
     <div className='label'> {label} </div>
     <CoinPile coins={coins} />
   </div>
