@@ -9,7 +9,7 @@ const Repeat = React.createClass({
   ping: function() {
     if (!this.isMounted())
       return
-    if (this.props.ticksSoFar >= this.props.until)
+    if (this.props.ticksRemaining <= 0)
       return
     if (this.props.enabled)
       this.props.dispatch(this.props.action())

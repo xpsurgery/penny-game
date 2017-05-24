@@ -7,7 +7,7 @@ import ProductionLine from './ProductionLine'
 
 const Simulation = ({ batchesOf20, batchesOf5, slowDev }) =>
   <div className='simulation'>
-    <Repeat action={tick} seconds={1} until={240} />
+    <Repeat action={tick} seconds={1} />
     <h1> Penny game simulation </h1>
     <Buttons />
     <ProductionLine line={batchesOf20} />
