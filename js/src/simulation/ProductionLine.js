@@ -15,7 +15,7 @@ export default ({ line }) =>
     <Worker {...coins(line.s2)} />
     <Worker {...coins(line.s3)} />
     <Worker {...coins(line.s4)} />
-    <Customer {...line.s4.next} />
+    <Customer {...line.customer} />
     <Stats line={line} />
   </div>
 

@@ -7,7 +7,7 @@ const initialState = () => {
   let s3 = {todo: [], wip: {occupied: false}, out: [], next: s4}
   let s2 = {todo: [], wip: {occupied: false}, out: [], next: s3}
   let s1 = {todo: [], wip: {occupied: false}, out: [], next: s2}
-  return { s1, s2, s3, s4 }
+  return { s1, s2, s3, s4, customer }
 }
 
 const pickUpNextTask = (state, workerName) => {
@@ -86,7 +86,7 @@ const newBatchFromCustomer = (state, workerName) => ({
 
 const deliverCompletedBatch = (state, fromWorkerName, toWorkerName) => {
   let fromWorker = state[fromWorkerName]
-  let toWorker = fromWorker.next
+  let toWorker = state[toWorkerName]
   return {
     ...state,
     [fromWorkerName]: {
@@ -143,7 +143,7 @@ export const coins = (worker) => ({
 })
 
 export const valueDelivered = (line) => {
-  return line.s4.next.todo.length
+  return line.customer.todo.length
 }
 
 export const workInProgress = (line) => {
