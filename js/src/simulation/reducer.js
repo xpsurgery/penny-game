@@ -6,6 +6,7 @@ const initialState = (config) => {
   let s4 = {
     name: 'Testing',
     batchSize: config.defaultBatchSize,
+    batchSizeFromCustomer: 0,
     todo: [],
     wip: {occupied: false},
     out: [],
@@ -14,6 +15,7 @@ const initialState = (config) => {
   let s3 = {
     name: 'Development',
     batchSize: config.defaultBatchSize,
+    batchSizeFromCustomer: 0,
     todo: [],
     wip: {occupied: false},
     out: [],
@@ -22,6 +24,7 @@ const initialState = (config) => {
   let s2 = {
     name: 'UX',
     batchSize: config.defaultBatchSize,
+    batchSizeFromCustomer: 0,
     todo: [],
     wip: {occupied: false},
     out: [],
@@ -30,6 +33,7 @@ const initialState = (config) => {
   let s1 = {
     name: 'Analysis',
     batchSize: config.defaultBatchSize,
+    batchSizeFromCustomer: config.defaultBatchSize,
     todo: [],
     wip: {occupied: false},
     out: [],
@@ -104,13 +108,16 @@ const hasWorkReadyToStart = (worker) => {
   return (worker.todo.length > 0)
 }
 
-const newBatchFromCustomer = (state, workerName, nextBatch) => ({
-  ...state,
-  [workerName]: {
-    ...state[workerName],
-    todo: nextBatch
+const newBatchFromCustomer = (state, workerName) => {
+  let worker = state[workerName]
+  return {
+    ...state,
+    [workerName]: {
+      ...worker,
+      todo: Array(worker.batchSizeFromCustomer).fill('H')
+    }
   }
-})
+}
 
 const deliverCompletedBatch = (state, fromWorkerName, toWorkerName) => {
   let fromWorker = state[fromWorkerName]
@@ -128,7 +135,7 @@ const deliverCompletedBatch = (state, fromWorkerName, toWorkerName) => {
   }
 }
 
-const process = (state, workerName, nextWorkerName, nextBatch = []) => {
+const process = (state, workerName, nextWorkerName) => {
   let worker = state[workerName]
   if (hasTaskInProgress(worker))
     return continueTask(state, workerName)
@@ -137,7 +144,7 @@ const process = (state, workerName, nextWorkerName, nextBatch = []) => {
   else if (hasWorkReadyToStart(worker))
     return pickUpNextTask(state, workerName)
   else
-    return newBatchFromCustomer(state, workerName, nextBatch)
+    return newBatchFromCustomer(state, workerName)
 }
 
 const productionLine = (config) => (state, action) => {
@@ -148,7 +155,7 @@ const productionLine = (config) => (state, action) => {
       state = process(state, 's4', 'customer')
       state = process(state, 's3', 's4')
       state = process(state, 's2', 's3')
-      return process(state, 's1', 's2', ['H', 'H', 'H', 'H', 'H'])
+      return process(state, 's1', 's2')
     default:
       return state
   }
