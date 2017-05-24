@@ -76,11 +76,11 @@ const hasWorkReadyToStart = (worker) => {
   return (worker.todo.length > 0)
 }
 
-const newBatchFromCustomer = (state, workerName) => ({
+const newBatchFromCustomer = (state, workerName, nextBatch) => ({
   ...state,
-  s1: {
-    ...state.s1,
-    todo: (workerName == 's1') ? ['H', 'H', 'H', 'H', 'H'] : []
+  [workerName]: {
+    ...state[workerName],
+    todo: nextBatch
   }
 })
 
@@ -100,7 +100,7 @@ const deliverCompletedBatch = (state, fromWorkerName, toWorkerName) => {
   }
 }
 
-const process = (state, workerName, nextWorkerName) => {
+const process = (state, workerName, nextWorkerName, nextBatch = []) => {
   let worker = state[workerName]
   if (hasTaskInProgress(worker))
     return continueTask(state, workerName)
@@ -109,28 +109,16 @@ const process = (state, workerName, nextWorkerName) => {
   else if (hasWorkReadyToStart(worker))
     return pickUpNextTask(state, workerName)
   else
-    return newBatchFromCustomer(state, workerName)
-}
-
-const p2 = (state, workerName, nextWorkerName) => {
-  let worker = state[workerName]
-  if (hasTaskInProgress(worker))
-    return continueTask(state, workerName)
-  else if (hasCompletedBatch(worker))
-    return deliverCompletedBatch(state, workerName, nextWorkerName)
-  else if (hasWorkReadyToStart(worker))
-    return pickUpNextTask(state, workerName)
-  else
-    return state
+    return newBatchFromCustomer(state, workerName, nextBatch)
 }
 
 const productionLine = (state=initialState(), action) => {
   switch (action.type) {
     case TICK:
-      state = p2(state, 's4', 'customer')
-      state = p2(state, 's3', 's4')
-      state = p2(state, 's2', 's3')
-      return process(state, 's1', 's2')
+      state = process(state, 's4', 'customer')
+      state = process(state, 's3', 's4')
+      state = process(state, 's2', 's3')
+      return process(state, 's1', 's2', ['H', 'H', 'H', 'H', 'H'])
     default:
       return state
   }
