@@ -123,7 +123,7 @@ const newBatchFromCustomer = (state, workerName) => {
 }
 
 const canDeliverBatch = (worker, nextWorker) => {
-  let nextIsReady = (nextWorker.acceptInputAnyTime ||  nextWorker.todo.length === 0)
+  let nextIsReady = (nextWorker.acceptInputAnyTime || (nextWorker.todo.length === 0 && worker.out.length >= nextWorker.batchSize))
   return (worker.out.length >= worker.batchSize && nextIsReady)
 }
 

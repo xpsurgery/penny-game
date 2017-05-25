@@ -3,7 +3,7 @@ import { reductio } from '../app/specHelper'
 import { tick } from '../repeat/actionCreators'
 import { productionLine, coins, workInProgress, valueDelivered } from './reducer'
 
-describe('productionLine', () => {
+describe('Basic processing', () => {
 
   let testCases = [
     { ticks: 0, totalWip: 0, value: 0, state: {
@@ -135,5 +135,32 @@ describe('productionLine', () => {
     })
   })
 
+})
+
+describe('enforced batches', () => {
+  let state
+
+  beforeEach(() => {
+    let actions = Array(34).fill(tick())
+    let reducer = productionLine({
+      defaultBatchSize: 5,
+      initialDeveloperBatch: 10,
+      batchSizeIncrement: 0
+    })
+    state = reductio(reducer, actions)
+  })
+
+  it('work queues up until the batch size is right for the dev', () => {
+    let expectedState = {
+      s1: {todo: [], wip: [], out: []},
+      s2: {todo: ['T', 'T', 'T', 'T', 'T'], wip: [], out: ['H', 'H', 'H', 'H', 'H']},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}
+    }
+    expect(coins(state.s1)).to.deep.equal(expectedState.s1)
+    expect(coins(state.s2)).to.deep.equal(expectedState.s2)
+    expect(coins(state.s3)).to.deep.equal(expectedState.s3)
+    expect(coins(state.s4)).to.deep.equal(expectedState.s4)
+  })
 })
 
