@@ -156,7 +156,7 @@ const process = (state, workerName, nextWorkerName) => {
     return newBatchFromCustomer(state, workerName)
 }
 
-const productionLine = (config) => (state, action) => {
+export const productionLine = (config) => (state, action) => {
   if (state === undefined)
     return initialState(config)
   switch (action.type) {

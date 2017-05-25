@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { reductio } from '../app/specHelper'
 import { tick } from '../repeat/actionCreators'
-import reducer, { coins, workInProgress, valueDelivered } from './reducer'
+import { productionLine, coins, workInProgress, valueDelivered } from './reducer'
 
 describe('productionLine', () => {
 
@@ -110,22 +110,27 @@ describe('productionLine', () => {
 
       beforeEach(() => {
         let actions = Array(ex.ticks).fill(tick())
+        let reducer = productionLine({
+          defaultBatchSize: 5,
+          initialDeveloperBatch: 5,
+          batchSizeIncrement: 0
+        })
         state = reductio(reducer, actions)
       })
 
       it('all coins and workers are in the correct state', () => {
-        expect(coins(state.batchesOf5.s1)).to.deep.equal(ex.state.s1)
-        expect(coins(state.batchesOf5.s2)).to.deep.equal(ex.state.s2)
-        expect(coins(state.batchesOf5.s3)).to.deep.equal(ex.state.s3)
-        expect(coins(state.batchesOf5.s4)).to.deep.equal(ex.state.s4)
+        expect(coins(state.s1)).to.deep.equal(ex.state.s1)
+        expect(coins(state.s2)).to.deep.equal(ex.state.s2)
+        expect(coins(state.s3)).to.deep.equal(ex.state.s3)
+        expect(coins(state.s4)).to.deep.equal(ex.state.s4)
       })
 
       it('calculates the current WIP', () => {
-        expect(workInProgress(state.batchesOf5)).to.deep.equal(ex.totalWip)
+        expect(workInProgress(state)).to.deep.equal(ex.totalWip)
       })
 
       it('calculates the total value delivered', () => {
-        expect(valueDelivered(state.batchesOf5)).to.deep.equal(ex.value)
+        expect(valueDelivered(state)).to.deep.equal(ex.value)
       })
     })
   })
