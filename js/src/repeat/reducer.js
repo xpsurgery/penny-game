@@ -1,7 +1,7 @@
 import { TICK, ENABLE_REPEATER, DISABLE_REPEATER } from './actionCreators'
 
 const initialState = {
-  ticksRemaining: 240,
+  ticksRemaining: 300,
   enabled: false
 }
 

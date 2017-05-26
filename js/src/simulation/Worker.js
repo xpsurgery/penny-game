@@ -7,9 +7,12 @@ const Basket = ({ label, coins }) =>
     <CoinPile coins={coins} />
   </div>
 
-export default ({ todo, wip, out, name }) =>
+export default ({ todo, wip, out, name, batchSize }) =>
   <div className='worker group'>
-    <div className='title'> {name} </div>
+    <div className='title'>
+      {name}
+      <span>{batchSize}</span>
+    </div>
     <Basket label='Todo' coins={todo} />
     <Basket label='WIP'  coins={wip} />
     <Basket label='Done' coins={out} />

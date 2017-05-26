@@ -13,7 +13,7 @@ const Repeat = React.createClass({
       return
     if (this.props.enabled)
       this.props.dispatch(this.props.action())
-    setTimeout(this.ping, this.props.seconds * 500)
+    setTimeout(this.ping, this.props.seconds * 333)
   },
 
   render: function() {
