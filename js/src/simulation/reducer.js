@@ -11,6 +11,7 @@ const initialState = (config) => {
     batchSize: config.defaultBatchSize,
     batchSizeIncrement: 0,
     batchSizeFromCustomer: 0,
+    taskTicks: 1,
     acceptInputAnyTime: false,
     todo: [],
     wip: {occupied: false},
@@ -21,6 +22,7 @@ const initialState = (config) => {
     batchSize: config.initialDeveloperBatch,
     batchSizeIncrement: config.batchSizeIncrement,
     batchSizeFromCustomer: 0,
+    taskTicks: config.devTaskTicks,
     acceptInputAnyTime: false,
     todo: [],
     wip: {occupied: false},
@@ -31,6 +33,7 @@ const initialState = (config) => {
     batchSize: config.defaultBatchSize,
     batchSizeIncrement: 0,
     batchSizeFromCustomer: 0,
+    taskTicks: 1,
     acceptInputAnyTime: false,
     todo: [],
     wip: {occupied: false},
@@ -41,6 +44,7 @@ const initialState = (config) => {
     batchSize: config.defaultBatchSize,
     batchSizeIncrement: 0,
     batchSizeFromCustomer: config.defaultBatchSize,
+    taskTicks: 1,
     acceptInputAnyTime: false,
     todo: [],
     wip: {occupied: false},
@@ -58,7 +62,7 @@ const pickUpNextTask = (state, workerName) => {
       todo: worker.todo.slice(1),
       wip: {
         occupied: true,
-        ticksRemaining: 1,
+        ticksRemaining: worker.taskTicks,
         coin: worker.todo.slice(0, 1)[0]
       }
     }
@@ -78,7 +82,7 @@ const wait = (worker) => ({
   ...worker,
   wip: {
     ...worker.wip,
-    ticksRemaining: worker.ticksRemaining - 1
+    ticksRemaining: worker.wip.ticksRemaining - 1
   }
 })
 
@@ -97,7 +101,7 @@ const continueTask = (state, workerName) => {
   let newWorker
   if (worker.wip.ticksRemaining > 1)
     newWorker = wait(worker)
-  else if (worker.wip.ticksRemaining == 1)
+  else if (worker.wip.ticksRemaining === 1)
     newWorker = flipCoin(worker)
   else
     newWorker = moveCoinToDone(worker)
@@ -195,17 +199,20 @@ export default combineReducers({
   batchesOf20: productionLine({
     defaultBatchSize: 20,
     initialDeveloperBatch: 20,
-    batchSizeIncrement: 5
+    batchSizeIncrement: 5,
+    devTaskTicks: 5
   }),
   batchesOf5:  productionLine({
     defaultBatchSize: 5,
     initialDeveloperBatch: 5,
-    batchSizeIncrement: 0
+    batchSizeIncrement: 0,
+    devTaskTicks: 1
   }),
   slowDev:     productionLine({
     defaultBatchSize: 5,
     initialDeveloperBatch: 10,
-    batchSizeIncrement: 5
+    batchSizeIncrement: 5,
+    devTaskTicks: 5
   }),
 })
 

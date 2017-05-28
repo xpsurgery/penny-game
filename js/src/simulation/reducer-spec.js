@@ -113,7 +113,8 @@ describe('Basic processing', () => {
         let reducer = productionLine({
           defaultBatchSize: 5,
           initialDeveloperBatch: 5,
-          batchSizeIncrement: 0
+          batchSizeIncrement: 0,
+          devTaskTicks: 1
         })
         state = reductio(reducer, actions)
       })
@@ -145,7 +146,8 @@ describe('enforced batches', () => {
     let reducer = productionLine({
       defaultBatchSize: 5,
       initialDeveloperBatch: 10,
-      batchSizeIncrement: 0
+      batchSizeIncrement: 0,
+      devTaskTicks: 1
     })
     state = reductio(reducer, actions)
   })
@@ -161,6 +163,27 @@ describe('enforced batches', () => {
     expect(coins(state.s2)).to.deep.equal(expectedState.s2)
     expect(coins(state.s3)).to.deep.equal(expectedState.s3)
     expect(coins(state.s4)).to.deep.equal(expectedState.s4)
+  })
+})
+
+describe('ticks remaining', () => {
+  let state
+  let reducer = productionLine({
+    defaultBatchSize: 5,
+    initialDeveloperBatch: 10,
+    batchSizeIncrement: 0,
+    devTaskTicks: 5
+  })
+
+  beforeEach(() => {
+    let actions = Array(51).fill(tick())
+    state = reductio(reducer, actions)
+  })
+
+  it('ticks down by one', () => {
+    expect(state.s3.wip).to.deep.equal({ occupied: true, ticksRemaining: 5, coin: 'H' })
+    state = reducer(state, tick())
+    expect(state.s3.wip).to.deep.equal({ occupied: true, ticksRemaining: 4, coin: 'H' })
   })
 })
 
