@@ -1,0 +1,44 @@
+# ~/.tmuxinator/penny-game.yml
+
+name: penny-game
+root: ~/working/git/penny-game
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+pre_window: nvm use 6.10
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: editor
+
+# Specitifes (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+# Runs after everything. Use it to attach to tmux with custom options etc.
+# post: tmux -CC attach -t penny-game
+
+windows:
+  - vim:
+      root: ~/working/git/penny-game/js
+      panes:
+          - $EDITOR
+  - ci:
+      root: ~/working/git/penny-game/js
+      layout: 4d44,272x74,0,0{180x74,0,0,1,91x74,181,0,4}
+      panes:
+          - yarn run build:watch
+          - yarn run test:watch
+          -
+
