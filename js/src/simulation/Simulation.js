@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Repeat from '../repeat/Repeat'
-import { tick } from '../repeat/actionCreators'
-import Buttons from '../repeat/Buttons'
+import Repeat from '../controls/Repeat'
+import { tick } from '../controls/actionCreators'
+import Buttons from '../controls/Buttons'
 import ProductionLine from './ProductionLine'
 
 const Simulation = ({ batchesOf20, batchesOf5, slowDev }) =>

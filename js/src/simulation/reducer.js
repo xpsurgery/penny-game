@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { TICK } from '../repeat/actionCreators'
+import { TICK } from '../controls/actionCreators'
 
 const initialState = (config) => {
   let customer = {

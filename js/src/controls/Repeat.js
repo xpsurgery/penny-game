@@ -21,7 +21,7 @@ const Repeat = React.createClass({
   }
 })
 
-const mapStateToProps = ({ repeat }) => repeat
+const mapStateToProps = ({ controls }) => controls
 
 export default connect(mapStateToProps)(Repeat)
 
