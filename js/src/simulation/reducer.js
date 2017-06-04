@@ -195,6 +195,10 @@ export const workInProgress = (line) => {
          c4.todo.length + c4.wip.length + c4.out.length
 }
 
+export const ticksToFirstValue = (line) => {
+  return line.stats.ticksToFirstValue
+}
+
 export default combineReducers({
   batchesOf20: productionLine({
     defaultBatchSize: 20,

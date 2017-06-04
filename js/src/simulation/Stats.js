@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { valueDelivered, workInProgress } from './reducer'
+import {
+  valueDelivered,
+  workInProgress,
+  ticksToFirstValue
+} from './reducer'
 
 const NumericalStat = ({ label, value }) =>
   <div className='numerical-stat'>
@@ -21,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     value: valueDelivered(line),
     wip: workInProgress(line),
-    ttfv: '??',
+    ttfv: ticksToFirstValue(line) || '--',
     ct: '??'
   }
 }
