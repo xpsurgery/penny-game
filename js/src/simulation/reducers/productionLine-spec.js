@@ -110,7 +110,7 @@ describe('Basic processing', () => {
 
       beforeEach(() => {
         let actions = Array(ex.ticks).fill(tick())
-        state = reduce(actions).simulation.batchesOf5
+        state = reduce(actions).simulation.agile
       })
 
       it('all coins and workers are in the correct state', () => {

@@ -2,7 +2,7 @@ import { put, select, takeEvery } from 'redux-saga/effects'
 
 function* count() {
   const state = yield select()
-  const line = state.simulation.batchesOf5
+  const line = state.simulation.agile
   const worker = line['s3']
   const nextWorker = line['s4']
   let nextIsReady = (nextWorker.acceptInputAnyTime || (nextWorker.todo.length === 0 && worker.out.length >= nextWorker.batchSize))
