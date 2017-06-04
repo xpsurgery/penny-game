@@ -4,7 +4,7 @@ import {
   valueDelivered,
   workInProgress,
   ticksToFirstValue
-} from './reducer'
+} from './reducers/productionLine'
 
 const NumericalStat = ({ label, value }) =>
   <div className='numerical-stat'>

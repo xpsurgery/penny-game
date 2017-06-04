@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux'
-import { TICK } from '../controls/actionCreators'
+import { TICK } from '../../controls/actionCreators'
 
 const initialState = (config) => {
   let customer = {
@@ -160,7 +159,7 @@ const process = (state, workerName, nextWorkerName) => {
     return newBatchFromCustomer(state, workerName)
 }
 
-export const productionLine = (config) => (state, action) => {
+export default (config) => (state, action) => {
   if (state === undefined)
     return initialState(config)
   switch (action.type) {
@@ -196,27 +195,6 @@ export const workInProgress = (line) => {
 }
 
 export const ticksToFirstValue = (line) => {
-  return line.stats.ticksToFirstValue
+  return line.ticksToFirstValue
 }
-
-export default combineReducers({
-  batchesOf20: productionLine({
-    defaultBatchSize: 20,
-    initialDeveloperBatch: 20,
-    batchSizeIncrement: 5,
-    devTaskTicks: 5
-  }),
-  batchesOf5:  productionLine({
-    defaultBatchSize: 5,
-    initialDeveloperBatch: 5,
-    batchSizeIncrement: 0,
-    devTaskTicks: 1
-  }),
-  slowDev:     productionLine({
-    defaultBatchSize: 5,
-    initialDeveloperBatch: 10,
-    batchSizeIncrement: 5,
-    devTaskTicks: 5
-  }),
-})
 
