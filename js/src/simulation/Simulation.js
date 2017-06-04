@@ -7,9 +7,9 @@ const Simulation = ({ waterfall, agile, scrum }) =>
   <div className='simulation'>
     <h1> Penny game simulation </h1>
     <Controls />
-    <ProductionLine line={waterfall} />
-    <ProductionLine line={agile} />
-    <ProductionLine line={scrum} />
+    <ProductionLine line={waterfall.line} />
+    <ProductionLine line={agile.line} />
+    <ProductionLine line={scrum.line} />
     <p>
       Note that these simulations are based on single piece flow.
       Imagine how much worse the above would be if each worker had
