@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { reduce, reductio } from '../../app/specHelper'
 import { tick } from '../../controls/actionCreators'
 import productionLine, { coins, workInProgress, valueDelivered } from './productionLine'
+import { ticksToFirstValue } from './stats'
 
 describe('Basic processing', () => {
 
@@ -128,6 +129,27 @@ describe('Basic processing', () => {
         expect(valueDelivered(state)).to.deep.equal(ex.value)
       })
     })
+  })
+
+})
+
+describe('time to first value', () => {
+  it('is not set before value is delivered', () => {
+    let actions = Array(48).fill(tick())
+    let state = reduce(actions).simulation.agile.stats
+    expect(ticksToFirstValue(state)).to.equal(undefined)
+  })
+
+  it('is set when value is delivered', () => {
+    let actions = Array(49).fill(tick())
+    let state = reduce(actions).simulation.agile.stats
+    expect(ticksToFirstValue(state)).to.equal(49)
+  })
+
+  it('is not changed after value is delivered', () => {
+    let actions = Array(50).fill(tick())
+    let state = reduce(actions).simulation.agile.stats
+    expect(ticksToFirstValue(state)).to.equal(50)
   })
 
 })
