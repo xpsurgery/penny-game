@@ -1,7 +1,7 @@
 import { expect } from 'chai'
-import { reduce } from '../../app/specHelper'
+import { reduce, reductio } from '../../app/specHelper'
 import { tick } from '../../controls/actionCreators'
-import { coins, workInProgress, valueDelivered } from './productionLine'
+import productionLine, { coins, workInProgress, valueDelivered } from './productionLine'
 
 describe('Basic processing', () => {
 
@@ -132,52 +132,52 @@ describe('Basic processing', () => {
 
 })
 
-//describe('enforced batches', () => {
-  //let state
+describe('enforced batches', () => {
+  let state
 
-  //beforeEach(() => {
-    //let actions = Array(34).fill(tick())
-    //let reducer = productionLine({
-      //defaultBatchSize: 5,
-      //initialDeveloperBatch: 10,
-      //batchSizeIncrement: 0,
-      //devTaskTicks: 1
-    //})
-    //state = reductio(reducer, actions)
-  //})
+  beforeEach(() => {
+    let actions = Array(34).fill(tick())
+    let reducer = productionLine({
+      defaultBatchSize: 5,
+      initialDeveloperBatch: 10,
+      batchSizeIncrement: 0,
+      devTaskTicks: 1
+    })
+    state = reductio(reducer, actions)
+  })
 
-  //it('work queues up until the batch size is right for the dev', () => {
-    //let expectedState = {
-      //s1: {todo: [], wip: [], out: []},
-      //s2: {todo: ['T', 'T', 'T', 'T', 'T'], wip: [], out: ['H', 'H', 'H', 'H', 'H']},
-      //s3: {todo: [], wip: [], out: []},
-      //s4: {todo: [], wip: [], out: []}
-    //}
-    //expect(coins(state.s1)).to.deep.equal(expectedState.s1)
-    //expect(coins(state.s2)).to.deep.equal(expectedState.s2)
-    //expect(coins(state.s3)).to.deep.equal(expectedState.s3)
-    //expect(coins(state.s4)).to.deep.equal(expectedState.s4)
-  //})
-//})
+  it('work queues up until the batch size is right for the dev', () => {
+    let expectedState = {
+      s1: {todo: [], wip: [], out: []},
+      s2: {todo: ['T', 'T', 'T', 'T', 'T'], wip: [], out: ['H', 'H', 'H', 'H', 'H']},
+      s3: {todo: [], wip: [], out: []},
+      s4: {todo: [], wip: [], out: []}
+    }
+    expect(coins(state.s1)).to.deep.equal(expectedState.s1)
+    expect(coins(state.s2)).to.deep.equal(expectedState.s2)
+    expect(coins(state.s3)).to.deep.equal(expectedState.s3)
+    expect(coins(state.s4)).to.deep.equal(expectedState.s4)
+  })
+})
 
-//describe('ticks remaining', () => {
-  //let state
-  //let reducer = productionLine({
-    //defaultBatchSize: 5,
-    //initialDeveloperBatch: 10,
-    //batchSizeIncrement: 0,
-    //devTaskTicks: 5
-  //})
+describe('ticks remaining', () => {
+  let state
+  let reducer = productionLine({
+    defaultBatchSize: 5,
+    initialDeveloperBatch: 10,
+    batchSizeIncrement: 0,
+    devTaskTicks: 5
+  })
 
-  //beforeEach(() => {
-    //let actions = Array(51).fill(tick())
-    //state = reductio(reducer, actions)
-  //})
+  beforeEach(() => {
+    let actions = Array(51).fill(tick())
+    state = reductio(reducer, actions)
+  })
 
-  //it('ticks down by one', () => {
-    //expect(state.s3.wip).to.deep.equal({ occupied: true, ticksRemaining: 5, coin: 'H' })
-    //state = reducer(state, tick())
-    //expect(state.s3.wip).to.deep.equal({ occupied: true, ticksRemaining: 4, coin: 'H' })
-  //})
-//})
+  it('ticks down by one', () => {
+    expect(state.s3.wip).to.deep.equal({ occupied: true, ticksRemaining: 5, coin: 'H' })
+    state = reducer(state, tick())
+    expect(state.s3.wip).to.deep.equal({ occupied: true, ticksRemaining: 4, coin: 'H' })
+  })
+})
 
