@@ -1,8 +1,22 @@
 import React from 'react'
-import Buttons from './Buttons'
+import { connect } from 'react-redux'
+import { enableRepeater, disableRepeater } from './actionCreators'
 
-export default () =>
-  <div className='controls'>
-    <Buttons />
+const Controls = ({ playEnabled, ticksSoFar, enableRepeater, disableRepeater }) =>
+  <div className='controls group'>
+    <div className='play-controls'>
+      <button disabled={playEnabled} onClick={enableRepeater}> play </button>
+      <button disabled={!playEnabled} onClick={disableRepeater}> pause </button>
+    </div>
+    <div className='time-remaining'>
+      Ticks so far: {ticksSoFar}
+    </div>
   </div>
+
+const mapStateToProps = ({ controls }) => controls
+
+export default connect(mapStateToProps, {
+  enableRepeater,
+  disableRepeater
+})(Controls)
 
