@@ -1,14 +1,30 @@
 import { put, select, takeEvery } from 'redux-saga/effects'
-import { deliverBatch } from './actionCreators'
-import { canDeliverBatch } from './reducers/productionLine'
+import {
+  hasTaskInProgress,
+  canDeliverBatch,
+  hasWorkReadyToStart
+} from './reducers/productionLine'
+import {
+  continueTask,
+  deliverBatch,
+  pickUpNextTask,
+  newBatchFromCustomer
+} from './actionCreators'
 
 function* process(simulationName, workerName, nextWorkerName) {
   const state = yield select()
   const line = state.simulation[simulationName].line
   const worker = line[workerName]
   const nextWorker = line[nextWorkerName]
-  if (canDeliverBatch(worker, nextWorker))
-    yield put(deliverBatch(simulationName, workerName, nextWorkerName, worker.out))
+
+  if (hasTaskInProgress(worker))
+    return yield put(continueTask(simulationName, workerName))
+  else if (canDeliverBatch(worker, nextWorker))
+    return yield put(deliverBatch(simulationName, workerName, nextWorkerName, worker.out))
+  else if (hasWorkReadyToStart(worker))
+    return yield put(pickUpNextTask(simulationName, workerName))
+  else if (workerName === 's1')
+    return yield put(newBatchFromCustomer(simulationName, workerName))
 }
 
 export default function* watchTick() {

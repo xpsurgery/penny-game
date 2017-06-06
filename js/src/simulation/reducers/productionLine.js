@@ -91,7 +91,7 @@ const moveCoinToDone = (worker) => ({
   out: worker.out.concat(worker.wip.coin)
 })
 
-const hasTaskInProgress = (worker) => {
+export const hasTaskInProgress = (worker) => {
   return (worker.wip.occupied)
 }
 
@@ -110,7 +110,7 @@ const continueTask = (state, workerName) => {
   }
 }
 
-const hasWorkReadyToStart = (worker) => {
+export const hasWorkReadyToStart = (worker) => {
   return (worker.todo.length > 0)
 }
 
