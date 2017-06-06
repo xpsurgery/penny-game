@@ -8,7 +8,7 @@ const Controls = ({ playEnabled, ticksSoFar, enableRepeater, disableRepeater }) 
       <button disabled={playEnabled} onClick={enableRepeater}> play </button>
       <button disabled={!playEnabled} onClick={disableRepeater}> pause </button>
     </div>
-    <div className='time-remaining'>
+    <div className='ticks-so-far'>
       Ticks so far: {ticksSoFar}
     </div>
   </div>
