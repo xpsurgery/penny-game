@@ -135,21 +135,21 @@ describe('Basic processing', () => {
 
 describe('time to first value', () => {
   it('is not set before value is delivered', () => {
-    let actions = Array(48).fill(tick())
+    let actions = Array(64).fill(tick())
     let state = reduce(actions).simulation.agile.stats
     expect(ticksToFirstValue(state)).to.equal(undefined)
   })
 
   it('is set when value is delivered', () => {
-    let actions = Array(49).fill(tick())
+    let actions = Array(65).fill(tick())
     let state = reduce(actions).simulation.agile.stats
-    expect(ticksToFirstValue(state)).to.equal(49)
+    expect(ticksToFirstValue(state)).to.equal(65)
   })
 
   it('is not changed after value is delivered', () => {
-    let actions = Array(50).fill(tick())
+    let actions = Array(66).fill(tick())
     let state = reduce(actions).simulation.agile.stats
-    expect(ticksToFirstValue(state)).to.equal(50)
+    expect(ticksToFirstValue(state)).to.equal(65)
   })
 
 })

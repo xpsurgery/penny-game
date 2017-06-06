@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
   valueDelivered,
-  workInProgress,
-  ticksToFirstValue
+  workInProgress
 } from './reducers/productionLine'
+import { ticksToFirstValue } from './reducers/stats'
 
 const NumericalStat = ({ label, value }) =>
   <div className='numerical-stat'>
@@ -21,11 +21,11 @@ const Stats = ({ value, wip, ttfv, ct }) =>
   </div>
 
 const mapStateToProps = (state, ownProps) => {
-  let line = ownProps.line
+  let line = ownProps.simulation.line
   return {
     value: valueDelivered(line),
     wip: workInProgress(line),
-    ttfv: ticksToFirstValue(line) || '--',
+    ttfv: ticksToFirstValue(ownProps.simulation.stats) || '--',
     ct: '??'
   }
 }

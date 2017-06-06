@@ -10,13 +10,13 @@ const Customer = ({ todo }) =>
     <CoinPile coins={todo} />
   </div>
 
-export default ({ line }) =>
+export default ({ simulation }) =>
   <div className='production-line group'>
-    <Worker {...coins(line.s1)} name={line.s1.name} batchSize={line.s1.batchSize} />
-    <Worker {...coins(line.s2)} name={line.s2.name} batchSize={line.s2.batchSize} />
-    <Worker {...coins(line.s3)} name={line.s3.name} batchSize={line.s3.batchSize} />
-    <Worker {...coins(line.s4)} name={line.s4.name} batchSize={line.s4.batchSize} />
-    <Customer {...line.customer} />
-    <Stats line={line} />
+    <Worker {...coins(simulation.line.s1)} name={simulation.line.s1.name} batchSize={simulation.line.s1.batchSize} />
+    <Worker {...coins(simulation.line.s2)} name={simulation.line.s2.name} batchSize={simulation.line.s2.batchSize} />
+    <Worker {...coins(simulation.line.s3)} name={simulation.line.s3.name} batchSize={simulation.line.s3.batchSize} />
+    <Worker {...coins(simulation.line.s4)} name={simulation.line.s4.name} batchSize={simulation.line.s4.batchSize} />
+    <Customer {...simulation.line.customer} />
+    <Stats simulation={simulation} />
   </div>
 
