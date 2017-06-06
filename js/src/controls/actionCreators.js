@@ -1,4 +1,3 @@
-
 export const TICK = 'TICK'
 
 export const tick = () => ({

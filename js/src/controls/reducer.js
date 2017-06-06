@@ -1,7 +1,8 @@
 import { ENABLE_REPEATER, DISABLE_REPEATER } from './actionCreators'
 
 const initialState = {
-  enabled: false
+  playEnabled: false,
+  millisecondsPerTick: 333
 }
 
 export default (state=initialState, action) => {
@@ -10,13 +11,13 @@ export default (state=initialState, action) => {
     case ENABLE_REPEATER:
       return {
         ...state,
-        enabled: true
+        playEnabled: true
       }
 
     case DISABLE_REPEATER:
       return {
         ...state,
-        enabled: false
+        playEnabled: false
       }
 
     default:
