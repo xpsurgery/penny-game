@@ -51,12 +51,14 @@ export default (simulationName, name, config) => (state, action) => {
     return state
   if (action.workerName !== name)
     return state
+
   switch (action.type) {
     case CONTINUE_TASK:
       return continueTask(state)
 
     case DELIVER_BATCH:
       return state
+
     case PICK_UP_NEXT_TASK:
       return {
         ...state,

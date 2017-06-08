@@ -84,5 +84,27 @@ describe('Worker reducer', () => {
     expect(state.out).to.deep.equal(['T'])
   })
 
+  it('can complete all tasks', () => {
+    const actions = [
+      newBatchFromCustomer('test', 's1'),
+      pickUpNextTask('test', 's1'),
+      continueTask('test', 's1'),
+      continueTask('test', 's1'),
+      continueTask('test', 's1'),
+      pickUpNextTask('test', 's1'),
+      continueTask('test', 's1'),
+      continueTask('test', 's1'),
+      continueTask('test', 's1'),
+      pickUpNextTask('test', 's1'),
+      continueTask('test', 's1'),
+      continueTask('test', 's1'),
+      continueTask('test', 's1')
+    ]
+    const state = reductio(reducer, actions)
+    expect(state.todo).to.deep.equal([])
+    expect(state.wip).to.deep.equal({ occupied: false })
+    expect(state.out).to.deep.equal(['T', 'T', 'T'])
+  })
+
 })
 
