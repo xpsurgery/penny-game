@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import productionLine from './productionLine'
+import worker from './worker'
 import stats from './stats'
 
 const waterfallConfig = {
@@ -27,6 +28,14 @@ const scrumConfig = {
 }
 
 const simulation = (config) => combineReducers({
+  s1: worker(config.name, 's1', {
+    displayName:        'Analysis',
+    initialBatchSize:   config.defaultBatchSize,
+    defaultBatchSize:   config.defaultBatchSize,
+    batchSizeIncrement: 0,
+    taskTicks:          1,
+    acceptInputAnyTime: false
+  }),
   line: productionLine(config),
   stats: stats(config.name)
 })
