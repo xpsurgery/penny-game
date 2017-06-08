@@ -12,6 +12,38 @@ const initialState = (config) => ({
   out: []
 })
 
+const flipCoin = (state) => ({
+  ...state,
+  wip: {
+    ...state.wip,
+    ticksRemaining: 0,
+    coin: (state.wip.coin == 'H') ? 'T' : 'H'
+  }
+})
+
+const wait = (state) => ({
+  ...state,
+  wip: {
+    ...state.wip,
+    ticksRemaining: state.wip.ticksRemaining - 1
+  }
+})
+
+const moveCoinToDone = (state) => ({
+  ...state,
+  wip: {occupied: false},
+  out: state.out.concat(state.wip.coin)
+})
+
+const continueTask = (state) => {
+  if (state.wip.ticksRemaining > 1)
+    return wait(state)
+  else if (state.wip.ticksRemaining === 1)
+    return flipCoin(state)
+  else
+    return moveCoinToDone(state)
+}
+
 export default (simulationName, name, config) => (state, action) => {
   if (state === undefined)
     return initialState(config)
@@ -21,11 +53,21 @@ export default (simulationName, name, config) => (state, action) => {
     return state
   switch (action.type) {
     case CONTINUE_TASK:
-      return state
+      return continueTask(state)
+
     case DELIVER_BATCH:
       return state
     case PICK_UP_NEXT_TASK:
-      return state
+      return {
+        ...state,
+        todo: state.todo.slice(1),
+        wip: {
+          occupied:       true,
+          ticksRemaining: state.taskTicks,
+          coin:           state.todo.slice(0, 1)[0]
+        }
+      }
+
     case RECEIVE_NEW_BATCH:
       return {
         ...state,
