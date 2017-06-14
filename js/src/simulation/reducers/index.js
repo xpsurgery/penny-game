@@ -31,7 +31,27 @@ const simulation = (config) => combineReducers({
   s1: worker(config.name, 's1', {
     displayName:        'Analysis',
     initialBatchSize:   config.defaultBatchSize,
-    defaultBatchSize:   config.defaultBatchSize,
+    batchSizeIncrement: 0,
+    taskTicks:          1,
+    acceptInputAnyTime: false
+  }),
+  s2: worker(config.name, 's2', {
+    displayName:        'UX',
+    initialBatchSize:   config.defaultBatchSize,
+    batchSizeIncrement: 0,
+    taskTicks:          1,
+    acceptInputAnyTime: false
+  }),
+  s3: worker(config.name, 's3', {
+    displayName:        'Development',
+    initialBatchSize:   config.initialDeveloperBatch,
+    batchSizeIncrement: config.batchSizeIncrement,
+    taskTicks:          config.devTaskTicks,
+    acceptInputAnyTime: false
+  }),
+  s4: worker(config.name, 's4', {
+    displayName:        'Testing',
+    initialBatchSize:   config.defaultBatchSize,
     batchSizeIncrement: 0,
     taskTicks:          1,
     acceptInputAnyTime: false

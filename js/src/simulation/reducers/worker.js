@@ -7,6 +7,7 @@ import {
 
 const initialState = (config) => ({
   ...config,
+  currentBatchSize: config.initialBatchSize,
   todo: [],
   wip: {occupied: false},
   out: []
@@ -73,11 +74,37 @@ export default (simulationName, name, config) => (state, action) => {
     case RECEIVE_NEW_BATCH:
       return {
         ...state,
-        todo: Array(state.defaultBatchSize).fill('H')
+        todo: Array(state.initialBatchSize).fill('H')
       }
 
     default:
       return state
   }
 }
+
+export const hasTaskInProgress = (worker) => {
+  return (worker.wip.occupied)
+}
+
+export const hasBatchReady = (worker) => {
+  return (worker.out.length >= worker.currentBatchSize)
+}
+
+export const isReadyForNextBatch = (worker, batch) => {
+  return (
+    worker.todo.length === 0 &&
+    worker.wip.occupied === false &&
+    batch.length >= worker.currentBatchSize
+  )
+}
+
+export const hasWorkReadyToStart = (worker) => {
+  return (worker.todo.length > 0)
+}
+
+export const coins = (worker) => ({
+  todo: worker.todo,
+  wip: (worker.wip.occupied) ? [worker.wip.coin] : [],
+  out: worker.out
+})
 
