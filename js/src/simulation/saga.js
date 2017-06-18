@@ -3,11 +3,13 @@ import {
   hasTaskInProgress,
   hasBatchReady,
   isReadyForNextBatch,
-  hasWorkReadyToStart
+  hasWorkReadyToStart,
+  batchOf
 } from './reducers/worker'
 import {
   continueTask,
   deliverBatch,
+  receiveBatch,
   pickUpNextTask,
   newBatchFromCustomer
 } from './actionCreators'
@@ -19,13 +21,15 @@ function* process(simulationName, workerName, nextWorkerName) {
   const nextWorker = line[nextWorkerName]
 
   if (hasTaskInProgress(worker))
-    return yield put(continueTask(simulationName, workerName))
-  else if (hasBatchReady(worker) && isReadyForNextBatch(nextWorker))
-    return yield put(deliverBatch(simulationName, workerName, nextWorkerName, worker.out))
-  else if (hasWorkReadyToStart(worker))
-    return yield put(pickUpNextTask(simulationName, workerName))
+    yield put(continueTask(simulationName, workerName))
+  else if (hasBatchReady(worker) && isReadyForNextBatch(nextWorker, worker.out)) {
+    let batch = batchOf(nextWorker.currentBatchSize, worker)
+    yield put(deliverBatch(simulationName, workerName, batch))
+    yield put(receiveBatch(simulationName, nextWorkerName, batch))
+  } else if (hasWorkReadyToStart(worker))
+    yield put(pickUpNextTask(simulationName, workerName))
   else if (workerName === 's1')
-    return yield put(newBatchFromCustomer(simulationName, workerName))
+    yield put(newBatchFromCustomer(simulationName, workerName))
 }
 
 export default function* watchTick() {

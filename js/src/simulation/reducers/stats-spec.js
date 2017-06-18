@@ -14,7 +14,7 @@ describe('ticks remaining', () => {
   })
 
   it('counts the ticks upto delivery', () => {
-    let actions = [tick(), tick(), deliverBatch('agile', 's4', 'customer', [])]
+    let actions = [tick(), tick(), deliverBatch('agile', 's4', [])]
     state = reductio(reducer, actions)
     expect(ticksToFirstValue(state)).to.equal(2)
   })
@@ -22,9 +22,9 @@ describe('ticks remaining', () => {
   it("doesn't change after the first delivery", () => {
     let actions = [
       tick(), tick(), tick(),
-      deliverBatch('agile', 's4', 'customer', []),
+      deliverBatch('agile', 's4', []),
       tick(), tick(), tick(),
-      deliverBatch('agile', 's4', 'customer', [])
+      deliverBatch('agile', 's4', [])
     ]
     state = reductio(reducer, actions)
     expect(ticksToFirstValue(state)).to.equal(3)

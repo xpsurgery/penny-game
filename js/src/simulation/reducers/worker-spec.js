@@ -2,8 +2,10 @@ import { expect } from 'chai'
 import { reductio } from '../../app/specHelper'
 import {
   newBatchFromCustomer,
+  receiveBatch,
   pickUpNextTask,
-  continueTask
+  continueTask,
+  deliverBatch
 } from '../actionCreators'
 import worker, {
   hasTaskInProgress,
@@ -196,6 +198,47 @@ describe('Worker reducer', () => {
 
     it('can deliver', () => {
       expect(hasBatchReady(state)).to.eq(true)
+    })
+
+    it('can receive a new batch of work', () => {
+      expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(true)
+    })
+  })
+
+  describe('when instructed to deliver the batch', () => {
+    let state
+
+    beforeEach(() => {
+      const actions = [
+        newBatchFromCustomer('test', 's1'),
+        pickUpNextTask('test', 's1'),
+        continueTask('test', 's1'),
+        continueTask('test', 's1'),
+        continueTask('test', 's1'),
+        pickUpNextTask('test', 's1'),
+        continueTask('test', 's1'),
+        continueTask('test', 's1'),
+        continueTask('test', 's1'),
+        pickUpNextTask('test', 's1'),
+        continueTask('test', 's1'),
+        continueTask('test', 's1'),
+        continueTask('test', 's1'),
+        deliverBatch('test', 's1', ['T', 'T'])
+      ]
+      state = reductio(reducer, actions)
+    })
+
+    it('completes all tasks', () => {
+      expect(coins(state)).to.deep.equal({ todo: [], wip: [], out: ['T'] })
+    })
+
+    it('reports state correctly', () => {
+      expect(hasTaskInProgress(state)).to.eq(false)
+      expect(hasWorkReadyToStart(state)).to.eq(false)
+    })
+
+    it('can deliver', () => {
+      expect(hasBatchReady(state)).to.eq(false)
     })
 
     it('can receive a new batch of work', () => {

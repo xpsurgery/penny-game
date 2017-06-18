@@ -2,7 +2,8 @@ import {
   CONTINUE_TASK,
   DELIVER_BATCH,
   PICK_UP_NEXT_TASK,
-  RECEIVE_NEW_BATCH
+  RECEIVE_BATCH,
+  NEW_BATCH_FROM_CUSTOMER
 } from '../actionCreators'
 
 const initialState = (config) => ({
@@ -54,10 +55,13 @@ export default (simulationName, name, config) => (state, action) => {
     return state
 
   switch (action.type) {
-    case CONTINUE_TASK:
-      return continueTask(state)
+    case NEW_BATCH_FROM_CUSTOMER:
+      return {
+        ...state,
+        todo: Array(state.initialBatchSize).fill('H')
+      }
 
-    case DELIVER_BATCH:
+    case RECEIVE_BATCH:
       return state
 
     case PICK_UP_NEXT_TASK:
@@ -71,10 +75,13 @@ export default (simulationName, name, config) => (state, action) => {
         }
       }
 
-    case RECEIVE_NEW_BATCH:
+    case CONTINUE_TASK:
+      return continueTask(state)
+
+    case DELIVER_BATCH:
       return {
         ...state,
-        todo: Array(state.initialBatchSize).fill('H')
+        out: state.out.slice(0, state.out.length - action.batch.length)
       }
 
     default:
@@ -88,6 +95,10 @@ export const hasTaskInProgress = (worker) => {
 
 export const hasBatchReady = (worker) => {
   return (worker.out.length >= worker.currentBatchSize)
+}
+
+export const batchOf = (size, worker) => {
+  return worker.out.slice(0, size)
 }
 
 export const isReadyForNextBatch = (worker, batch) => {
