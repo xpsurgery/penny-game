@@ -3,8 +3,7 @@ import {
   hasTaskInProgress,
   hasBatchReady,
   isReadyForNextBatch,
-  hasWorkReadyToStart,
-  batchOf
+  hasWorkReadyToStart
 } from './reducers/worker'
 import {
   continueTask,
@@ -23,7 +22,7 @@ function* process(simulationName, workerName, nextWorkerName) {
   if (hasTaskInProgress(worker))
     yield put(continueTask(simulationName, workerName))
   else if (hasBatchReady(worker) && (nextWorkerName === 'customer' || isReadyForNextBatch(nextWorker, worker.out))) {
-    let batch = batchOf(worker.currentBatchSize, worker)
+    let batch = worker.out
     yield put(deliverBatch(simulationName, workerName, batch))
     yield put(receiveBatch(simulationName, nextWorkerName, batch))
   } else if (hasWorkReadyToStart(worker))

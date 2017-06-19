@@ -100,10 +100,6 @@ export const hasBatchReady = (worker) => {
   return (worker.out.length >= worker.currentBatchSize)
 }
 
-export const batchOf = (size, worker) => {
-  return worker.out.slice(0, size)
-}
-
 export const isReadyForNextBatch = (worker, batch) => {
   return (
     worker.todo.length === 0 &&
