@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Controls from '../controls/Controls'
 import ProductionLine from './ProductionLine'
+import NewSim from './NewSim'
 
 const Simulation = ({ waterfall, agile, scrum }) =>
   <div className='simulation'>
@@ -9,6 +10,7 @@ const Simulation = ({ waterfall, agile, scrum }) =>
     <Controls />
     <ProductionLine simulation={waterfall} />
     <ProductionLine simulation={agile} />
+    <NewSim simulation={agile} />
     <ProductionLine simulation={scrum} />
     <p>
       Note that these simulations are based on single piece flow.
