@@ -62,10 +62,7 @@ export default (simulationName, name, config) => (state, action) => {
       }
 
     case RECEIVE_BATCH:
-      return {
-        ...state,
-        todo: action.batch
-      }
+      return state
 
     case PICK_UP_NEXT_TASK:
       return {
