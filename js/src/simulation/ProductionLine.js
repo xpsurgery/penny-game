@@ -4,19 +4,19 @@ import Stats from './Stats'
 import CoinPile from './CoinPile'
 import { coins } from './reducers/productionLine'
 
-const Customer = ({ todo }) =>
+const Customer = ({ coins }) =>
   <div className='customer group'>
     <div className='label'> Accepted </div>
-    <CoinPile coins={todo} />
+    <CoinPile coins={coins} />
   </div>
 
 export default ({ simulation }) =>
   <div className='production-line group'>
-    <Worker {...coins(simulation.line.s1)} name={simulation.line.s1.name} batchSize={simulation.line.s1.batchSize} />
-    <Worker {...coins(simulation.line.s2)} name={simulation.line.s2.name} batchSize={simulation.line.s2.batchSize} />
-    <Worker {...coins(simulation.line.s3)} name={simulation.line.s3.name} batchSize={simulation.line.s3.batchSize} />
-    <Worker {...coins(simulation.line.s4)} name={simulation.line.s4.name} batchSize={simulation.line.s4.batchSize} />
-    <Customer {...simulation.line.customer} />
+    <Worker {...coins(simulation.s1)} name={simulation.s1.name} batchSize={simulation.s1.currentBatchSize} />
+    <Worker {...coins(simulation.s2)} name={simulation.s2.name} batchSize={simulation.s2.currentBatchSize} />
+    <Worker {...coins(simulation.s3)} name={simulation.s3.name} batchSize={simulation.s3.currentBatchSize} />
+    <Worker {...coins(simulation.s4)} name={simulation.s4.name} batchSize={simulation.s4.currentBatchSize} />
+    <Customer {...simulation.customer} />
     <Stats simulation={simulation} />
   </div>
 

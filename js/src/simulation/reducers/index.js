@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import productionLine from './productionLine'
 import worker from './worker'
 import stats from './stats'
+import customer from './customer'
 
 const waterfallConfig = {
   name:                  'waterfall',
@@ -56,6 +57,7 @@ const simulation = (config) => combineReducers({
     taskTicks:          1,
     acceptInputAnyTime: false
   }),
+  customer: customer(config.name, 'customer'),
   line: productionLine(config),
   stats: stats(config.name)
 })

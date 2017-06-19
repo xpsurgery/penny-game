@@ -22,8 +22,8 @@ function* process(simulationName, workerName, nextWorkerName) {
 
   if (hasTaskInProgress(worker))
     yield put(continueTask(simulationName, workerName))
-  else if (hasBatchReady(worker) && isReadyForNextBatch(nextWorker, worker.out)) {
-    let batch = batchOf(nextWorker.currentBatchSize, worker)
+  else if (hasBatchReady(worker) && (nextWorkerName === 'customer' || isReadyForNextBatch(nextWorker, worker.out))) {
+    let batch = batchOf(worker.currentBatchSize, worker)
     yield put(deliverBatch(simulationName, workerName, batch))
     yield put(receiveBatch(simulationName, nextWorkerName, batch))
   } else if (hasWorkReadyToStart(worker))
@@ -36,17 +36,16 @@ export default function* watchTick() {
   yield takeEvery('TICK', process, 'waterfall', 's1', 's2')
   yield takeEvery('TICK', process, 'waterfall', 's2', 's3')
   yield takeEvery('TICK', process, 'waterfall', 's3', 's4')
-  //yield takeEvery('TICK', process, 'waterfall', 's4', 'customer')
+  yield takeEvery('TICK', process, 'waterfall', 's4', 'customer')
 
   yield takeEvery('TICK', process, 'agile', 's1', 's2')
   yield takeEvery('TICK', process, 'agile', 's2', 's3')
   yield takeEvery('TICK', process, 'agile', 's3', 's4')
-  //yield takeEvery('TICK', process, 'agile', 's4', 'customer')
+  yield takeEvery('TICK', process, 'agile', 's4', 'customer')
 
   yield takeEvery('TICK', process, 'scrum', 's1', 's2')
   yield takeEvery('TICK', process, 'scrum', 's2', 's3')
   yield takeEvery('TICK', process, 'scrum', 's3', 's4')
-  //yield takeEvery('TICK', process, 'scrum', 's4', 'customer')
-
+  yield takeEvery('TICK', process, 'scrum', 's4', 'customer')
 }
 
