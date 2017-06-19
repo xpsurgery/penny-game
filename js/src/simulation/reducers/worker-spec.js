@@ -237,12 +237,40 @@ describe('Worker reducer', () => {
       expect(hasWorkReadyToStart(state)).to.eq(false)
     })
 
-    it('can deliver', () => {
+    it('cannot deliver', () => {
       expect(hasBatchReady(state)).to.eq(false)
     })
 
     it('can receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(true)
+    })
+  })
+
+  describe('when instructed to receive a batch', () => {
+    let state
+
+    beforeEach(() => {
+      const actions = [
+        receiveBatch('test', 's1', ['T', 'T', 'T', 'T'])
+      ]
+      state = reductio(reducer, actions)
+    })
+
+    it('has the batch ready', () => {
+      expect(coins(state)).to.deep.equal({ todo: ['T', 'T', 'T', 'T'], wip: [], out: [] })
+    })
+
+    it('reports state correctly', () => {
+      expect(hasTaskInProgress(state)).to.eq(false)
+      expect(hasWorkReadyToStart(state)).to.eq(true)
+    })
+
+    it('cannot deliver', () => {
+      expect(hasBatchReady(state)).to.eq(false)
+    })
+
+    it('cannot receive a new batch of work', () => {
+      expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(false)
     })
   })
 
