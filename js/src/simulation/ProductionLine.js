@@ -12,10 +12,10 @@ const Customer = ({ coins }) =>
 
 export default ({ simulation }) =>
   <div className='production-line group'>
-    <Worker {...coins(simulation.s1)} name={simulation.s1.name} batchSize={simulation.s1.currentBatchSize} />
-    <Worker {...coins(simulation.s2)} name={simulation.s2.name} batchSize={simulation.s2.currentBatchSize} />
-    <Worker {...coins(simulation.s3)} name={simulation.s3.name} batchSize={simulation.s3.currentBatchSize} />
-    <Worker {...coins(simulation.s4)} name={simulation.s4.name} batchSize={simulation.s4.currentBatchSize} />
+    <Worker {...coins(simulation.s1)} name={simulation.s1.displayName} batchSize={simulation.s1.currentBatchSize} />
+    <Worker {...coins(simulation.s2)} name={simulation.s2.displayName} batchSize={simulation.s2.currentBatchSize} />
+    <Worker {...coins(simulation.s3)} name={simulation.s3.displayName} batchSize={simulation.s3.currentBatchSize} />
+    <Worker {...coins(simulation.s4)} name={simulation.s4.displayName} batchSize={simulation.s4.currentBatchSize} />
     <Customer {...simulation.customer} />
     <Stats simulation={simulation} />
   </div>
