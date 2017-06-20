@@ -1,8 +1,5 @@
 import { combineReducers } from 'redux'
-import productionLine from './productionLine'
-import worker from './worker'
-import stats from './stats'
-import customer from './customer'
+import simulation from './simulation'
 
 const waterfallConfig = {
   name:                  'waterfall',
@@ -28,43 +25,9 @@ const scrumConfig = {
   devTaskTicks:           5
 }
 
-const simulation = (config) => combineReducers({
-  s1: worker(config.name, 's1', {
-    displayName:        'Analysis',
-    initialBatchSize:   config.defaultBatchSize,
-    batchSizeIncrement: 0,
-    taskTicks:          1,
-    acceptInputAnyTime: false
-  }),
-  s2: worker(config.name, 's2', {
-    displayName:        'UX',
-    initialBatchSize:   config.defaultBatchSize,
-    batchSizeIncrement: 0,
-    taskTicks:          1,
-    acceptInputAnyTime: false
-  }),
-  s3: worker(config.name, 's3', {
-    displayName:        'Development',
-    initialBatchSize:   config.initialDeveloperBatch,
-    batchSizeIncrement: config.batchSizeIncrement,
-    taskTicks:          config.devTaskTicks,
-    acceptInputAnyTime: false
-  }),
-  s4: worker(config.name, 's4', {
-    displayName:        'Testing',
-    initialBatchSize:   config.defaultBatchSize,
-    batchSizeIncrement: 0,
-    taskTicks:          1,
-    acceptInputAnyTime: false
-  }),
-  customer: customer(config.name, 'customer'),
-  line: productionLine(config),
-  stats: stats(config.name)
-})
-
 export default combineReducers({
   waterfall: simulation(waterfallConfig),
-  agile: simulation(agileConfig),
-  scrum: simulation(scrumConfig),
+  agile:     simulation(agileConfig),
+  scrum:     simulation(scrumConfig),
 })
 
