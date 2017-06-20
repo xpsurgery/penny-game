@@ -2,7 +2,7 @@ import React from 'react'
 import Worker from './Worker'
 import Stats from './Stats'
 import CoinPile from './CoinPile'
-import { coins } from './reducers/productionLine'
+import { coins } from './reducers/worker'
 
 const Customer = ({ coins }) =>
   <div className='customer group'>

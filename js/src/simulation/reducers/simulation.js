@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import productionLine from './productionLine'
 import worker, { coins } from './worker'
 import stats from './stats'
 import customer from './customer'
@@ -28,7 +27,6 @@ export default (config) => combineReducers({
   s3: developer(config, 's3', 'Development'),
   s4: standardWorker(config, 's4', 'Testing'),
   customer: customer(config.name, 'customer'),
-  line: productionLine(config),
   stats: stats(config.name)
 })
 
