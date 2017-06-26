@@ -14,12 +14,17 @@ const initialState = (config) => ({
   out: []
 })
 
+const flipTheCoin = (coin) => ({
+  ...coin,
+  state: (coin.state == 'H') ? 'T' : 'H'
+})
+
 const flipCoin = (state) => ({
   ...state,
   wip: {
     ...state.wip,
     ticksRemaining: 0,
-    coin: (state.wip.coin == 'H') ? 'T' : 'H'
+    coin: flipTheCoin(state.wip.coin)
   }
 })
 
@@ -58,7 +63,7 @@ export default (simulationName, name, config) => (state, action) => {
     case NEW_BATCH_FROM_CUSTOMER:
       return {
         ...state,
-        todo: Array(state.initialBatchSize).fill('H')
+        todo: Array(state.initialBatchSize).fill({state: 'H' })
       }
 
     case RECEIVE_BATCH:
@@ -113,8 +118,8 @@ export const hasWorkReadyToStart = (worker) => {
 }
 
 export const coins = (worker) => ({
-  todo: worker.todo,
-  wip: (worker.wip.occupied) ? [worker.wip.coin] : [],
-  out: worker.out
+  todo: worker.todo.map(coin => coin.state),
+  wip: (worker.wip.occupied) ? [worker.wip.coin.state] : [],
+  out: worker.out.map(coin => coin.state)
 })
 

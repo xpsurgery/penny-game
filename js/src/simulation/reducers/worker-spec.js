@@ -223,7 +223,7 @@ describe('Worker reducer', () => {
         continueTask('test', 's1'),
         continueTask('test', 's1'),
         continueTask('test', 's1'),
-        deliverBatch('test', 's1', ['T', 'T'])
+        deliverBatch('test', 's1', [{state: 'T'}, {state: 'T'}])
       ]
       state = reductio(reducer, actions)
     })
@@ -251,7 +251,7 @@ describe('Worker reducer', () => {
 
     beforeEach(() => {
       const actions = [
-        receiveBatch('test', 's1', ['T', 'T', 'T', 'T'])
+        receiveBatch('test', 's1', [{state: 'T'}, {state: 'T'}, {state: 'T'}, {state: 'T'}])
       ]
       state = reductio(reducer, actions)
     })
