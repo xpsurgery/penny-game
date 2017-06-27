@@ -10,6 +10,7 @@ import {
 const initialState = (config) => ({
   ...config,
   ticks: 0,
+  batchesCreated: 0,
   currentBatchSize: config.initialBatchSize,
   todo: [],
   wip: {occupied: false},
@@ -70,8 +71,10 @@ export default (simulationName, name, config) => (state, action) => {
     case NEW_BATCH_FROM_CUSTOMER:
       return {
         ...state,
+        batchesCreated: state.batchesCreated + 1,
         todo: Array(state.initialBatchSize).fill({
           createdAt: state.ticks,
+          batch: (state.batchesCreated % 2 === 0) ? 'even' : 'odd',
           state: 'H'
         })
       }
@@ -126,6 +129,14 @@ export const isReadyForNextBatch = (worker, batch) => {
 export const hasWorkReadyToStart = (worker) => {
   return (worker.todo.length > 0)
 }
+
+export const coinType = (coin) => `${coin.state} ${coin.batch}`
+
+export const coinTypes = (worker) => ({
+  todo: worker.todo.map(coin => coinType(coin)),
+  wip: (worker.wip.occupied) ? [coinType(worker.wip.coin)] : [],
+  out: worker.out.map(coin => coinType(coin))
+})
 
 export const coins = (worker) => ({
   todo: worker.todo.map(coin => coin.state),

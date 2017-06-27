@@ -1,12 +1,7 @@
 import React from 'react'
 
-const Heads = () =>
-  <svg className='heads'>
-    <circle cx='6' cy='6' r='6' />
-  </svg>
-
-const Tails = () =>
-  <svg className='tails'>
+const Heads = ({ type }) =>
+  <svg className={type}>
     <circle cx='6' cy='6' r='6' />
   </svg>
 
@@ -16,7 +11,7 @@ export default ({ coins }) =>
       coins.map((coin, i) => (
         <div className='coin' key={i}>
           {
-            (coin === 'H') ? <Heads /> : <Tails />
+            <Heads type={coin} />
           }
         </div>
       ))

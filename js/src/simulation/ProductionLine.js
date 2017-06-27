@@ -2,7 +2,7 @@ import React from 'react'
 import Worker from './Worker'
 import Stats from './Stats'
 import CoinPile from './CoinPile'
-import { coins } from './reducers/worker'
+import { coinType, coinTypes } from './reducers/worker'
 
 const Customer = ({ coins }) =>
   <div className='customer group'>
@@ -12,11 +12,11 @@ const Customer = ({ coins }) =>
 
 export default ({ simulation }) =>
   <div className='production-line group'>
-    <Worker {...coins(simulation.s1)} name={simulation.s1.displayName} batchSize={simulation.s1.currentBatchSize} />
-    <Worker {...coins(simulation.s2)} name={simulation.s2.displayName} batchSize={simulation.s2.currentBatchSize} />
-    <Worker {...coins(simulation.s3)} name={simulation.s3.displayName} batchSize={simulation.s3.currentBatchSize} />
-    <Worker {...coins(simulation.s4)} name={simulation.s4.displayName} batchSize={simulation.s4.currentBatchSize} />
-    <Customer {...simulation.customer} />
+    <Worker {...coinTypes(simulation.s1)} name={simulation.s1.displayName} batchSize={simulation.s1.currentBatchSize} />
+    <Worker {...coinTypes(simulation.s2)} name={simulation.s2.displayName} batchSize={simulation.s2.currentBatchSize} />
+    <Worker {...coinTypes(simulation.s3)} name={simulation.s3.displayName} batchSize={simulation.s3.currentBatchSize} />
+    <Worker {...coinTypes(simulation.s4)} name={simulation.s4.displayName} batchSize={simulation.s4.currentBatchSize} />
+    <Customer coins={simulation.customer.coins.map(coin => coinType(coin))} />
     <Stats simulation={simulation} />
   </div>
 
