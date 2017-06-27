@@ -16,7 +16,7 @@ describe('stats reducer', () => {
     })
 
     it('counts the ticks upto delivery', () => {
-      let actions = [tick(), tick(), receiveBatch('agile', 'customer', [])]
+      let actions = [tick(), tick(), receiveBatch('agile', 'customer', [{createdAt: 34}])]
       state = reductio(reducer, actions)
       expect(ticksToFirstValue(state)).to.equal(2)
     })
@@ -24,9 +24,9 @@ describe('stats reducer', () => {
     it("doesn't change after the first delivery", () => {
       let actions = [
         tick(), tick(), tick(),
-        receiveBatch('agile', 'customer', []),
+        receiveBatch('agile', 'customer', [{createdAt: 34}]),
         tick(), tick(), tick(),
-        receiveBatch('agile', 'customer', [])
+        receiveBatch('agile', 'customer', [{createdAt: 34}])
       ]
       state = reductio(reducer, actions)
       expect(ticksToFirstValue(state)).to.equal(3)
