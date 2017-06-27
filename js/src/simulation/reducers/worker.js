@@ -1,3 +1,4 @@
+import { TICK } from '../../controls/actionCreators'
 import {
   CONTINUE_TASK,
   DELIVER_BATCH,
@@ -8,6 +9,7 @@ import {
 
 const initialState = (config) => ({
   ...config,
+  ticks: 0,
   currentBatchSize: config.initialBatchSize,
   todo: [],
   wip: {occupied: false},
@@ -54,6 +56,11 @@ const continueTask = (state) => {
 export default (simulationName, name, config) => (state, action) => {
   if (state === undefined)
     return initialState(config)
+  if (action.type === TICK)
+    return {
+      ...state,
+      ticks: state.ticks + 1
+    }
   if (action.simulationName !== simulationName)
     return state
   if (action.workerName !== name)
@@ -63,7 +70,10 @@ export default (simulationName, name, config) => (state, action) => {
     case NEW_BATCH_FROM_CUSTOMER:
       return {
         ...state,
-        todo: Array(state.initialBatchSize).fill({state: 'H' })
+        todo: Array(state.initialBatchSize).fill({
+          createdAt: state.ticks,
+          state: 'H'
+        })
       }
 
     case RECEIVE_BATCH:
