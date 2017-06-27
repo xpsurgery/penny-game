@@ -8,7 +8,7 @@ const initialState = {
 const recordCycleTime = (state, action) => {
   return {
     ...state,
-    cycleTime: state.ticks - Math.max.apply(null, action.batch.map(coin => coin.createdAt))
+    cycleTime: state.ticks - Math.min.apply(null, action.batch.map(coin => coin.createdAt))
   }
 }
 
