@@ -1,13 +1,13 @@
 import React from 'react'
 
 const Heads = () =>
-  <svg viewPort='0 0 200 200'>
-    <circle cx='6' cy='6' r='6' fill='#daa520' />
+  <svg className='heads'>
+    <circle cx='6' cy='6' r='6' />
   </svg>
 
 const Tails = () =>
-  <svg viewPort='0 0 200 200'>
-    <circle cx='6' cy='6' r='6' fill='silver' />
+  <svg className='tails'>
+    <circle cx='6' cy='6' r='6' />
   </svg>
 
 export default ({ coins }) =>
