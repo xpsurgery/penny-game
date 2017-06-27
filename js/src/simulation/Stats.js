@@ -4,7 +4,7 @@ import {
   valueDelivered,
   workInProgress
 } from './reducers/simulation'
-import { ticksToFirstValue } from './reducers/stats'
+import { ticksToFirstValue, cycleTime } from './reducers/stats'
 
 const NumericalStat = ({ label, value }) =>
   <div className='numerical-stat'>
@@ -25,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
     value: valueDelivered(ownProps.simulation),
     wip:   workInProgress(ownProps.simulation),
     ttfv:  ticksToFirstValue(ownProps.simulation.stats) || '--',
-    ct:    '??'
+    ct:    cycleTime(ownProps.simulation.stats) || '--'
   }
 }
 

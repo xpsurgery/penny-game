@@ -5,10 +5,15 @@ const initialState = {
   ticks: 0
 }
 
-const recordFirstValue = (state, action) => {
+const recordCycleTime = (state, action) => {
+  return {
+    ...state,
+    cycleTime: state.ticks - action.batch[0].createdAt
+  }
+}
+
+const recordFirstValue = (state) => {
   if (state.ticksToFirstValue)
-    return state
-  if (action.workerName !== 'customer')
     return state
   return {
     ...state,
@@ -27,11 +32,17 @@ export default (simulationName) => (state=initialState, action) => {
 
   switch (action.type) {
     case RECEIVE_BATCH:
-      return recordFirstValue(state, action)
+      if (action.workerName !== 'customer')
+        return state
+      return recordFirstValue(recordCycleTime(state, action))
 
     default:
       return state
   }
+}
+
+export const cycleTime = (state) => {
+  return state.cycleTime
 }
 
 export const ticksToFirstValue = (state) => {

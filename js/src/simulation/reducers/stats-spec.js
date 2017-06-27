@@ -4,30 +4,34 @@ import { tick } from '../../controls/actionCreators'
 import { receiveBatch } from '../actionCreators'
 import stats, { ticksToFirstValue } from './stats'
 
-describe('ticks remaining', () => {
-  let state
-  let reducer = stats('agile')
+describe('stats reducer', () => {
 
-  it('ignores other simulations', () => {
-    state = reducer(state, receiveBatch())
-    expect(ticksToFirstValue(state)).to.equal(undefined)
-  })
+  describe('ticks remaining', () => {
+    let state
+    let reducer = stats('agile')
 
-  it('counts the ticks upto delivery', () => {
-    let actions = [tick(), tick(), receiveBatch('agile', 'customer', [])]
-    state = reductio(reducer, actions)
-    expect(ticksToFirstValue(state)).to.equal(2)
-  })
+    it('ignores other simulations', () => {
+      state = reducer(state, receiveBatch())
+      expect(ticksToFirstValue(state)).to.equal(undefined)
+    })
 
-  it("doesn't change after the first delivery", () => {
-    let actions = [
-      tick(), tick(), tick(),
-      receiveBatch('agile', 'customer', []),
-      tick(), tick(), tick(),
-      receiveBatch('agile', 'customer', [])
-    ]
-    state = reductio(reducer, actions)
-    expect(ticksToFirstValue(state)).to.equal(3)
+    it('counts the ticks upto delivery', () => {
+      let actions = [tick(), tick(), receiveBatch('agile', 'customer', [])]
+      state = reductio(reducer, actions)
+      expect(ticksToFirstValue(state)).to.equal(2)
+    })
+
+    it("doesn't change after the first delivery", () => {
+      let actions = [
+        tick(), tick(), tick(),
+        receiveBatch('agile', 'customer', []),
+        tick(), tick(), tick(),
+        receiveBatch('agile', 'customer', [])
+      ]
+      state = reductio(reducer, actions)
+      expect(ticksToFirstValue(state)).to.equal(3)
+    })
+
   })
 
 })
