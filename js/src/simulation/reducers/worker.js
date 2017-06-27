@@ -102,6 +102,7 @@ export default (simulationName, name, config) => (state, action) => {
     case DELIVER_BATCH:
       return {
         ...state,
+        currentBatchSize: state.currentBatchSize + state.batchSizeIncrement,
         out: state.out.slice(0, state.out.length - action.batch.length)
       }
 

@@ -19,20 +19,25 @@ describe('Worker reducer', () => {
 
   const reducer = worker('test', 's1', {
     initialBatchSize: 3,
+    batchSizeIncrement: 2,
     taskTicks: 2
   })
+  let state
 
   describe('when there is nothing to do', () => {
     it('reports state correctly', () => {
-      const state = reductio(reducer, [])
+      state = reductio(reducer, [])
       expect(hasTaskInProgress(state)).to.eq(false)
       expect(hasBatchReady(state)).to.eq(false)
       expect(hasWorkReadyToStart(state)).to.eq(false)
     })
+
+    it('has the correct initial batch size', () => {
+      expect(state.currentBatchSize).to.eq(3)
+    })
   })
 
   describe('when instructed to get a new batch from the customer', () => {
-    let state
 
     beforeEach(() => {
       const actions = [newBatchFromCustomer('test', 's1')]
@@ -56,7 +61,6 @@ describe('Worker reducer', () => {
   })
 
   describe('when instructed to pick up the first task', () => {
-    let state
 
     beforeEach(() => {
       const actions = [
@@ -82,7 +86,6 @@ describe('Worker reducer', () => {
   })
 
   describe('when instructed to continue the task', () => {
-    let state
 
     beforeEach(() => {
       const actions = [
@@ -109,7 +112,6 @@ describe('Worker reducer', () => {
   })
 
   describe('when instructed to continue the task again', () => {
-    let state
 
     beforeEach(() => {
       const actions = [
@@ -137,7 +139,6 @@ describe('Worker reducer', () => {
   })
 
   describe('when instructed to continue the task again', () => {
-    let state
 
     beforeEach(() => {
       const actions = [
@@ -166,7 +167,6 @@ describe('Worker reducer', () => {
   })
 
   describe('when instructed to complete all tasks', () => {
-    let state
 
     beforeEach(() => {
       const actions = [
@@ -206,7 +206,6 @@ describe('Worker reducer', () => {
   })
 
   describe('when instructed to deliver the batch', () => {
-    let state
 
     beforeEach(() => {
       const actions = [
@@ -241,13 +240,17 @@ describe('Worker reducer', () => {
       expect(hasBatchReady(state)).to.eq(false)
     })
 
-    it('can receive a new batch of work', () => {
-      expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(true)
+    it('has a bigger batch size', () => {
+      expect(state.currentBatchSize).to.eq(5)
     })
+
+    it('can receive a new batch of work', () => {
+      expect(isReadyForNextBatch(state, ['H', 'H', 'H', 'H', 'H'])).to.eq(true)
+    })
+
   })
 
   describe('when instructed to receive a batch', () => {
-    let state
 
     beforeEach(() => {
       const actions = [
