@@ -3,6 +3,7 @@ import {
 } from '../actionCreators'
 
 const initialState = {
+  currentBatchSize: 0,
   coins: []
 }
 

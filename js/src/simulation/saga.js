@@ -22,7 +22,8 @@ function* process(simulationName, workerName, nextWorkerName) {
   if (hasTaskInProgress(worker))
     yield put(continueTask(simulationName, workerName))
   else if (hasBatchReady(worker) && (nextWorkerName === 'customer' || isReadyForNextBatch(nextWorker, worker.out))) {
-    let batch = worker.out
+    let sz = Math.max(worker.currentBatchSize, nextWorker.currentBatchSize)
+    let batch = worker.out.slice(0, sz)
     yield put(deliverBatch(simulationName, workerName, batch))
     yield put(receiveBatch(simulationName, nextWorkerName, batch))
   } else if (hasWorkReadyToStart(worker))
