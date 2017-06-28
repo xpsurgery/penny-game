@@ -227,7 +227,7 @@ describe('Worker reducer', () => {
       state = reductio(reducer, actions)
     })
 
-    it('completes all tasks', () => {
+    it('no longer has the tasks', () => {
       expect(coins(state)).to.deep.equal({ todo: [], wip: [], out: ['T'] })
     })
 
