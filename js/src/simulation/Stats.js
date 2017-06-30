@@ -1,16 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import NumericalStat from './NumericalStat'
 import {
   valueDelivered,
   workInProgress
 } from './reducers/simulation'
 import { ticksToFirstValue, cycleTime } from './reducers/stats'
-
-const NumericalStat = ({ label, value }) =>
-  <div className='numerical-stat'>
-    <div className='label'> {label} </div>
-    <div className='value'> {value} </div>
-  </div>
 
 const Stats = ({ value, wip, ttfv, ct }) =>
   <div className='stats'>

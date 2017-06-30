@@ -1,4 +1,5 @@
 import React from 'react'
+import Config from './Config'
 import Worker from './Worker'
 import Stats from './Stats'
 import Customer from './Customer'
@@ -15,6 +16,7 @@ const customerCoins = (simulation) =>
 
 export default ({ simulation }) =>
   <div className='production-line group'>
+    <Config simulation={simulation} />
     <Worker {...workerArgs(simulation.s1)} />
     <Worker {...workerArgs(simulation.s2)} />
     <Worker {...workerArgs(simulation.s3)} />
