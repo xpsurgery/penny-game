@@ -1,15 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Controls from '../controls/Controls'
-import ProductionLine from './ProductionLine'
+import Scenario from './Scenario'
 
 const Simulation = ({ waterfall, agile, scrum }) =>
-  <div className='simulation'>
-    <h1> Penny game simulation </h1>
+  <div className='demonstration'>
+    <h1> Penny game demonstration </h1>
     <Controls />
-    <ProductionLine simulation={waterfall} />
-    <ProductionLine simulation={agile} />
-    <ProductionLine simulation={scrum} />
+    <Scenario simulation={waterfall} />
+    <Scenario simulation={agile} />
+    <Scenario simulation={scrum} />
     <p>
       Note that these simulations are based on single piece flow.
       Imagine how much worse the above would be if each worker had
