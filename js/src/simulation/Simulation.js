@@ -15,6 +15,11 @@ const Simulation = ({ waterfall, agile, scrum }) =>
       Imagine how much worse the above would be if each worker had
       multiple tasks ongoing simultaneously!
     </p>
+    <p>
+      Note also that we assume no rework arises from testing.
+      This would slow the developer tasks, and that is assumed
+      accounted for in the "Dev task size" configuration variable.
+    </p>
   </div>
 
 const mapStateToProps = ({ simulation }) => simulation

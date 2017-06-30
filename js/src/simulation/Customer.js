@@ -3,7 +3,7 @@ import CoinPile from './CoinPile'
 
 export default ({ coins }) =>
   <div className='customer group'>
-    <div className='label'> Accepted </div>
+    <div className='title'> Accepted </div>
     <CoinPile coins={coins} />
   </div>
 

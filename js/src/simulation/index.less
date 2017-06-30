@@ -1,50 +1,45 @@
 .demonstration {
 
+  margin: 0 auto;
+
   .production-line {
 
-    margin: 24px 8px;
+    margin-top: 32px;
     background-color: #e0e0e0;
     padding: 12px;
+    display: inline-block;
 
     .config {
       background-color: #fff;
       margin-right: 12px;
       float: left;
-      width: 10%;
+      width: 200px;
       padding: 12px;
     }
 
     .worker {
       background-color: #fff;
       margin-right: 12px;
-      width: 16%;
       float: left;
-
-      .title {
-        text-align: center;
-        color: #fff;
-        background-color: @brand-color;
-
-        span {
-          float: right;
-          margin-right: 4px;
-        }
-      }
 
       .basket {
         float: left;
-        width: 30%;
+        width: 60px;
         padding: 4px;
+        min-height: 5em;
+        border-left: 1px solid #ccc;
       }
 
       .basket.WIP .coins .coin {
         float: none;
       }
 
-      .basket.Done .coins .coin {
-        float: right;
-      }
+    }
 
+    .title {
+      text-align: center;
+      color: #fff;
+      background-color: @brand-color;
     }
 
     svg {
@@ -75,13 +70,9 @@
     .customer {
       background-color: #fff;
       margin-right: 12px;
-      width: 8%;
+      width: 128px;
       float: left;
-
-      .label {
-        background-color: #0a6;
-        color: #fff;
-      }
+      min-height: 5em;
 
       .coins {
         padding: 4px;
@@ -102,7 +93,7 @@
 
     .stats {
       background-color: #fff;
-      width: 10%;
+      width: 200px;
       float: left;
       padding: 12px;
 

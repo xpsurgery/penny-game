@@ -5,8 +5,8 @@ const waterfallConfig = {
   name:                  'waterfall',
   defaultBatchSize:      20,
   initialDeveloperBatch: 20,
-  batchSizeIncrement:     5,
-  devTaskTicks:           5
+  batchSizeIncrement:     0,
+  devTaskTicks:           1
 }
 
 const agileConfig = {
