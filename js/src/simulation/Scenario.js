@@ -1,7 +1,7 @@
 import React from 'react'
 import Worker from './Worker'
 import Stats from './Stats'
-import CoinPile from './CoinPile'
+import Customer from './Customer'
 import { coinType, coinTypes } from './reducers/worker'
 
 const workerArgs = (worker) => ({
@@ -12,12 +12,6 @@ const workerArgs = (worker) => ({
 
 const customerCoins = (simulation) =>
   simulation.customer.coins.map(coin => coinType(coin))
-
-const Customer = ({ coins }) =>
-  <div className='customer group'>
-    <div className='label'> Accepted </div>
-    <CoinPile coins={coins} />
-  </div>
 
 export default ({ simulation }) =>
   <div className='production-line group'>
