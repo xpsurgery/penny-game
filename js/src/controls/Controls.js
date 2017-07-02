@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import FontAwesome from 'react-fontawesome'
-import { enableRepeater, disableRepeater } from './actionCreators'
+import { enableRepeater, disableRepeater, resetAll } from './actionCreators'
 
-const Controls = ({ running, ticksSoFar, enableRepeater, disableRepeater }) =>
+const Controls = ({ running, ticksSoFar, enableRepeater, disableRepeater, resetAll }) =>
   <div className='controls group'>
     <div className='play-controls'>
+      <button onClick={resetAll}>
+        <FontAwesome name='fast-backward' />
+      </button>
       {
         running ? (
           <button onClick={disableRepeater}>
@@ -27,6 +30,7 @@ const mapStateToProps = ({ controls }) => controls
 
 export default connect(mapStateToProps, {
   enableRepeater,
-  disableRepeater
+  disableRepeater,
+  resetAll
 })(Controls)
 

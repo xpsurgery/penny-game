@@ -4,6 +4,12 @@ export const tick = () => ({
   type: TICK
 })
 
+export const RESET_ALL = 'RESET_ALL'
+
+export const resetAll = () => ({
+  type: RESET_ALL
+})
+
 export const ENABLE_REPEATER = 'ENABLE_REPEATER'
 
 export const enableRepeater = () => ({
