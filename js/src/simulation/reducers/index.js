@@ -21,7 +21,7 @@ const scrumConfig = {
   name:                  'scrum',
   defaultBatchSize:       5,
   initialDeveloperBatch: 10,
-  batchSizeIncrement:     5,
+  batchSizeIncrement:     1,
   devTaskTicks:           5
 }
 
