@@ -6,6 +6,7 @@ import {
   RECEIVE_BATCH,
   NEW_BATCH_FROM_CUSTOMER
 } from '../actionCreators'
+import { RESET_ALL } from '../../controls/actionCreators'
 
 const initialState = (config) => ({
   ...config,
@@ -62,6 +63,8 @@ export default (simulationName, name, config) => (state, action) => {
       ...state,
       ticks: state.ticks + 1
     }
+  if (action.type === RESET_ALL)
+    return initialState(config)
   if (action.simulationName !== simulationName)
     return state
   if (action.workerName !== name)

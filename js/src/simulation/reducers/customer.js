@@ -1,6 +1,5 @@
-import {
-  RECEIVE_BATCH
-} from '../actionCreators'
+import { RECEIVE_BATCH } from '../actionCreators'
+import { RESET_ALL } from '../../controls/actionCreators'
 
 const initialState = {
   currentBatchSize: 0,
@@ -10,6 +9,10 @@ const initialState = {
 export default (simulationName, name) => (state, action) => {
   if (state === undefined)
     return initialState
+
+  if (action.type === RESET_ALL)
+    return initialState
+
   if (action.simulationName !== simulationName)
     return state
   if (action.workerName !== name)

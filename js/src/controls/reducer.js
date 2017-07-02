@@ -1,4 +1,4 @@
-import { TICK, ENABLE_REPEATER, DISABLE_REPEATER } from './actionCreators'
+import { TICK, ENABLE_REPEATER, DISABLE_REPEATER, RESET_ALL } from './actionCreators'
 
 const initialState = {
   running: false,
@@ -26,6 +26,9 @@ export default (state=initialState, action) => {
         ...state,
         running: false
       }
+
+    case RESET_ALL:
+      return initialState
 
     default:
       return state

@@ -7,6 +7,7 @@ import {
   continueTask,
   deliverBatch
 } from '../actionCreators'
+import { resetAll } from '../../controls/actionCreators'
 import worker, {
   hasTaskInProgress,
   hasBatchReady,
@@ -30,6 +31,10 @@ describe('Worker reducer', () => {
       expect(hasTaskInProgress(state)).to.eq(false)
       expect(hasBatchReady(state)).to.eq(false)
       expect(hasWorkReadyToStart(state)).to.eq(false)
+    })
+
+    it('has no work in progress', () => {
+      expect(coins(state)).to.deep.equal({ todo: [], wip: [], out: [] })
     })
 
     it('has the correct initial batch size', () => {
@@ -274,6 +279,29 @@ describe('Worker reducer', () => {
 
     it('cannot receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(false)
+    })
+  })
+
+  describe('when reset', () => {
+
+    beforeEach(() => {
+      const actions = [newBatchFromCustomer('test', 's1'), resetAll()]
+      state = reductio(reducer, actions)
+    })
+
+    it('reports state correctly', () => {
+      state = reductio(reducer, [])
+      expect(hasTaskInProgress(state)).to.eq(false)
+      expect(hasBatchReady(state)).to.eq(false)
+      expect(hasWorkReadyToStart(state)).to.eq(false)
+    })
+
+    it('has no work in progress', () => {
+      expect(coins(state)).to.deep.equal({ todo: [], wip: [], out: [] })
+    })
+
+    it('has the correct initial batch size', () => {
+      expect(state.currentBatchSize).to.eq(3)
     })
   })
 
