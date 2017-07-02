@@ -1,7 +1,7 @@
 import { TICK, ENABLE_REPEATER, DISABLE_REPEATER } from './actionCreators'
 
 const initialState = {
-  playEnabled: false,
+  running: false,
   millisecondsPerTick: 333,
   ticksSoFar: 0
 }
@@ -18,13 +18,13 @@ export default (state=initialState, action) => {
     case ENABLE_REPEATER:
       return {
         ...state,
-        playEnabled: true
+        running: true
       }
 
     case DISABLE_REPEATER:
       return {
         ...state,
-        playEnabled: false
+        running: false
       }
 
     default:

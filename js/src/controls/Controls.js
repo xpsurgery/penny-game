@@ -3,15 +3,20 @@ import { connect } from 'react-redux'
 import FontAwesome from 'react-fontawesome'
 import { enableRepeater, disableRepeater } from './actionCreators'
 
-const Controls = ({ playEnabled, ticksSoFar, enableRepeater, disableRepeater }) =>
+const Controls = ({ running, ticksSoFar, enableRepeater, disableRepeater }) =>
   <div className='controls group'>
     <div className='play-controls'>
-      <button disabled={playEnabled} onClick={enableRepeater}>
-        <FontAwesome name='play' />
-      </button>
-      <button disabled={!playEnabled} onClick={disableRepeater}>
-        <FontAwesome name='pause' />
-      </button>
+      {
+        running ? (
+          <button onClick={disableRepeater}>
+            <FontAwesome name='pause' />
+          </button>
+        ) : (
+          <button onClick={enableRepeater}>
+            <FontAwesome name='play' />
+          </button>
+        )
+      }
     </div>
     <div className='ticks-so-far'>
       Ticks so far: {ticksSoFar}
