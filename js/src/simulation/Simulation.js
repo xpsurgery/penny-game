@@ -7,8 +7,11 @@ const Simulation = ({ waterfall, agile, scrum }) =>
   <div className='demonstration'>
     <h1> Penny game demonstration </h1>
     <Controls />
+    <h2> "Waterfall" </h2>
     <Scenario simulation={waterfall} />
+    <h2> "Agile" </h2>
     <Scenario simulation={agile} />
+    <h2> "Scrum" </h2>
     <Scenario simulation={scrum} />
     <p>
       Note that these simulations are based on single piece flow.
