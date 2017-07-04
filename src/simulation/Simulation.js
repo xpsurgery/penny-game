@@ -5,7 +5,6 @@ import Scenario from './Scenario'
 
 const Simulation = ({ waterfall, agile, scrum }) =>
   <div className='demonstration'>
-    <h1> Penny game demonstration </h1>
     <Controls />
     <h2> "Waterfall" </h2>
     <Scenario simulation={waterfall} />

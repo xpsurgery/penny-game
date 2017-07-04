@@ -9,10 +9,10 @@ import { ticksToFirstValue, cycleTime } from './reducers/stats'
 
 const Stats = ({ value, wip, ttfv, ct }) =>
   <div className='stats'>
-    <NumericalStat label='Value delivered' value={value} />
-    <NumericalStat label='Current WIP' value={wip} />
-    <NumericalStat label='Time to first value' value={ttfv} />
-    <NumericalStat label='Cycle time' value={ct} />
+    <NumericalStat name='Value delivered' value={value} />
+    <NumericalStat name='Current WIP' value={wip} />
+    <NumericalStat name='Time to first value' value={ttfv} />
+    <NumericalStat name='Cycle time' value={ct} />
   </div>
 
 const mapStateToProps = (state, ownProps) => {

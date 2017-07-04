@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default ({ label, value }) =>
+export default ({ name, value }) =>
   <div className='numerical-stat'>
-    <div className='label'> {label} </div>
+    <div className='name'> {name} </div>
     <div className='value'> {value} </div>
   </div>
 

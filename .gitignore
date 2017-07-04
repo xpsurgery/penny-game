@@ -4,5 +4,6 @@ dist/
 .made-*
 node_modules/
 *.pem
+*.swo
 *.swp
 tmp
