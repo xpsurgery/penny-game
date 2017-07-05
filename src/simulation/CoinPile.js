@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Heads = ({ type }) =>
-  <svg className={type}>
+  <svg viewBox='0 0 12 12' className={type}>
     <circle cx='6' cy='6' r='6' />
   </svg>
 
