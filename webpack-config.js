@@ -3,34 +3,45 @@ var WebpackNotifierPlugin = require('webpack-notifier')
 
 module.exports = {
 
-  entry: [
-    'babel-polyfill',
-    './src'
-  ],
+  context: path.resolve(__dirname, './src'),
+
+  entry: {
+    app: [ "babel-polyfill", "./index.js" ]
+  },
 
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js',
-    publicPath: '/'
+    path: path.resolve(__dirname, "./dist"),
+    filename: "bundle.js",
+    publicPath: "/"
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: [".js", ".jsx"]
   },
 
   module: {
 
-    preLoaders: [
-      { test: /\.js$/, loader: "eslint-loader", include: __dirname }
-    ],
-
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: [path.resolve(__dirname, "node_modules")] },
-      { test: /\.less$/, loader: 'style!css!less' },
-      { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: "file" },
+    rules: [
       {
+        test: /\.js$/,
+        loader: "eslint-loader",
+        enforce: "pre",
+        exclude: /node_modules/,
+        options: { failOnError: true }
+      }, {
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /node_modules/,
+        options: { presets: ["es2015", "stage-0", "react"] }
+      }, {
+        test: /\.less$/,
+        use: ["style-loader", "css-loader", "less-loader"]
+      }, {
+        test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+        loader: "file-loader"
+      }, {
         test: /\.(jpe?g|gif|png)$/,
-        loader: 'file-loader?name=[path][name].[ext]'
+        loader: "file-loader?name=[path][name].[ext]"
       }
     ]
   },
@@ -40,9 +51,7 @@ module.exports = {
       excludeWarnings: false,
       alwaysNotify: true
     })
-  ],
+  ]
 
-  eslint: {
-    failOnError: true
-  }
 }
+
