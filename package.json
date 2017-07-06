@@ -18,13 +18,13 @@
     "less": "2.7.1",
     "less-loader": "2.2.3",
     "moment": "2.17.1",
-    "react": "15.4.1",
-    "react-dom": "15.4.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-fontawesome": "^1.6.1",
     "react-mixin": "3.0.5",
-    "react-redux": "4.4.6",
-    "redux": "3.6.0",
-    "redux-saga": "^0.15.3",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.1",
+    "redux-saga": "^0.15.4",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.14.0"
@@ -45,8 +45,8 @@
     "deep-freeze": "0.0.1",
     "growl": "1.9.2",
     "mocha": "3.4.2",
-    "react-scripts": "0.8.3",
-    "redux-logger": "2.7.4",
+    "react-scripts": "^1.0.10",
+    "redux-logger": "^3.0.6",
     "webpack-notifier": "1.4.1"
   }
 }
