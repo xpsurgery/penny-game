@@ -43,10 +43,10 @@
   "devDependencies": {
     "babel-preset-react": "6.16.0",
     "babel-preset-stage-0": "6.16.0",
-    "chai": "3.5.0",
+    "chai": "4.0.2",
     "deep-freeze": "0.0.1",
     "growl": "1.9.2",
-    "mocha": "3.2.0",
+    "mocha": "3.4.2",
     "react-scripts": "0.8.3",
     "redux-logger": "2.7.4",
     "webpack-notifier": "1.4.1"
