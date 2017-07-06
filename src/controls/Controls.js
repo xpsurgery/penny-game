@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import FontAwesome from 'react-fontawesome'
 import { enableRepeater, disableRepeater, resetAll } from './actionCreators'
@@ -25,6 +26,15 @@ const Controls = ({ running, ticksSoFar, enableRepeater, disableRepeater, resetA
       Ticks so far: {ticksSoFar}
     </div>
   </div>
+
+Controls.displayName = 'Controls'
+Controls.propTypes = {
+  running:         PropTypes.bool.isRequired,
+  ticksSoFar:      PropTypes.number.isRequired,
+  enableRepeater:  PropTypes.func.isRequired,
+  disableRepeater: PropTypes.func.isRequired,
+  resetAll:        PropTypes.func.isRequired
+}
 
 const mapStateToProps = ({ controls }) => controls
 

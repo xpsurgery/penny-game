@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Config from './Config'
 import Worker from './Worker'
 import Stats from './Stats'
@@ -14,7 +15,7 @@ const workerArgs = (worker) => ({
 const customerCoins = (simulation) =>
   simulation.customer.coins.map(coin => coinType(coin))
 
-export default ({ simulation }) =>
+const Scenario = ({ simulation }) =>
   <div className='production-line group'>
     <Config simulation={simulation} />
     <Worker {...workerArgs(simulation.s1)} />
@@ -24,4 +25,11 @@ export default ({ simulation }) =>
     <Customer coins={customerCoins(simulation)} />
     <Stats simulation={simulation} />
   </div>
+
+Scenario.displayName = 'Scenario'
+Scenario.propTypes = {
+  simulation: PropTypes.object.isRequired
+}
+
+export default Scenario
 

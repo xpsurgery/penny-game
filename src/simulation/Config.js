@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import NumericalStat from './NumericalStat'
 
 const Config = ({ simulation }) =>
@@ -8,6 +9,11 @@ const Config = ({ simulation }) =>
     <NumericalStat name='Dev batch increment' value={simulation.s3.batchSizeIncrement} />
     <NumericalStat name='Dev task size' value={simulation.s3.taskTicks} />
   </div>
+
+Config.displayName = 'Config'
+Config.propTypes = {
+  simulation: PropTypes.object.isRequired
+}
 
 export default Config
 

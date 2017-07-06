@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import NumericalStat from './NumericalStat'
 import {
@@ -14,6 +15,14 @@ const Stats = ({ value, wip, ttfv, ct }) =>
     <NumericalStat name='Time to first value' value={ttfv} />
     <NumericalStat name='Cycle time' value={ct} />
   </div>
+
+Stats.displayName = 'Stats'
+Stats.propTypes = {
+  value: PropTypes.number.isRequired,
+  wip:   PropTypes.number.isRequired,
+  ttfv:  PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
+  ct:    PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {

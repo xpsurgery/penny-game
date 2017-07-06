@@ -27,7 +27,7 @@ module.exports = {
         loader: "eslint-loader",
         enforce: "pre",
         exclude: /node_modules/,
-        options: { failOnError: true }
+        options: { }
       }, {
         test: /\.js$/,
         loader: "babel-loader",

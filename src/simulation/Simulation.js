@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Controls from '../controls/Controls'
 import Scenario from './Scenario'
@@ -13,6 +14,13 @@ const Simulation = ({ waterfall, agile, scrum }) =>
     <h2> "Scrum" </h2>
     <Scenario simulation={scrum} />
   </div>
+
+Simulation.displayName = 'Simulation'
+Simulation.propTypes = {
+  waterfall: PropTypes.object.isRequired,
+  agile:     PropTypes.object.isRequired,
+  scrum:     PropTypes.object.isRequired,
+}
 
 const mapStateToProps = ({ simulation }) => simulation
 
