@@ -1,7 +1,10 @@
 {
   "parser": "babel-eslint",
 
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
 
   "parserOptions": {
     "ecmaVersion": 6,
@@ -31,6 +34,7 @@
     "jsx-quotes": 0,
     "no-console": 1,
     "no-unexpected-multiline": 2,
+    "react/display-name": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
@@ -48,6 +52,7 @@
     "react/no-direct-mutation-state": 1,
     "react/no-multi-comp": 0,
     "react/no-set-state": 0,
+    "react/no-unescaped-entities": 0,
     "react/no-unknown-property": 1,
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 1,
