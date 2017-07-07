@@ -15,21 +15,21 @@ const workerArgs = (worker) => ({
 const customerCoins = (simulation) =>
   simulation.customer.coins.map(coin => coinType(coin))
 
-const Scenario = ({ simulation }) =>
+const PennyGame = ({ config }) =>
   <div className='production-line group'>
-    <Config simulation={simulation} />
-    <Worker {...workerArgs(simulation.s1)} />
-    <Worker {...workerArgs(simulation.s2)} />
-    <Worker {...workerArgs(simulation.s3)} />
-    <Worker {...workerArgs(simulation.s4)} />
-    <Customer coins={customerCoins(simulation)} />
-    <Stats simulation={simulation} />
+    <Config simulation={config} />
+    <Worker {...workerArgs(config.s1)} />
+    <Worker {...workerArgs(config.s2)} />
+    <Worker {...workerArgs(config.s3)} />
+    <Worker {...workerArgs(config.s4)} />
+    <Customer coins={customerCoins(config)} />
+    <Stats simulation={config} />
   </div>
 
-Scenario.displayName = 'Scenario'
-Scenario.propTypes = {
-  simulation: PropTypes.object.isRequired
+PennyGame.displayName = 'PennyGame'
+PennyGame.propTypes = {
+  config: PropTypes.object.isRequired
 }
 
-export default Scenario
+export default PennyGame
 

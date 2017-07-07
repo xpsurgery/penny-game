@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Scenario from '../simulation/Scenario'
+import PennyGame from '../simulation/PennyGame'
 
 const Demonstration = ({ waterfall, agile, scrum }) =>
   <div className='demonstration'>
     <h2> "Waterfall" </h2>
-    <Scenario simulation={waterfall} />
+    <PennyGame config={waterfall} />
     <h2> "Agile" </h2>
-    <Scenario simulation={agile} />
+    <PennyGame config={agile} />
     <h2> "Scrum" </h2>
-    <Scenario simulation={scrum} />
+    <PennyGame config={scrum} />
   </div>
 
 Demonstration.displayName = 'Demonstration'
