@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects'
-import watchTick from '../simulation/saga'
+import watchTick from '../demonstration/saga'
 import repeatTimer from '../controls/saga'
 
 export default function* rootSaga() {

@@ -32,20 +32,10 @@ function* process(simulationName, workerName, nextWorkerName) {
     yield put(newBatchFromCustomer(simulationName, workerName))
 }
 
-export default function* watchTick() {
-  yield takeEvery('TICK', process, 'waterfall', 's1', 's2')
-  yield takeEvery('TICK', process, 'waterfall', 's2', 's3')
-  yield takeEvery('TICK', process, 'waterfall', 's3', 's4')
-  yield takeEvery('TICK', process, 'waterfall', 's4', 'customer')
-
-  yield takeEvery('TICK', process, 'agile', 's1', 's2')
-  yield takeEvery('TICK', process, 'agile', 's2', 's3')
-  yield takeEvery('TICK', process, 'agile', 's3', 's4')
-  yield takeEvery('TICK', process, 'agile', 's4', 'customer')
-
-  yield takeEvery('TICK', process, 'scrum', 's1', 's2')
-  yield takeEvery('TICK', process, 'scrum', 's2', 's3')
-  yield takeEvery('TICK', process, 'scrum', 's3', 's4')
-  yield takeEvery('TICK', process, 'scrum', 's4', 'customer')
+export default function* scenarioSagas(scenarioName) {
+  yield takeEvery('TICK', process, scenarioName, 's1', 's2')
+  yield takeEvery('TICK', process, scenarioName, 's2', 's3')
+  yield takeEvery('TICK', process, scenarioName, 's3', 's4')
+  yield takeEvery('TICK', process, scenarioName, 's4', 'customer')
 }
 
