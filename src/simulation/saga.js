@@ -15,7 +15,7 @@ import {
 
 function* process(simulationName, workerName, nextWorkerName) {
   const state = yield select()
-  const line = state.simulation[simulationName]
+  const line = state.demonstration[simulationName]
   const worker = line[workerName]
   const nextWorker = line[nextWorkerName]
 

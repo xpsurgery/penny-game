@@ -22,7 +22,7 @@ Demonstration.propTypes = {
   scrum:     PropTypes.object.isRequired,
 }
 
-const mapStateToProps = ({ simulation }) => simulation
+const mapStateToProps = ({ demonstration }) => demonstration
 
 export default connect(mapStateToProps)(Demonstration)
 

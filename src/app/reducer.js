@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
-import simulation from '../simulation/reducers'
+import demonstration from '../demonstration/reducer'
 import controls from '../controls/reducer'
 
 export default combineReducers({
   controls,
-  simulation
+  demonstration
 })
+
