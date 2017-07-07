@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Controls from '../controls/Controls'
 import Scenario from '../simulation/Scenario'
 
 const Demonstration = ({ waterfall, agile, scrum }) =>
   <div className='demonstration'>
-    <Controls />
     <h2> "Waterfall" </h2>
     <Scenario simulation={waterfall} />
     <h2> "Agile" </h2>
