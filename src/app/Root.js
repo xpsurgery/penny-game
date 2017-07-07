@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
-import Simulation from '../simulation/Simulation'
+import Demonstration from '../demonstration/Demonstration'
 
 const Root = ({ store }) =>
   <Provider store={store}>
-    <Simulation />
+    <Demonstration />
   </Provider>
 
 Root.displayName = 'Root'
@@ -14,3 +14,4 @@ Root.propTypes = {
 }
 
 export default Root
+
