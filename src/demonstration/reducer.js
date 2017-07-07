@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import simulation from '../simulation/reducers/simulation'
+import simulation from '../penny-game/reducers/simulation'
 
 const waterfallConfig = {
   name:                  'waterfall',

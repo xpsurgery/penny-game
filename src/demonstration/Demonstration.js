@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import PennyGame from '../simulation/PennyGame'
+import PennyGame from '../penny-game/PennyGame'
 
 const Demonstration = ({ waterfall, agile, scrum }) =>
   <div className='demonstration'>

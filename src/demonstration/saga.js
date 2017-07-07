@@ -1,4 +1,4 @@
-import scenarioSagas from '../simulation/saga'
+import scenarioSagas from '../penny-game/saga'
 
 export default () => [
   scenarioSagas('waterfall'),
