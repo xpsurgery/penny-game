@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import simulation from '../penny-game/reducers/simulation'
+import pennyGame from '../penny-game/reducers'
 
 const waterfallConfig = {
   name:                  'waterfall',
@@ -26,8 +26,8 @@ const scrumConfig = {
 }
 
 export default combineReducers({
-  waterfall: simulation(waterfallConfig),
-  agile:     simulation(agileConfig),
-  scrum:     simulation(scrumConfig),
+  waterfall: pennyGame(waterfallConfig),
+  agile:     pennyGame(agileConfig),
+  scrum:     pennyGame(scrumConfig),
 })
 

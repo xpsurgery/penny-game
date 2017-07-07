@@ -5,7 +5,7 @@ import NumericalStat from './NumericalStat'
 import {
   valueDelivered,
   workInProgress
-} from './reducers/simulation'
+} from './reducers'
 import { ticksToFirstValue, cycleTime } from './reducers/stats'
 
 const Stats = ({ value, wip, ttfv, ct }) =>
