@@ -1,5 +1,5 @@
 import { RECEIVE_BATCH } from '../actionCreators'
-import { RESET_ALL } from '../../controls/actionCreators'
+import { RESET_ALL } from '../../../controls/actionCreators'
 
 const initialState = {
   currentBatchSize: 0,

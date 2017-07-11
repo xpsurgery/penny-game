@@ -1,4 +1,4 @@
-import pennyGameSaga from '../penny-game/saga'
+import pennyGameSaga from './penny-game/saga'
 
 export default () => [
   pennyGameSaga('waterfall'),

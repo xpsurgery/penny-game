@@ -1,4 +1,4 @@
-import { TICK } from '../../controls/actionCreators'
+import { TICK, RESET_ALL } from '../../../controls/actionCreators'
 import {
   CONTINUE_TASK,
   DELIVER_BATCH,
@@ -6,7 +6,6 @@ import {
   RECEIVE_BATCH,
   NEW_BATCH_FROM_CUSTOMER
 } from '../actionCreators'
-import { RESET_ALL } from '../../controls/actionCreators'
 
 const initialState = (config) => ({
   ...config,

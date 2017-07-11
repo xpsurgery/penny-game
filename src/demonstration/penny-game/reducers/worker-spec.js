@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { reductio } from '../../app/specHelper'
+import { reductio } from '../../../app/specHelper'
 import {
   newBatchFromCustomer,
   receiveBatch,
@@ -7,7 +7,7 @@ import {
   continueTask,
   deliverBatch
 } from '../actionCreators'
-import { resetAll } from '../../controls/actionCreators'
+import { resetAll } from '../../../controls/actionCreators'
 import worker, {
   hasTaskInProgress,
   hasBatchReady,

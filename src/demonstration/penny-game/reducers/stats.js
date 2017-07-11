@@ -1,4 +1,4 @@
-import { TICK } from '../../controls/actionCreators'
+import { TICK } from '../../../controls/actionCreators'
 import { RECEIVE_BATCH } from '../actionCreators'
 
 const initialState = {

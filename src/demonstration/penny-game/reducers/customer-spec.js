@@ -1,7 +1,7 @@
 import { expect } from 'chai'
-import { reductio } from '../../app/specHelper'
+import { reductio } from '../../../app/specHelper'
 import { receiveBatch } from '../actionCreators'
-import { resetAll } from '../../controls/actionCreators'
+import { resetAll } from '../../../controls/actionCreators'
 import customer from './customer'
 
 describe('Customer reducer', () => {
