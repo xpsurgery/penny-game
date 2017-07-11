@@ -1,126 +1,114 @@
-.demonstration {
+.production-line {
 
-  margin: 0 auto;
+  background-color: #e0e0e0;
+  padding: 12px;
 
-  h2 {
-    font-size: 1.5em;
-    font-weight: 300;
-    margin: 2em 0 0.6em 0;
+  .config {
+    background-color: #fff;
+    margin-right: 1em;
+    float: left;
+    width: 15em;
+    padding: 1em;
   }
 
-  .production-line {
+  .worker {
+    background-color: #fff;
+    margin-right: 12px;
+    float: left;
 
-    background-color: #e0e0e0;
-    padding: 12px;
-
-    .config {
-      background-color: #fff;
-      margin-right: 1em;
+    .basket {
       float: left;
-      width: 15em;
-      padding: 1em;
-    }
-
-    .worker {
-      background-color: #fff;
-      margin-right: 12px;
-      float: left;
-
-      .basket {
-        float: left;
-        width: 4.7em;
-        padding: 0.3em;
-        min-height: 5em;
-        border-left: 1px solid #ccc;
-
-        .name {
-          font-size: 80%;
-          text-align: center;
-          line-height: 0.9;
-          padding-bottom: 4px;
-        }
-      }
-
-      .basket.WIP .coins .coin {
-        float: none;
-      }
-
-    }
-
-    .title {
-      text-align: center;
-      color: #fff;
-      background-color: @brand-color;
-    }
-
-    svg {
-      width: 0.8em;
-      height: 0.8em;
-    }
-
-    svg.H.even circle {
-      fill: #3a267c;
-    }
-
-    svg.T.even circle {
-      fill: #9788c8;
-    }
-
-    svg.H.odd circle {
-      fill: #aa243c;
-    }
-
-    svg.T.odd circle {
-      fill: #f49cac;
-    }
-
-    .coin {
-      line-height: .9;
-    }
-
-    .customer {
-      background-color: #fff;
-      margin-right: 12px;
-      width: 128px;
-      float: left;
+      width: 4.7em;
+      padding: 0.3em;
       min-height: 5em;
-
-      .coins {
-        padding: 4px;
-      }
-    }
-
-    .coins {
-      text-align: center;
-
-      .coin {
-        float: left;
-      }
-    }
-
-    .stats {
-      background-color: #fff;
-      width: 200px;
-      float: left;
-      padding: 12px;
-
-    }
-
-    .numerical-stat {
+      border-left: 1px solid #ccc;
 
       .name {
-        display: inline-block;
-        text-align: left;
-        width: 75%;
-      }
-
-      .value {
-        display: inline-block;
-        width: 25%;
-        text-align: right;
+        font-size: 80%;
+        text-align: center;
+        line-height: 0.9;
+        padding-bottom: 4px;
       }
     }
 
+    .basket.WIP .coins .coin {
+      float: none;
+    }
+
+  }
+
+  .title {
+    text-align: center;
+    color: #fff;
+    background-color: @brand-color;
+  }
+
+  svg {
+    width: 0.8em;
+    height: 0.8em;
+  }
+
+  svg.H.even circle {
+    fill: #3a267c;
+  }
+
+  svg.T.even circle {
+    fill: #9788c8;
+  }
+
+  svg.H.odd circle {
+    fill: #aa243c;
+  }
+
+  svg.T.odd circle {
+    fill: #f49cac;
+  }
+
+  .coin {
+    line-height: .9;
+  }
+
+  .customer {
+    background-color: #fff;
+    margin-right: 12px;
+    width: 128px;
+    float: left;
+    min-height: 5em;
+
+    .coins {
+      padding: 4px;
+    }
+  }
+
+  .coins {
+    text-align: center;
+
+    .coin {
+      float: left;
+    }
+  }
+
+  .stats {
+    background-color: #fff;
+    width: 200px;
+    float: left;
+    padding: 12px;
+
+  }
+
+  .numerical-stat {
+
+    .name {
+      display: inline-block;
+      text-align: left;
+      width: 75%;
+    }
+
+    .value {
+      display: inline-block;
+      width: 25%;
+      text-align: right;
+    }
   }
 
 }
