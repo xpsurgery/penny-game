@@ -17,7 +17,7 @@ const customerCoins = (simulation) =>
 
 const PennyGame = ({ config }) =>
   <div className='production-line group'>
-    <Config simulation={config} />
+    <Config analysis={config.s1} development={config.s3} />
     <Worker {...workerArgs(config.s1)} />
     <Worker {...workerArgs(config.s2)} />
     <Worker {...workerArgs(config.s3)} />
