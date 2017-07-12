@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Basket from './Basket'
+import Basket from '../Basket'
 
 const Worker = ({ todo, wip, out, name }) =>
   <div className='worker group'>

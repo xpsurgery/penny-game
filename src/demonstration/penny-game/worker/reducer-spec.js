@@ -14,7 +14,7 @@ import worker, {
   isReadyForNextBatch,
   hasWorkReadyToStart,
   coins
-} from './worker'
+} from './reducer'
 
 describe('Worker reducer', () => {
 

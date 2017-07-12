@@ -4,7 +4,7 @@ import {
   hasBatchReady,
   isReadyForNextBatch,
   hasWorkReadyToStart
-} from './reducers/worker'
+} from './worker/reducer'
 import {
   continueTask,
   deliverBatch,

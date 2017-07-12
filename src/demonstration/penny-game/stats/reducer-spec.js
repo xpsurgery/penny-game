@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { reductio } from '../../../app/specHelper'
 import { tick } from '../../../controls/actionCreators'
 import { receiveBatch } from '../actionCreators'
-import stats, { ticksToFirstValue, cycleTime } from './stats'
+import stats, { ticksToFirstValue, cycleTime } from './reducer'
 
 describe('stats reducer', () => {
   let state

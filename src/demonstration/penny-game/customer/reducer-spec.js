@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { reductio } from '../../../app/specHelper'
 import { receiveBatch } from '../actionCreators'
 import { resetAll } from '../../../controls/actionCreators'
-import customer from './customer'
+import customer from './reducer'
 
 describe('Customer reducer', () => {
 

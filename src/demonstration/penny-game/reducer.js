@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import worker, { coins } from './worker'
-import stats from './stats'
-import customer from './customer'
+import worker, { coins } from './worker/reducer'
+import stats from './stats/reducer'
+import customer from './customer/reducer'
 
 const standardWorker = (config, name, displayName) =>
   worker(config.name, name, {

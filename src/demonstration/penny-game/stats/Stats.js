@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import NumericalStat from './NumericalStat'
+import NumericalStat from '../NumericalStat'
 import {
   valueDelivered,
   workInProgress
-} from './reducers'
-import { ticksToFirstValue, cycleTime } from './reducers/stats'
+} from '../reducer'
+import { ticksToFirstValue, cycleTime } from './reducer'
 
 const Stats = ({ value, wip, ttfv, ct }) =>
   <div className='stats'>

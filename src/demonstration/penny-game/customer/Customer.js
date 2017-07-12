@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CoinPile from './CoinPile'
+import CoinPile from '../CoinPile'
 
 const Customer = ({ coins }) =>
   <div className='customer group'>

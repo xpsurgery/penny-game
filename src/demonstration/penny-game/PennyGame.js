@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Config from './Config'
-import Worker from './Worker'
-import Stats from './Stats'
-import Customer from './Customer'
-import { coinType, coinTypes } from './reducers/worker'
+import Config from './config/Config'
+import Worker from './worker/Worker'
+import Stats from './stats/Stats'
+import Customer from './customer/Customer'
+import { coinType, coinTypes } from './worker/reducer'
 
 const workerArgs = (worker) => ({
   ...coinTypes(worker),

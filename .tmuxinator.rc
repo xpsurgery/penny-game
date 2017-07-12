@@ -3,6 +3,7 @@
 name: penny-game
 root: ~/working/git/penny-game
 
+tmux_command: tmux -2
 pre_window: nvm use 6.10
 
 windows:

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import NumericalStat from './NumericalStat'
+import NumericalStat from '../NumericalStat'
 
 const Config = ({ simulation }) =>
   <div className='config'>
