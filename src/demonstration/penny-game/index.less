@@ -1,41 +1,10 @@
-.production-line {
+.penny-game {
 
   background-color: #e0e0e0;
   padding: 12px;
 
-  .config {
-    background-color: #fff;
-    margin-right: 1em;
-    float: left;
-    width: 15em;
-    padding: 1em;
-  }
-
-  .worker {
-    background-color: #fff;
-    margin-right: 12px;
-    float: left;
-
-    .basket {
-      float: left;
-      width: 4.7em;
-      padding: 0.3em;
-      min-height: 5em;
-      border-left: 1px solid #ccc;
-
-      .name {
-        font-size: 80%;
-        text-align: center;
-        line-height: 0.9;
-        padding-bottom: 4px;
-      }
-    }
-
-    .basket.WIP .coins .coin {
-      float: none;
-    }
-
-  }
+  @import './config/index.less';
+  @import './worker/index.less';
 
   .title {
     text-align: center;
@@ -68,17 +37,7 @@
     line-height: .9;
   }
 
-  .customer {
-    background-color: #fff;
-    margin-right: 12px;
-    width: 128px;
-    float: left;
-    min-height: 5em;
-
-    .coins {
-      padding: 4px;
-    }
-  }
+  @import './customer/index.less';
 
   .coins {
     text-align: center;
@@ -88,13 +47,7 @@
     }
   }
 
-  .stats {
-    background-color: #fff;
-    width: 200px;
-    float: left;
-    padding: 12px;
-
-  }
+  @import './stats/index.less';
 
   .numerical-stat {
 
