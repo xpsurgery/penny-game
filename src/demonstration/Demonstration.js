@@ -2,6 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PennyGame from './penny-game/PennyGame'
+import TrendChart from './graphs/TrendChart'
+
+const fakeData = [
+  {
+    name: 'agile',
+    data: [1,2,3]
+  }, {
+    name: 'waterfall',
+    data: [4,3,2]
+  }, {
+    name: 'scrum',
+    data: [1,4,5]
+  }
+]
 
 const Demonstration = ({ waterfall, agile, scrum }) =>
   <div className='demonstration'>
@@ -14,7 +28,7 @@ const Demonstration = ({ waterfall, agile, scrum }) =>
       <PennyGame config={scrum} />
     </div>
     <div className='graphs'>
-      Graphs
+      <TrendChart title='Cycle time' dataSeries={fakeData} />
     </div>
   </div>
 
