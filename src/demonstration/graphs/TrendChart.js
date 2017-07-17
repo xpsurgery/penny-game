@@ -15,7 +15,9 @@ var lineChart = {
     min: 0,
     title: { text: '' }
   },
-  plotOptions: {},
+  plotOptions: {
+    series: { animation: false }
+  },
   legend: { enabled: false }
 }
 
