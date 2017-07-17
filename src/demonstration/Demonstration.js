@@ -29,6 +29,8 @@ const Demonstration = ({ waterfall, agile, scrum }) =>
     </div>
     <div className='graphs'>
       <TrendChart title='Cycle time' dataSeries={fakeData} />
+      <TrendChart title='Value delivered' dataSeries={fakeData} />
+      <TrendChart title='Work in process' dataSeries={fakeData} />
     </div>
   </div>
 

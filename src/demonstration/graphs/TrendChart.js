@@ -5,6 +5,7 @@ import ReactHighcharts from 'react-highcharts'
 
 var lineChart = {
   chart: {
+    height: '180',
     zoomType: 'x'
   },
   xAxis: {
@@ -15,20 +16,12 @@ var lineChart = {
     title: { text: '' }
   },
   plotOptions: {},
-  legend: {
-    layout: 'vertical',
-    align: 'left',
-    x: 120,
-    verticalAlign: 'top',
-    y: 100,
-    floating: true,
-    backgroundColor: '#FFFFFF'
-  }
+  legend: { enabled: false }
 }
 
 const TrendChart = ({ dataSeries, title }) => {
   return (
-    <div className='trends-chart'>
+    <div className='trend-chart'>
       <ReactHighcharts config={{
         ...lineChart,
         title: { text: title },
