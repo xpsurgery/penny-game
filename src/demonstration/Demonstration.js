@@ -5,12 +5,17 @@ import PennyGame from './penny-game/PennyGame'
 
 const Demonstration = ({ waterfall, agile, scrum }) =>
   <div className='demonstration'>
-    <h2> "Waterfall" </h2>
-    <PennyGame config={waterfall} />
-    <h2> "Agile" </h2>
-    <PennyGame config={agile} />
-    <h2> "Scrum" </h2>
-    <PennyGame config={scrum} />
+    <div className='games'>
+      <h2> "Waterfall" </h2>
+      <PennyGame config={waterfall} />
+      <h2> "Agile" </h2>
+      <PennyGame config={agile} />
+      <h2> "Scrum" </h2>
+      <PennyGame config={scrum} />
+    </div>
+    <div className='graphs'>
+      Graphs
+    </div>
   </div>
 
 Demonstration.displayName = 'Demonstration'

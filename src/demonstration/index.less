@@ -2,13 +2,26 @@
 
   margin: 0 auto;
 
-  h2 {
-    font-size: 1.5em;
-    font-weight: 300;
-    margin: 2em 0 0.6em 0;
+  .games {
+    float: left;
+    width: 67%;
+
+    h2 {
+      font-size: 1.5em;
+      font-weight: 300;
+      margin: 2em 0 0.6em 0;
+    }
+
+    @import './penny-game/index.less';
   }
 
-  @import './penny-game/index.less';
+  .graphs {
+    float: left;
+    width: 33%;
+    margin: 0;
+    padding: 2em;
+    background-color: @panel-background-colour;
+  }
 
 }
 
