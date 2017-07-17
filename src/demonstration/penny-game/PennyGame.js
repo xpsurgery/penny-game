@@ -16,7 +16,7 @@ const customerCoins = (simulation) =>
   simulation.customer.coins.map(coin => coinType(coin))
 
 const PennyGame = ({ config }) =>
-  <div className='production-line group'>
+  <div className='penny-game group'>
     <Config analysis={config.s1} development={config.s3} />
     <Worker {...workerArgs(config.s1)} />
     <Worker {...workerArgs(config.s2)} />
