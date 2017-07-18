@@ -49,3 +49,27 @@ export const ticksToFirstValue = (state) => {
   return state.ticksToFirstValue
 }
 
+export const cycleTimeHistory = (state) => {
+  return [
+    state.cycleTime,
+    state.cycleTime,
+    state.cycleTime
+  ]
+}
+
+export const valueDeliveredHistory = (state) => {
+  return [
+    state.cycleTime,
+    state.cycleTime,
+    state.cycleTime
+  ]
+}
+
+export const wipHistory = (state) => {
+  return [
+    state.cycleTime,
+    state.cycleTime,
+    state.cycleTime
+  ]
+}
+

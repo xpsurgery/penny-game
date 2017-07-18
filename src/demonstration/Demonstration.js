@@ -3,19 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PennyGame from './penny-game/PennyGame'
 import TrendChart from './graphs/TrendChart'
-
-const fakeData = [
-  {
-    name: 'agile',
-    data: [1,2,3]
-  }, {
-    name: 'waterfall',
-    data: [4,3,2]
-  }, {
-    name: 'scrum',
-    data: [1,4,5]
-  }
-]
+import {
+  cycleTimeHistory, valueDeliveredHistory, wipHistory
+} from './penny-game/stats/reducer'
 
 const Demonstration = ({ waterfall, agile, scrum, cycleTime, valueDelivered, wip }) =>
   <div className='demonstration'>
@@ -39,12 +29,29 @@ Demonstration.propTypes = {
   waterfall: PropTypes.object.isRequired,
   agile:     PropTypes.object.isRequired,
   scrum:     PropTypes.object.isRequired,
-  cycleTime:      fakeData,
-  valueDelivered: fakeData,
-  wip:            fakeData
+  cycleTime:      PropTypes.array.isRequired,
+  valueDelivered: PropTypes.array.isRequired,
+  wip:            PropTypes.array.isRequired
 }
 
-const mapStateToProps = ({ demonstration }) => demonstration
+const mapStateToProps = ({ demonstration }) => ({
+  ...demonstration,
+  cycleTime: [
+    { name: 'agile', data: cycleTimeHistory(demonstration['agile'].stats) },
+    { name: 'waterfall', data: cycleTimeHistory(demonstration['waterfall'].stats) },
+    { name: 'scrum', data: cycleTimeHistory(demonstration['scrum'].stats) }
+  ],
+  valueDelivered: [
+    { name: 'agile', data: valueDeliveredHistory(demonstration['agile'].stats) },
+    { name: 'waterfall', data: valueDeliveredHistory(demonstration['waterfall'].stats) },
+    { name: 'scrum', data: valueDeliveredHistory(demonstration['scrum'].stats) }
+  ],
+  wip: [
+    { name: 'agile', data: wipHistory(demonstration['agile'].stats) },
+    { name: 'waterfall', data: wipHistory(demonstration['waterfall'].stats) },
+    { name: 'scrum', data: wipHistory(demonstration['scrum'].stats) }
+  ]
+})
 
 export default connect(mapStateToProps)(Demonstration)
 
