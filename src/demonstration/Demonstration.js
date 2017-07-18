@@ -17,7 +17,7 @@ const fakeData = [
   }
 ]
 
-const Demonstration = ({ waterfall, agile, scrum }) =>
+const Demonstration = ({ waterfall, agile, scrum, cycleTime, valueDelivered, wip }) =>
   <div className='demonstration'>
     <div className='games'>
       <h2> "Waterfall" </h2>
@@ -28,9 +28,9 @@ const Demonstration = ({ waterfall, agile, scrum }) =>
       <PennyGame config={scrum} />
     </div>
     <div className='graphs'>
-      <TrendChart title='Cycle time' dataSeries={fakeData} />
-      <TrendChart title='Value delivered' dataSeries={fakeData} />
-      <TrendChart title='Work in process' dataSeries={fakeData} />
+      <TrendChart title='Cycle time' dataSeries={cycleTime} />
+      <TrendChart title='Value delivered' dataSeries={valueDelivered} />
+      <TrendChart title='Work in process' dataSeries={wip} />
     </div>
   </div>
 
@@ -39,6 +39,9 @@ Demonstration.propTypes = {
   waterfall: PropTypes.object.isRequired,
   agile:     PropTypes.object.isRequired,
   scrum:     PropTypes.object.isRequired,
+  cycleTime:      fakeData,
+  valueDelivered: fakeData,
+  wip:            fakeData
 }
 
 const mapStateToProps = ({ demonstration }) => demonstration
