@@ -11,7 +11,7 @@ describe('stats reducer', () => {
   describe('when no batch has been received', () => {
     it('there are no cycle time data points', () => {
       state = reductio(reducer, [])
-      expect(cycleTimeHistory(state)).to.deep.equal([])
+      expect(cycleTimeHistory(state)).to.deep.equal([0])
     })
   })
 
@@ -22,7 +22,7 @@ describe('stats reducer', () => {
         receiveBatch('agile', 'customer', [{createdAt: 1}, {createdAt: 2}])
       ]
       state = reductio(reducer, actions)
-      expect(cycleTimeHistory(state)).to.deep.equal([1])
+      expect(cycleTimeHistory(state)).to.deep.equal([0,0,0,1])
     })
   })
 
@@ -35,7 +35,7 @@ describe('stats reducer', () => {
         receiveBatch('agile', 'customer', [{createdAt: 1}, {createdAt: 2}])
       ]
       state = reductio(reducer, actions)
-      expect(cycleTimeHistory(state)).to.deep.equal([1,4])
+      expect(cycleTimeHistory(state)).to.deep.equal([0,0,0,1,1,1,4])
     })
   })
 
