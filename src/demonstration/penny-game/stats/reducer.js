@@ -2,22 +2,15 @@ import { TICK } from '../../../controls/actionCreators'
 import { RECEIVE_BATCH } from '../actionCreators'
 
 const initialState = {
-  ticks: 0
+  ticks: 0,
+  cycleTimes: []
 }
 
 const recordCycleTime = (state, action) => {
+  let time = state.ticks - Math.max.apply(null, action.batch.map(coin => coin.createdAt))
   return {
     ...state,
-    cycleTime: state.ticks - Math.min.apply(null, action.batch.map(coin => coin.createdAt))
-  }
-}
-
-const recordFirstValue = (state) => {
-  if (state.ticksToFirstValue)
-    return state
-  return {
-    ...state,
-    ticksToFirstValue: state.ticks
+    cycleTimes: state.cycleTimes.concat([time])
   }
 }
 
@@ -34,7 +27,7 @@ export default (simulationName) => (state=initialState, action) => {
     case RECEIVE_BATCH:
       if (action.workerName !== 'customer')
         return state
-      return recordFirstValue(recordCycleTime(state, action))
+      return recordCycleTime(state, action)
 
     default:
       return state
@@ -50,11 +43,7 @@ export const ticksToFirstValue = (state) => {
 }
 
 export const cycleTimeHistory = (state) => {
-  return [
-    state.cycleTime,
-    state.cycleTime,
-    state.cycleTime
-  ]
+  return state.cycleTimes
 }
 
 export const valueDeliveredHistory = (state) => {
