@@ -34,14 +34,6 @@ export default (simulationName) => (state=initialState, action) => {
   }
 }
 
-export const cycleTime = (state) => {
-  return state.cycleTime
-}
-
-export const ticksToFirstValue = (state) => {
-  return state.ticksToFirstValue
-}
-
 export const cycleTimeHistory = (state) => {
   return state.cycleTimes
 }
