@@ -16,7 +16,10 @@ var lineChart = {
     title: { text: '' }
   },
   plotOptions: {
-    series: { animation: false }
+    series: {
+      animation: false,
+      marker: { enabled: false }
+    }
   },
   legend: { enabled: false }
 }
