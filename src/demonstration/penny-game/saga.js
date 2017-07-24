@@ -15,7 +15,7 @@ import {
 
 function* process(simulationName, workerName, nextWorkerName) {
   const state = yield select()
-  const line = state.demonstration[simulationName]
+  const line = state.demonstration[simulationName].pennyGame
   const worker = line[workerName]
   const nextWorker = line[nextWorkerName]
 

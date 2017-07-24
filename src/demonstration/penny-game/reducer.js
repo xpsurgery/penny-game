@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 import worker, { coins } from './worker/reducer'
-import stats from './stats/reducer'
 import customer from './customer/reducer'
 
 const standardWorker = (config, name, displayName) =>
@@ -26,8 +25,7 @@ export default (config) => combineReducers({
   s2: standardWorker(config, 's2', 'UX'),
   s3: developer(config, 's3', 'Development'),
   s4: standardWorker(config, 's4', 'Testing'),
-  customer: customer(config.name, 'customer'),
-  stats: stats(config.name)
+  customer: customer(config.name, 'customer')
 })
 
 export const valueDelivered = (simulation) => {

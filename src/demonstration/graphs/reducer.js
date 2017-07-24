@@ -1,5 +1,5 @@
-import { TICK } from '../../../controls/actionCreators'
-import { RECEIVE_BATCH } from '../actionCreators'
+import { TICK } from '../../controls/actionCreators'
+import { RECEIVE_BATCH } from '../penny-game/actionCreators'
 
 const initialState = {
   ticks: 0,
@@ -30,6 +30,7 @@ export default (simulationName) => (state=initialState, action) => {
       }
 
     case RECEIVE_BATCH:
+      console.log(simulationName, action)
       if (action.simulationName !== simulationName)
         return state
       if (action.workerName !== 'customer')

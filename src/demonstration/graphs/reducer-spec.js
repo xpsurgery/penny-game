@@ -1,7 +1,7 @@
 import { expect } from 'chai'
-import { reductio } from '../../../app/specHelper'
-import { tick } from '../../../controls/actionCreators'
-import { receiveBatch } from '../actionCreators'
+import { reductio } from '../../app/specHelper'
+import { tick } from '../../controls/actionCreators'
+import { receiveBatch } from '../penny-game/actionCreators'
 import stats, { ticksToFirstValue, cycleTime, cycleTimeHistory } from './reducer'
 
 describe('stats reducer', () => {

@@ -5,7 +5,7 @@ import PennyGame from './penny-game/PennyGame'
 import TrendChart from './graphs/TrendChart'
 import {
   cycleTimeHistory, valueDeliveredHistory, wipHistory
-} from './penny-game/stats/reducer'
+} from './graphs/reducer'
 
 const Demonstration = ({ waterfall, agile, scrum, cycleTime, valueDelivered, wip }) =>
   <div className='demonstration'>
@@ -35,21 +35,23 @@ Demonstration.propTypes = {
 }
 
 const mapStateToProps = ({ demonstration }) => ({
-  ...demonstration,
+  waterfall: demonstration['waterfall'].pennyGame,
+  agile: demonstration['agile'].pennyGame,
+  scrum: demonstration['scrum'].pennyGame,
   cycleTime: [
-    { name: 'agile', data: cycleTimeHistory(demonstration['agile'].stats) },
-    { name: 'waterfall', data: cycleTimeHistory(demonstration['waterfall'].stats) },
-    { name: 'scrum', data: cycleTimeHistory(demonstration['scrum'].stats) }
+    { name: 'agile', data: cycleTimeHistory(demonstration['agile'].graphs) },
+    { name: 'waterfall', data: cycleTimeHistory(demonstration['waterfall'].graphs) },
+    { name: 'scrum', data: cycleTimeHistory(demonstration['scrum'].graphs) }
   ],
   valueDelivered: [
-    { name: 'agile', data: valueDeliveredHistory(demonstration['agile'].stats) },
-    { name: 'waterfall', data: valueDeliveredHistory(demonstration['waterfall'].stats) },
-    { name: 'scrum', data: valueDeliveredHistory(demonstration['scrum'].stats) }
+    { name: 'agile', data: valueDeliveredHistory(demonstration['agile'].graphs) },
+    { name: 'waterfall', data: valueDeliveredHistory(demonstration['waterfall'].graphs) },
+    { name: 'scrum', data: valueDeliveredHistory(demonstration['scrum'].graphs) }
   ],
   wip: [
-    { name: 'agile', data: wipHistory(demonstration['agile'].stats) },
-    { name: 'waterfall', data: wipHistory(demonstration['waterfall'].stats) },
-    { name: 'scrum', data: wipHistory(demonstration['scrum'].stats) }
+    { name: 'agile', data: wipHistory(demonstration['agile'].graphs) },
+    { name: 'waterfall', data: wipHistory(demonstration['waterfall'].graphs) },
+    { name: 'scrum', data: wipHistory(demonstration['scrum'].graphs) }
   ]
 })
 
