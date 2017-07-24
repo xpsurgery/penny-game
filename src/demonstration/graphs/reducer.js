@@ -30,7 +30,6 @@ export default (simulationName) => (state=initialState, action) => {
       }
 
     case RECEIVE_BATCH:
-      console.log(simulationName, action)
       if (action.simulationName !== simulationName)
         return state
       if (action.workerName !== 'customer')

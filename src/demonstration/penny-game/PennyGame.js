@@ -11,22 +11,26 @@ const workerArgs = (worker) => ({
   batchSize: worker.currentBatchSize
 })
 
-const customerCoins = (simulation) =>
-  simulation.customer.coins.map(coin => coinType(coin))
+const customerCoins = (customer) =>
+  customer.coins.map(coin => coinType(coin))
 
-const PennyGame = ({ config }) =>
+const PennyGame = ({ s1, s2, s3, s4, customer }) =>
   <div className='penny-game group'>
-    <Config analysis={config.s1} development={config.s3} />
-    <Worker {...workerArgs(config.s1)} />
-    <Worker {...workerArgs(config.s2)} />
-    <Worker {...workerArgs(config.s3)} />
-    <Worker {...workerArgs(config.s4)} />
-    <Customer coins={customerCoins(config)} />
+    <Config analysis={s1} development={s3} />
+    <Worker {...workerArgs(s1)} />
+    <Worker {...workerArgs(s2)} />
+    <Worker {...workerArgs(s3)} />
+    <Worker {...workerArgs(s4)} />
+    <Customer coins={customerCoins(customer)} />
   </div>
 
 PennyGame.displayName = 'PennyGame'
 PennyGame.propTypes = {
-  config: PropTypes.object.isRequired
+  s1: PropTypes.object.isRequired,
+  s2: PropTypes.object.isRequired,
+  s3: PropTypes.object.isRequired,
+  s4: PropTypes.object.isRequired,
+  customer: PropTypes.object.isRequired
 }
 
 export default PennyGame
