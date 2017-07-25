@@ -5,7 +5,7 @@ import PennyGame from './penny-game/PennyGame'
 import TrendChart from './trends/TrendChart'
 import prepareDemonstration from './prepareDemonstration'
 
-const Demonstration = ({ waterfall, agile, scrum, cycleTime, valueDelivered, wip }) =>
+const Demonstration = ({ waterfall, agile, scrum, times, values, wips }) =>
   <div className='demonstration'>
     <div className='games'>
       <h2> "Waterfall" </h2>
@@ -16,9 +16,9 @@ const Demonstration = ({ waterfall, agile, scrum, cycleTime, valueDelivered, wip
       <PennyGame {...scrum} />
     </div>
     <div className='graphs'>
-      <TrendChart title='Cycle time' dataSeries={cycleTime} />
-      <TrendChart title='Value delivered' dataSeries={valueDelivered} />
-      <TrendChart title='Work in process' dataSeries={wip} />
+      <TrendChart title='Cycle time' dataSeries={times} />
+      <TrendChart title='Value delivered' dataSeries={values} />
+      <TrendChart title='Work in process' dataSeries={wips} />
     </div>
   </div>
 
@@ -27,9 +27,9 @@ Demonstration.propTypes = {
   waterfall: PropTypes.object.isRequired,
   agile:     PropTypes.object.isRequired,
   scrum:     PropTypes.object.isRequired,
-  cycleTime:      PropTypes.array.isRequired,
-  valueDelivered: PropTypes.array.isRequired,
-  wip:            PropTypes.array.isRequired
+  times:     PropTypes.array.isRequired,
+  values:    PropTypes.array.isRequired,
+  wips:      PropTypes.array.isRequired
 }
 
 export default connect(prepareDemonstration)(Demonstration)
