@@ -1,25 +1,25 @@
 import {
   cycleTimeHistory, valueDeliveredHistory, wipHistory
-} from './graphs/reducer'
+} from './trends/reducer'
 
 export default ({ demonstration }) => ({
   waterfall: demonstration['waterfall'].pennyGame,
   agile: demonstration['agile'].pennyGame,
   scrum: demonstration['scrum'].pennyGame,
   cycleTime: [
-    { name: 'agile', data: cycleTimeHistory(demonstration['agile'].graphs) },
-    { name: 'waterfall', data: cycleTimeHistory(demonstration['waterfall'].graphs) },
-    { name: 'scrum', data: cycleTimeHistory(demonstration['scrum'].graphs) }
+    { name: 'agile', data: cycleTimeHistory(demonstration['agile'].trends) },
+    { name: 'waterfall', data: cycleTimeHistory(demonstration['waterfall'].trends) },
+    { name: 'scrum', data: cycleTimeHistory(demonstration['scrum'].trends) }
   ],
   valueDelivered: [
-    { name: 'agile', data: valueDeliveredHistory(demonstration['agile'].graphs) },
-    { name: 'waterfall', data: valueDeliveredHistory(demonstration['waterfall'].graphs) },
-    { name: 'scrum', data: valueDeliveredHistory(demonstration['scrum'].graphs) }
+    { name: 'agile', data: valueDeliveredHistory(demonstration['agile'].trends) },
+    { name: 'waterfall', data: valueDeliveredHistory(demonstration['waterfall'].trends) },
+    { name: 'scrum', data: valueDeliveredHistory(demonstration['scrum'].trends) }
   ],
   wip: [
-    { name: 'agile', data: wipHistory(demonstration['agile'].graphs) },
-    { name: 'waterfall', data: wipHistory(demonstration['waterfall'].graphs) },
-    { name: 'scrum', data: wipHistory(demonstration['scrum'].graphs) }
+    { name: 'agile', data: wipHistory(demonstration['agile'].trends) },
+    { name: 'waterfall', data: wipHistory(demonstration['waterfall'].trends) },
+    { name: 'scrum', data: wipHistory(demonstration['scrum'].trends) }
   ]
 })
 

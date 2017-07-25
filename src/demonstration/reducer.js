@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import pennyGame from './penny-game/reducer'
-import graphs from './graphs/reducer'
+import trends from './trends/reducer'
 
 const waterfallConfig = {
   name:                  'waterfall',
@@ -28,7 +28,7 @@ const scrumConfig = {
 
 const reducers = (config) => combineReducers({
   pennyGame: pennyGame(config),
-  graphs: graphs(config.name)
+  trends: trends(config.name)
 })
 
 export default combineReducers({

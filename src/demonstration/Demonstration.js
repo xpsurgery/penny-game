@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PennyGame from './penny-game/PennyGame'
-import TrendChart from './graphs/TrendChart'
+import TrendChart from './trends/TrendChart'
 import prepareDemonstration from './prepareDemonstration'
 
 const Demonstration = ({ waterfall, agile, scrum, cycleTime, valueDelivered, wip }) =>
