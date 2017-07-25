@@ -2,11 +2,11 @@ import { expect } from 'chai'
 import { reductio } from '../../app/specHelper'
 import { tick } from '../../controls/actionCreators'
 import { receiveBatch } from '../penny-game/actionCreators'
-import cycleTimes, { ticksToFirstValue, cycleTime, cycleTimeHistory } from './reducer'
+import reducers, { cycleTimeHistory } from './reducer'
 
 describe('cycleTimes reducer', () => {
   let state
-  let reducer = cycleTimes('scrumfall')
+  let reducer = reducers('scrumfall')
 
   describe('when no batch has been received', () => {
     it('there are no cycle time data points', () => {
