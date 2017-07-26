@@ -74,11 +74,7 @@ export default (simulationName, name, config) => (state, action) => {
       return {
         ...state,
         batchesCreated: state.batchesCreated + 1,
-        todo: Array(state.initialBatchSize).fill({
-          createdAt: state.ticks,
-          batch: (state.batchesCreated % 2 === 0) ? 'even' : 'odd',
-          state: 'H'
-        })
+        todo: action.batch
       }
 
     case RECEIVE_BATCH:
@@ -146,4 +142,15 @@ export const coins = (worker) => ({
   wip: (worker.wip.occupied) ? [worker.wip.coin.state] : [],
   out: worker.out.map(coin => coin.state)
 })
+
+export const createBatch = (worker) => {
+  let size = worker.initialBatchSize
+  let createdAt = worker.ticks
+  let type = (worker.batchesCreated % 2 === 0) ? 'even' : 'odd'
+  return Array(size).fill({
+    createdAt: createdAt,
+    batch: type,
+    state: 'H'
+  })
+}
 

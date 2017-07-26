@@ -17,6 +17,11 @@ import worker, {
 } from './reducer'
 
 describe('Worker reducer', () => {
+  let customerBatch = [
+    { createdAt: 0, batch: 'even', state: 'H' },
+    { createdAt: 0, batch: 'even', state: 'H' },
+    { createdAt: 0, batch: 'even', state: 'H' }
+  ]
 
   const reducer = worker('test', 's1', {
     initialBatchSize: 3,
@@ -45,7 +50,7 @@ describe('Worker reducer', () => {
   describe('when instructed to get a new batch from the customer', () => {
 
     beforeEach(() => {
-      const actions = [newBatchFromCustomer('test', 's1')]
+      const actions = [newBatchFromCustomer('test', 's1', customerBatch)]
       state = reductio(reducer, actions)
     })
 
@@ -69,7 +74,7 @@ describe('Worker reducer', () => {
 
     beforeEach(() => {
       const actions = [
-        newBatchFromCustomer('test', 's1'),
+        newBatchFromCustomer('test', 's1', customerBatch),
         pickUpNextTask('test', 's1')
       ]
       state = reductio(reducer, actions)
@@ -94,7 +99,7 @@ describe('Worker reducer', () => {
 
     beforeEach(() => {
       const actions = [
-        newBatchFromCustomer('test', 's1'),
+        newBatchFromCustomer('test', 's1', customerBatch),
         pickUpNextTask('test', 's1'),
         continueTask('test', 's1')
       ]
@@ -120,7 +125,7 @@ describe('Worker reducer', () => {
 
     beforeEach(() => {
       const actions = [
-        newBatchFromCustomer('test', 's1'),
+        newBatchFromCustomer('test', 's1', customerBatch),
         pickUpNextTask('test', 's1'),
         continueTask('test', 's1'),
         continueTask('test', 's1')
@@ -147,7 +152,7 @@ describe('Worker reducer', () => {
 
     beforeEach(() => {
       const actions = [
-        newBatchFromCustomer('test', 's1'),
+        newBatchFromCustomer('test', 's1', customerBatch),
         pickUpNextTask('test', 's1'),
         continueTask('test', 's1'),
         continueTask('test', 's1'),
@@ -175,7 +180,7 @@ describe('Worker reducer', () => {
 
     beforeEach(() => {
       const actions = [
-        newBatchFromCustomer('test', 's1'),
+        newBatchFromCustomer('test', 's1', customerBatch),
         pickUpNextTask('test', 's1'),
         continueTask('test', 's1'),
         continueTask('test', 's1'),
@@ -214,7 +219,7 @@ describe('Worker reducer', () => {
 
     beforeEach(() => {
       const actions = [
-        newBatchFromCustomer('test', 's1'),
+        newBatchFromCustomer('test', 's1', customerBatch),
         pickUpNextTask('test', 's1'),
         continueTask('test', 's1'),
         continueTask('test', 's1'),
@@ -285,7 +290,7 @@ describe('Worker reducer', () => {
   describe('when reset', () => {
 
     beforeEach(() => {
-      const actions = [newBatchFromCustomer('test', 's1'), resetAll()]
+      const actions = [newBatchFromCustomer('test', 's1', customerBatch), resetAll()]
       state = reductio(reducer, actions)
     })
 

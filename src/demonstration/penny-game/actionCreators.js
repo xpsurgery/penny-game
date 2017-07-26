@@ -34,9 +34,10 @@ export const receiveBatch = (simulationName, workerName, batch) => ({
 
 export const NEW_BATCH_FROM_CUSTOMER = 'NEW_BATCH_FROM_CUSTOMER'
 
-export const newBatchFromCustomer = (simulationName, workerName) => ({
+export const newBatchFromCustomer = (simulationName, workerName, batch) => ({
   type: NEW_BATCH_FROM_CUSTOMER,
   simulationName: simulationName,
-  workerName: workerName
+  workerName: workerName,
+  batch: batch
 })
 

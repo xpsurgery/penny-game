@@ -1,5 +1,6 @@
 import { put, select, takeEvery } from 'redux-saga/effects'
 import {
+  createBatch,
   hasTaskInProgress,
   hasBatchReady,
   isReadyForNextBatch,
@@ -28,8 +29,10 @@ function* process(simulationName, workerName, nextWorkerName) {
     yield put(receiveBatch(simulationName, nextWorkerName, batch))
   } else if (hasWorkReadyToStart(worker))
     yield put(pickUpNextTask(simulationName, workerName))
-  else if (workerName === 's1')
-    yield put(newBatchFromCustomer(simulationName, workerName))
+  else if (workerName === 's1') {
+    let batch = createBatch(worker)
+    yield put(newBatchFromCustomer(simulationName, workerName, batch))
+  }
 }
 
 export default function* scenarioSagas(scenarioName) {

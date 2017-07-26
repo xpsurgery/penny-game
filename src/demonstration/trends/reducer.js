@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import cycleTimeTrend from './cycleTimeTrend'
 import valueTrend from './valueTrend'
+import wipTrend from './wipTrend'
 
 export default (name) => combineReducers({
   cycleTimeTrend: cycleTimeTrend(name),
-  valueTrend: valueTrend(name)
+  valueTrend:     valueTrend(name),
+  wipTrend:       wipTrend(name)
 })
 
 export const cycleTimeHistory = (state) => {
@@ -16,10 +18,6 @@ export const valueDeliveredHistory = (state) => {
 }
 
 export const wipHistory = (state) => {
-  return [
-    state.cycleTimeTrend.cycleTimes,
-    state.cycleTimeTrend.cycleTimes,
-    state.cycleTimeTrend.cycleTimes
-  ]
+  return state.wipTrend
 }
 
