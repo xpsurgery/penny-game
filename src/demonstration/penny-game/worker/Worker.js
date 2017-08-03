@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Basket from '../Basket'
+import KanbanColumn from '../KanbanColumn'
 
 const Worker = ({ todo, wip, out, name }) =>
   <div className='worker group'>
     <div className='title'>
       {name}
     </div>
-    <Basket name='Todo' coins={todo} />
-    <Basket name='Doing' coins={wip} />
-    <Basket name='Done' coins={out} />
+    <KanbanColumn name='Todo' coins={todo} />
+    <KanbanColumn name='Doing' coins={wip} />
+    <KanbanColumn name='Done' coins={out} />
   </div>
 
 Worker.displayName = 'Worker'
