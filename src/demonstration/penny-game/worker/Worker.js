@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import KanbanColumn from '../KanbanColumn'
+import Parameter from './Parameter'
 
 const Worker = ({ todo, wip, out, name, batchSize }) =>
   <div className='worker group'>
@@ -13,7 +14,7 @@ const Worker = ({ todo, wip, out, name, batchSize }) =>
       <KanbanColumn name='Done' coins={out} />
     </div>
     <div className='worker-config'>
-      Batch size: {batchSize}
+      <Parameter label='Batch size' value={batchSize} />
     </div>
   </div>
 
