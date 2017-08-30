@@ -8,7 +8,9 @@ import { coinType, coinTypes } from './worker/reducer'
 const workerArgs = (worker) => ({
   ...coinTypes(worker),
   name: worker.displayName,
-  batchSize: worker.currentBatchSize
+  batchSize: worker.currentBatchSize,
+  batchIncrement: worker.batchSizeIncrement,
+  taskSize: worker.taskTicks
 })
 
 const customerCoins = (customer) =>

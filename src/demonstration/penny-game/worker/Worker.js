@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import KanbanColumn from '../KanbanColumn'
 import Parameter from './Parameter'
 
-const Worker = ({ todo, wip, out, name, batchSize }) =>
+const Worker = ({ todo, wip, out, name, batchSize, batchIncrement, taskSize }) =>
   <div className='worker group'>
     <div className='kanban'>
       <div className='title'>
@@ -15,6 +15,8 @@ const Worker = ({ todo, wip, out, name, batchSize }) =>
     </div>
     <div className='worker-config'>
       <Parameter label='Batch size' value={batchSize} />
+      <Parameter label='Batch increment' value={batchIncrement} />
+      <Parameter label='Task size' value={taskSize} />
     </div>
   </div>
 
@@ -25,6 +27,8 @@ Worker.propTypes = {
   wip:  PropTypes.array.isRequired,
   out:  PropTypes.array.isRequired,
   batchSize:  PropTypes.number.isRequired,
+  batchIncrement:  PropTypes.number.isRequired,
+  taskSize:  PropTypes.number.isRequired,
 }
 
 export default Worker
