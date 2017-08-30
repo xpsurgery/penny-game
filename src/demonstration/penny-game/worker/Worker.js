@@ -5,7 +5,7 @@ import Parameter from './Parameter'
 
 const Worker = ({ todo, wip, out, name, batchSize, batchIncrement, taskSize }) =>
   <div className='worker group'>
-    <div className='kanban'>
+    <div className='kanban group'>
       <div className='title'>
         {name}
       </div>
