@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import KanbanColumn from '../KanbanColumn'
+import CoinPile from '../CoinPile'
 
 const Customer = ({ coins }) =>
   <div className='customer group'>
     <div className='title'> Accepted </div>
-    <KanbanColumn name='&nbsp;' coins={coins} />
+    <CoinPile coins={coins} />
   </div>
 
 Customer.displayName = 'Customer'
