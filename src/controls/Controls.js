@@ -26,7 +26,7 @@ const Controls = ({ running, playMessage, ticksSoFar, enableRepeater, disableRep
     <div className='ticks-so-far'>
       Ticks so far: {ticksSoFar}
     </div>
-    <ReactTooltip type='light' effect='solid' border='true' />
+    <ReactTooltip type='light' effect='solid' border={true} className='tooltip' />
   </div>
 
 Controls.displayName = 'Controls'
