@@ -8,12 +8,18 @@ import prepareDemonstration from './prepareDemonstration'
 const Demonstration = ({ waterfall, agile, scrum, times, values, wips }) =>
   <div className='demonstration'>
     <div className='games'>
-      <h2> "Waterfall" </h2>
-      <PennyGame {...waterfall} />
-      <h2> "Agile" </h2>
-      <PennyGame {...agile} />
-      <h2> "Scrum" </h2>
-      <PennyGame {...scrum} />
+      <div className='waterfall'>
+        <h2> "Waterfall" </h2>
+        <PennyGame {...waterfall} />
+      </div>
+      <div className='agile'>
+        <h2> "Agile" </h2>
+        <PennyGame {...agile} />
+      </div>
+      <div className='scrum'>
+        <h2> "Scrum" </h2>
+        <PennyGame {...scrum} />
+      </div>
     </div>
     <div className='graphs'>
       <TrendChart title='Cycle time' dataSeries={times} />
