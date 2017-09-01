@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import KanbanColumn from '../KanbanColumn'
+import KanbanColumn from './KanbanColumn'
 import Parameter from './Parameter'
 
 const Worker = ({ todo, wip, out, name, batchSize, batchIncrement, taskSize }) =>

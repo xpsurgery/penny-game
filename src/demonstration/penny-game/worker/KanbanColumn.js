@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CoinPile from './CoinPile'
+import CoinPile from '../CoinPile'
 
 const KanbanColumn = ({ name, coins }) =>
-  <div className={`basket ${name}`}>
+  <div className={`kanban-column ${name}`}>
     <div className='name'> {name} </div>
     <CoinPile coins={coins} />
   </div>
