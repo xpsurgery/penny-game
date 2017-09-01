@@ -5,19 +5,19 @@ import FontAwesome from 'react-fontawesome'
 import ReactTooltip from 'react-tooltip'
 import { enableRepeater, disableRepeater, resetAll } from './actionCreators'
 
-const Controls = ({ running, ticksSoFar, enableRepeater, disableRepeater, resetAll }) =>
+const Controls = ({ running, playMessage, ticksSoFar, enableRepeater, disableRepeater, resetAll }) =>
   <div className='controls group'>
     <div className='play-controls'>
-      <button onClick={resetAll} data-tip = 'Reset the simulation'>
+      <button onClick={resetAll} data-tip = 'Reset everything'>
         <FontAwesome name='fast-backward' />
       </button>
       {
         running ? (
-          <button onClick={disableRepeater} data-tip ='Pause the simulation'>
+          <button onClick={disableRepeater} data-tip ='Pause'>
             <FontAwesome name='pause' />
           </button>
         ) : (
-          <button onClick={enableRepeater} data-tip='Run the simulation'>
+          <button onClick={enableRepeater} data-tip={playMessage}>
             <FontAwesome name='play' />
           </button>
         )
@@ -32,13 +32,19 @@ const Controls = ({ running, ticksSoFar, enableRepeater, disableRepeater, resetA
 Controls.displayName = 'Controls'
 Controls.propTypes = {
   running:         PropTypes.bool.isRequired,
+  playMessage:     PropTypes.string.isRequired,
   ticksSoFar:      PropTypes.number.isRequired,
   enableRepeater:  PropTypes.func.isRequired,
   disableRepeater: PropTypes.func.isRequired,
   resetAll:        PropTypes.func.isRequired
 }
 
-const mapStateToProps = ({ controls }) => controls
+const mapStateToProps = ({ controls }) => {
+  return {
+    ...controls,
+    playMessage: (controls.ticksSoFar > 0) ? 'Continue' : 'Start the simulation'
+  }
+}
 
 export default connect(mapStateToProps, {
   enableRepeater,
