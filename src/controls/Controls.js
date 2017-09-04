@@ -3,11 +3,17 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import FontAwesome from 'react-fontawesome'
 import ReactTooltip from 'react-tooltip'
-import { enableRepeater, disableRepeater, resetAll } from './actionCreators'
+import {
+  enableRepeater, disableRepeater,
+  resetAll, toggleParamsView
+} from './actionCreators'
 
-const Controls = ({ running, playMessage, ticksSoFar, enableRepeater, disableRepeater, resetAll }) =>
+const Controls = ({ running, playMessage, ticksSoFar, enableRepeater, disableRepeater, resetAll, toggleParamsView }) =>
   <div className='controls group'>
     <div className='play-controls'>
+      <button onClick={toggleParamsView} data-tip = 'Show/change simulation parameters'>
+        <FontAwesome name='sliders' />
+      </button>
       <button onClick={resetAll} data-tip = 'Reset everything'>
         <FontAwesome name='fast-backward' />
       </button>
@@ -31,12 +37,13 @@ const Controls = ({ running, playMessage, ticksSoFar, enableRepeater, disableRep
 
 Controls.displayName = 'Controls'
 Controls.propTypes = {
-  running:         PropTypes.bool.isRequired,
-  playMessage:     PropTypes.string.isRequired,
-  ticksSoFar:      PropTypes.number.isRequired,
-  enableRepeater:  PropTypes.func.isRequired,
-  disableRepeater: PropTypes.func.isRequired,
-  resetAll:        PropTypes.func.isRequired
+  running:          PropTypes.bool.isRequired,
+  playMessage:      PropTypes.string.isRequired,
+  ticksSoFar:       PropTypes.number.isRequired,
+  enableRepeater:   PropTypes.func.isRequired,
+  disableRepeater:  PropTypes.func.isRequired,
+  resetAll:         PropTypes.func.isRequired,
+  toggleParamsView: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({ controls }) => {
@@ -49,6 +56,7 @@ const mapStateToProps = ({ controls }) => {
 export default connect(mapStateToProps, {
   enableRepeater,
   disableRepeater,
-  resetAll
+  resetAll,
+  toggleParamsView
 })(Controls)
 
