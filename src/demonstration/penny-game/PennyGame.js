@@ -10,7 +10,8 @@ const workerArgs = (worker) => ({
   name: worker.displayName,
   batchSize: worker.currentBatchSize,
   batchIncrement: worker.batchSizeIncrement,
-  taskSize: worker.taskTicks
+  taskSize: worker.taskTicks,
+  showParams: worker.showParams
 })
 
 const customerCoins = (customer) =>

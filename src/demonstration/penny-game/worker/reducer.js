@@ -12,6 +12,7 @@ const initialState = (config) => ({
   ticks: 0,
   batchesCreated: 0,
   currentBatchSize: config.initialBatchSize,
+  showParams: true,
   todo: [],
   wip: {occupied: false},
   out: []
