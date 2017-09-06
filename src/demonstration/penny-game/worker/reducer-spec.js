@@ -7,7 +7,10 @@ import {
   continueTask,
   deliverBatch
 } from '../actionCreators'
-import { resetAll } from '../../../controls/actionCreators'
+import {
+  resetAll,
+  toggleParamsView
+} from '../../../controls/actionCreators'
 import worker, {
   hasTaskInProgress,
   hasBatchReady,
@@ -45,6 +48,10 @@ describe('Worker reducer', () => {
     it('has the correct initial batch size', () => {
       expect(state.currentBatchSize).to.eq(3)
     })
+
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
+    })
   })
 
   describe('when instructed to get a new batch from the customer', () => {
@@ -66,6 +73,10 @@ describe('Worker reducer', () => {
 
     it('cannot receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(false)
+    })
+
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
     })
 
   })
@@ -93,6 +104,10 @@ describe('Worker reducer', () => {
     it('cannot receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(false)
     })
+
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
+    })
   })
 
   describe('when instructed to continue the task', () => {
@@ -118,6 +133,10 @@ describe('Worker reducer', () => {
 
     it('cannot receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(false)
+    })
+
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
     })
   })
 
@@ -146,6 +165,10 @@ describe('Worker reducer', () => {
     it('cannot receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(false)
     })
+
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
+    })
   })
 
   describe('when instructed to continue the task again', () => {
@@ -173,6 +196,10 @@ describe('Worker reducer', () => {
 
     it('cannot receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(false)
+    })
+
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
     })
   })
 
@@ -212,6 +239,10 @@ describe('Worker reducer', () => {
 
     it('can receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(true)
+    })
+
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
     })
   })
 
@@ -258,12 +289,17 @@ describe('Worker reducer', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H', 'H', 'H'])).to.eq(true)
     })
 
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
+    })
+
   })
 
   describe('when instructed to receive a batch', () => {
 
     beforeEach(() => {
       const actions = [
+        toggleParamsView(),
         receiveBatch('test', 's1', [{state: 'T'}, {state: 'T'}, {state: 'T'}, {state: 'T'}])
       ]
       state = reductio(reducer, actions)
@@ -285,12 +321,20 @@ describe('Worker reducer', () => {
     it('cannot receive a new batch of work', () => {
       expect(isReadyForNextBatch(state, ['H', 'H', 'H'])).to.eq(false)
     })
+
+    it('is showing the parameters', () => {
+      expect(state.showParams).to.eq(true)
+    })
   })
 
   describe('when reset', () => {
 
     beforeEach(() => {
-      const actions = [newBatchFromCustomer('test', 's1', customerBatch), resetAll()]
+      const actions = [
+        newBatchFromCustomer('test', 's1', customerBatch),
+        toggleParamsView(),
+        resetAll()
+      ]
       state = reductio(reducer, actions)
     })
 
@@ -307,6 +351,10 @@ describe('Worker reducer', () => {
 
     it('has the correct initial batch size', () => {
       expect(state.currentBatchSize).to.eq(3)
+    })
+
+    it('is not showing the parameters', () => {
+      expect(state.showParams).to.eq(false)
     })
   })
 

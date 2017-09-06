@@ -1,4 +1,6 @@
-import { TICK, RESET_ALL } from '../../../controls/actionCreators'
+import {
+  TICK, RESET_ALL, TOGGLE_PARAMS_VIEW
+} from '../../../controls/actionCreators'
 import {
   CONTINUE_TASK,
   DELIVER_BATCH,
@@ -12,7 +14,7 @@ const initialState = (config) => ({
   ticks: 0,
   batchesCreated: 0,
   currentBatchSize: config.initialBatchSize,
-  showParams: true,
+  showParams: false,
   todo: [],
   wip: {occupied: false},
   out: []
@@ -62,6 +64,11 @@ export default (simulationName, name, config) => (state, action) => {
     return {
       ...state,
       ticks: state.ticks + 1
+    }
+  if (action.type === TOGGLE_PARAMS_VIEW)
+    return {
+      ...state,
+      showParams: !state.showParams
     }
   if (action.type === RESET_ALL)
     return initialState(config)
