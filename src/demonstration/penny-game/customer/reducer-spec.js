@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { reductio } from '../../../app/specHelper'
+import { reductio } from '../../../specHelper'
 import { receiveBatch } from '../actionCreators'
 import { resetAll } from '../../../controls/actionCreators'
 import customer from './reducer'

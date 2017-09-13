@@ -1,11 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import configureStore from './app/store'
-import saga from './app/saga'
-import Application from './app/Application'
+import configureStore from './store'
+import saga from './saga'
+import Application from './Application'
 
-require("./app/index.less")
+require("./index.less")
 
 const store = configureStore()
 

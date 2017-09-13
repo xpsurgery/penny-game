@@ -1,6 +1,6 @@
 import React from 'react'
-import Controls from '../controls/Controls'
-import Demonstration from '../demonstration/Demonstration'
+import Controls from './controls/Controls'
+import Demonstration from './demonstration/Demonstration'
 
 const Application = () =>
   <div className='penny-game-application'>
