@@ -14,25 +14,34 @@ import {
   newBatchFromCustomer
 } from './actionCreators'
 
-function* process(simulationName, workerName, nextWorkerName) {
-  const state = yield select()
-  const line = state.demonstration[simulationName].pennyGame
+export const actions = (simulationName, line, workerName, nextWorkerName) => {
   const worker = line[workerName]
   const nextWorker = line[nextWorkerName]
 
   if (hasTaskInProgress(worker))
-    yield put(continueTask(simulationName, workerName))
+    return [continueTask(simulationName, workerName)]
   else if (hasBatchReady(worker) && (nextWorkerName === 'customer' || isReadyForNextBatch(nextWorker, worker.out))) {
     let sz = Math.max(worker.currentBatchSize, nextWorker.currentBatchSize)
     let batch = worker.out.slice(0, sz)
-    yield put(deliverBatch(simulationName, workerName, batch))
-    yield put(receiveBatch(simulationName, nextWorkerName, batch))
+    return [
+      deliverBatch(simulationName, workerName, batch),
+      receiveBatch(simulationName, nextWorkerName, batch)
+    ]
   } else if (hasWorkReadyToStart(worker))
-    yield put(pickUpNextTask(simulationName, workerName))
+    return [pickUpNextTask(simulationName, workerName)]
   else if (workerName === 's1') {
     let batch = createBatch(worker)
-    yield put(newBatchFromCustomer(simulationName, workerName, batch))
+    return [newBatchFromCustomer(simulationName, workerName, batch)]
   }
+  return []
+}
+
+function* process(simulationName, workerName, nextWorkerName) {
+  const state = yield select()
+  const line = state.demonstration[simulationName].pennyGame
+  const acts = actions(simulationName, line, workerName, nextWorkerName)
+  for (let act of acts)
+    yield put(act)
 }
 
 export default function* scenarioSagas(scenarioName) {
