@@ -43,6 +43,17 @@ describe('Penny game saga', () => {
 
   })
 
+  describe('when the worker has unstarted work', () => {
+    it('tells the worker to begin a task', () => {
+      let line = {
+        s2: reductio(reducer, [receiveBatch('test', 's1', [{state: 'T'}, {state: 'T'}])])
+      }
+      let acts = actions('test', line, 's2', 's3')
+      expect(acts.length).to.eq(1)
+      expect(acts[0].type).to.eq(pickUpNextTask().type)
+    })
+  })
+
   describe('when the worker has a task in progress', () => {
     it('tells the worker to continue the task', () => {
       let line = {
