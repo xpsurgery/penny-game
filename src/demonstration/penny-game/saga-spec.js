@@ -8,13 +8,7 @@ import {
   continueTask,
   deliverBatch
 } from './actionCreators'
-import worker, {
-  hasTaskInProgress,
-  hasBatchReady,
-  isReadyForNextBatch,
-  hasWorkReadyToStart,
-  coins
-} from './worker/reducer'
+import worker from './worker/reducer'
 
 describe('Penny game saga', () => {
 
@@ -23,14 +17,11 @@ describe('Penny game saga', () => {
     batchSizeIncrement: 2,
     taskTicks: 2
   })
-  let state
 
   describe('when the worker has a task in progress', () => {
     it('tells the worker to continue the task', () => {
-      state = reductio(reducer, [pickUpNextTask('test', 's1')])
-      expect(hasTaskInProgress(state)).to.eq(true)
       let line = {
-        s1: state
+        s1: reductio(reducer, [pickUpNextTask('test', 's1')])
       }
       let acts = actions('test', line, 's1', 's2')
       expect(acts.length).to.eq(1)
