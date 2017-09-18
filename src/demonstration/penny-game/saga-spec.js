@@ -13,9 +13,9 @@ import worker from './worker/reducer'
 describe('Penny game saga', () => {
 
   const reducer = worker('test', 's1', {
-    initialBatchSize: 3,
-    batchSizeIncrement: 2,
-    taskTicks: 2
+    initialBatchSize: 1,
+    batchSizeIncrement: 0,
+    taskTicks: 1
   })
 
   describe('when the worker has nothing to do', () => {
@@ -62,6 +62,39 @@ describe('Penny game saga', () => {
       let acts = actions('test', line, 's1', 's2')
       expect(acts.length).to.eq(1)
       expect(acts[0].type).to.eq(continueTask().type)
+    })
+  })
+
+  describe('when the worker has a completed batch', () => {
+    describe('and the next worker is the customer', () => {
+      it('tells the worker to deliver the batch', () => {
+        let line = {
+          s1: reductio(reducer, [
+            receiveBatch('test', 's1', [{state: 'T'}]),
+            pickUpNextTask('test', 's1'),
+            continueTask('test', 's1'),
+            continueTask('test', 's1')
+          ]),
+          customer: {
+            currentBatchSize: 1
+          }
+        }
+        console.log(line)
+        let acts = actions('test', line, 's1', 'customer')
+        expect(acts.length).to.eq(2)
+        expect(acts[0].type).to.eq(deliverBatch().type)
+        expect(acts[1].type).to.eq(receiveBatch().type)
+      })
+    })
+
+    describe('and the next worker is not the customer', () => {
+
+      describe('and is ready to receive', () => {
+      })
+
+      describe('and is not ready to receive', () => {
+      })
+
     })
 
   })
