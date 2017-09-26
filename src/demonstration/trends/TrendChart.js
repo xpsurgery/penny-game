@@ -5,7 +5,7 @@ import ReactHighcharts from 'react-highcharts'
 
 var lineChart = {
   chart: {
-    height: '180',
+    height: '140',
     zoomType: 'x'
   },
   xAxis: {
